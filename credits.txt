@@ -1,0 +1,81 @@
+Stupid Robot 2.00
+Flash Remix
+
+Westwood College
+Wilshire Campus
+
+Original Concept
+David Moss - davidbmoss@gmail.com
+Corwin VanHook - corwin.j@gmail.com
+
+Project Lead
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Lead Programmer
+Corwin VanHook - corwin.j@gmail.com
+
+Lead Designer
+David Moss - davidbmoss@gmail.com
+
+Lead Artist 
+Giovanni Tolson
+
+Technical Artist
+Giovanni Tolson
+
+UI Art
+Evan Donohue 
+
+Robot Art
+Jermain Dudley 
+
+Tile Art
+Cesar Cervantes
+
+Game Logic Programming
+David Moss - davidbmoss@gmail.com
+
+Systems Design
+Corwin VanHook - corwin.j@gmail.com
+
+Gui Programming
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Additional Game Deisgn
+Corwin VanHook - corwin.j@gmail.com
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Level Designers
+Dana Young - danayoung1.0@gmail.com
+David Moss - davidbmoss@gmail.com
+Oscar Maldonado - fool133@yahoo.com
+
+QA
+What's QA??
+
+-----------------------------------------------------
+
+"I'm going back over here where shit makes sense." 
+                       - Programming Team
+
+"Why isn't this working?"  
+                       - Design Team
+
+"You're a towel"
+                       - Towlie
+
+"We have achieved functionability"
+                       - Tom
+
+"Uh oh, I might have fucked shit up"
+		       - Cesar
+
+"How is this even possible?"
+                       - Tom
+
+
+
+Special Thanks to...
+Caffeine
+Bacardi
+Lego Mindstorms

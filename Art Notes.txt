@@ -1,0 +1,15 @@
+Two seperate layers, 
+
+For the active state (movie clip) 
+
+Tiles: "TBreakable" > TBreakableABG, TBreakableIBG.
+
+Instructions: TBreakable > TBreakableABG/HBG/IBG
+
+0,0 Coordinates: 1.6x106.2 / 1.1x109.6
+
+Do; Start, center switch, teleport, end, default, Telectric
+
+Animation
+
+Jump and climb sequences are verticle jumps, forward motion.

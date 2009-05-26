@@ -1,0 +1,72 @@
+Stupid Robot 1.00
+
+Westwood College
+Wilshire Campus
+SG300
+
+Instructor
+Dave Cortez - drcortez1961@gmail.com
+
+Original Concept
+David Moss - davidbmoss@gmail.com
+Corwin VanHook - corwin.j@gmail.com
+
+Project Lead
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Lead Programmer
+Corwin VanHook - corwin.j@gmail.com
+
+Lead Designer
+David Moss - davidbmoss@gmail.com
+
+Lead Artist
+Cameron VanHook - cm.vanhook@gmail.com
+
+Technical Artist
+David Moss - davidbmoss@gmail.com
+
+Game Logic Programming
+David Moss - davidbmoss@gmail.com
+
+Systems Design
+Corwin VanHook - corwin.j@gmail.com
+
+Gui Programming
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Additional Game Deisgn
+Corwin VanHook - corwin.j@gmail.com
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Level Designers
+David Moss - davidbmoss@gmail.com
+Oscar Maldonado - fool133@yahoo.com
+Geovani Oliva- giovancito9878@yahoo.com
+Chris Gonzalez - krisryan87@yahoo.com
+
+QA
+David Moss - davidbmoss@gmail.com
+Tom Lindeman - tomlindeman@xnaprotege.com
+
+Sound Research
+Christian Martinez - christianmtnz@yahoo.com
+
+
+
+"I'm going back over here where shit makes sense." 
+                       - Programming Team
+
+"Why isn't this working?"  
+                       - Design Team
+
+"You're a towel"
+                       - Towlie
+
+"We have achieved functionability"
+                       - Tom
+
+Special Thanks to...
+Caffeine
+Bacardi
+Lego Mindstorms
