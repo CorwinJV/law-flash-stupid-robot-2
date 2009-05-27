@@ -926,7 +926,7 @@
 				{
 					finishing = true;
 				}
-				trace("victory dance");
+				//trace("victory dance");
 				//timer = clock();
 				
 				// dispatch event to occur after an alotted time...
@@ -1195,23 +1195,28 @@
 
 		public function preGameTimerEnded(e:TimerEvent)
 		{
-			isPreGameTimerRunning = false;
-			playVars.commandsProcessed = 0;
-			playVars.totalCommandsProcessed = 0; 
-			
-			// Remove the pre game movie clips from the display list as we
-			// transition into logic view
-			if (this.contains(PreGameMC))
+			if (isPreGameTimerRunning == true)
 			{
-				this.removeChild(PreGameMC);
+				isPreGameTimerRunning = false;
+				playVars.commandsProcessed = 0;
+				playVars.totalCommandsProcessed = 0; 
+				
+				// Remove the pre game movie clips from the display list as we
+				// transition into logic view
+				if (this.contains(PreGameMC))
+				{
+					this.removeChild(PreGameMC);
+				}
+				
+				gamePlay.setState(GameBoardStateEnum.GB_LOGICVIEW);
+				//trace("Setting state to logicview");
 			}
-			
-			gamePlay.setState(GameBoardStateEnum.GB_LOGICVIEW);
-			//trace("Setting state to logicview");
 		}
 		
 		public function skippingPregame(e:MouseEvent)
 		{
+			PreGameMC.removeEventListener(MouseEvent.MOUSE_UP, skippingPregame);
+			
 			isPreGameTimerRunning = false;
 			playVars.commandsProcessed = 0;
 			playVars.totalCommandsProcessed = 0; 
