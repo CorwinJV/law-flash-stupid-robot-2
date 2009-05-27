@@ -27,7 +27,7 @@ UI Art
 Evan Donohue 
 
 Robot Art
-Jermain Dudley 
+Jermain Dudley - jermaindudley@aol.com
 
 Tile Art
 Cesar Cervantes
@@ -73,6 +73,8 @@ What's QA??
 "How is this even possible?"
                        - Tom
 
+"What's an Oscar?"
+             - Jermain
 
 
 Special Thanks to...
