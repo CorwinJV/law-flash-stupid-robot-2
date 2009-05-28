@@ -638,6 +638,14 @@
 			tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "additionalContent/maps/testMap1orig.txt");
 			levelList.push(tempLevel);
 			
+			tempLevel = new levelData("Needle in a Haystack", "Only one will open your path.", "additionalContent/maps/Needleinahaystack.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
+			tempLevel = new levelData("Haystack Sub Needle", "This seems odly familiar.", "additionalContent/maps/Haystacksubneedle.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
 			tempLevel = new levelData("Holes and Ice", "Jump, Activate, Slide, Activate.", "additionalContent/maps/holesandice.txt");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
@@ -647,6 +655,10 @@
 			numTutorialLevels++;
 			
 			tempLevel = new levelData("Jump The Wholes", "Don't trip and fall.", "additionalContent/maps/Jumptheholes.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
+			tempLevel = new levelData("Poof!!!", "Where did he go...there he is.", "additionalContent/maps/poof.txt");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
 			
