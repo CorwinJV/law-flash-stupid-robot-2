@@ -77,6 +77,15 @@ What's QA??
 "What's an Oscar?"
              - Jermain
 
+"What's an Oscar?"
+             - Oscar
+
+"Dave is Arting."
+             - Corwin
+
+"I blame Dave."
+             - Dana
+
 
 Special Thanks to...
 Caffeine
