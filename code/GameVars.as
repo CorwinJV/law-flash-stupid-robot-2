@@ -638,6 +638,18 @@
 			tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "additionalContent/maps/testMap1orig.txt");
 			levelList.push(tempLevel);
 			
+			tempLevel = new levelData("Holes and Ice", "Jump, Activate, Slide, Activate.", "additionalContent/maps/holesandice.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
+			tempLevel = new levelData("Abracadabra", "I'm gonna reach out and grab ya.", "additionalContent/maps/Abracadabra.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
+			tempLevel = new levelData("Jump The Wholes", "Don't trip and fall.", "additionalContent/maps/Jumptheholes.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
 			tempLevel = new levelData("Mastermind", "Figure out the pattern.", "additionalContent/maps/Mastermind.txt");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
