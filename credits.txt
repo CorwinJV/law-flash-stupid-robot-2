@@ -42,6 +42,7 @@ Gui Programming
 Tom Lindeman - tomlindeman@xnaprotege.com
 
 Additional Game Deisgn
+Dana Young - danayoung1.0@gmail.com
 Corwin VanHook - corwin.j@gmail.com
 Tom Lindeman - tomlindeman@xnaprotege.com
 
