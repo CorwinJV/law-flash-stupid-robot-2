@@ -50,6 +50,7 @@
 		public static const TDoorBL			:tileEnums = new tileEnums(38);		// 38 door bottom left
 		public static const TDoorBR			:tileEnums = new tileEnums(39);		// 39 door bottom right
 		public static const TTeleport		:tileEnums = new tileEnums(40);		// 40 teleporter
+		public static const TTutorial		:tileEnums = new tileEnums(41); 	// 41 Tutorial tile
 			
 		public function tileEnums(val:int)
 		{

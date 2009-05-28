@@ -131,67 +131,67 @@ package code
 			panLeftFiring = false;
 			panRightFiring = false;
 			zoomInFiring = false;
-			zoomOutFiring = false;	
+			zoomOutFiring = false;
 			
 			// Set up all of the button callbacks
-			logicInterfaceMC.executeBtn.addEventListener(MouseEvent.MOUSE_UP, ExecutionButtonClick);
-			logicInterfaceMC.abortBtn.addEventListener(MouseEvent.MOUSE_UP, AbortButtonClick);
-			logicInterfaceMC.resetBtn.addEventListener(MouseEvent.MOUSE_UP, ResetButtonClick);
-			logicInterfaceMC.clearBtn.addEventListener(MouseEvent.MOUSE_UP, ClearButtonClick);
-			logicInterfaceMC.helpBtn.addEventListener(MouseEvent.MOUSE_UP, launchHelpState);
-			logicInterfaceMC.speedUpArrow.addEventListener(MouseEvent.MOUSE_UP, speedUpButtonClick);
-			logicInterfaceMC.speedDownArrow.addEventListener(MouseEvent.MOUSE_UP, slowDownButtonClick);
-			logicInterfaceMC.optionsBtn.addEventListener(MouseEvent.MOUSE_UP, optionsButtonClick);
+			logicInterfaceMC.executeBtn.addEventListener(MouseEvent.MOUSE_UP, ExecutionButtonClick, false, 0, true);
+			logicInterfaceMC.abortBtn.addEventListener(MouseEvent.MOUSE_UP, AbortButtonClick, false, 0, true);
+			logicInterfaceMC.resetBtn.addEventListener(MouseEvent.MOUSE_UP, ResetButtonClick, false, 0, true);
+			logicInterfaceMC.clearBtn.addEventListener(MouseEvent.MOUSE_UP, ClearButtonClick, false, 0, true);
+			logicInterfaceMC.helpBtn.addEventListener(MouseEvent.MOUSE_UP, launchHelpState, false, 0, true);
+			logicInterfaceMC.speedUpArrow.addEventListener(MouseEvent.MOUSE_UP, speedUpButtonClick, false, 0, true);
+			logicInterfaceMC.speedDownArrow.addEventListener(MouseEvent.MOUSE_UP, slowDownButtonClick, false, 0, true);
+			logicInterfaceMC.optionsBtn.addEventListener(MouseEvent.MOUSE_UP, optionsButtonClick, false, 0, true);
 			
 			// Sub Routine Buttons
-			logicInterfaceMC.tab_main_btn.addEventListener(MouseEvent.MOUSE_UP, MainTabButtonClick);
-			logicInterfaceMC.tab_sub1_btn.addEventListener(MouseEvent.MOUSE_UP, Sub1TabButtonClick);
-			logicInterfaceMC.tab_sub2_btn.addEventListener(MouseEvent.MOUSE_UP, Sub2TabButtonClick);
+			logicInterfaceMC.tab_main_btn.addEventListener(MouseEvent.MOUSE_UP, MainTabButtonClick, false, 0, true);
+			logicInterfaceMC.tab_sub1_btn.addEventListener(MouseEvent.MOUSE_UP, Sub1TabButtonClick, false, 0, true);
+			logicInterfaceMC.tab_sub2_btn.addEventListener(MouseEvent.MOUSE_UP, Sub2TabButtonClick, false, 0, true);
 			
 			// compass callbacks
-			logicInterfaceMC.compass.south.addEventListener(MouseEvent.MOUSE_UP, panDownButtonClick);
-			logicInterfaceMC.compass.southEast.addEventListener(MouseEvent.MOUSE_UP, panDownRightButtonClick);
-			logicInterfaceMC.compass.southWest.addEventListener(MouseEvent.MOUSE_UP, panDownLeftButtonClick);
-			logicInterfaceMC.compass.north.addEventListener(MouseEvent.MOUSE_UP, panUpButtonClick);
-			logicInterfaceMC.compass.northWest.addEventListener(MouseEvent.MOUSE_UP, panUpLeftButtonClick);
-			logicInterfaceMC.compass.northEast.addEventListener(MouseEvent.MOUSE_UP, panUpRightButtonClick);
-			logicInterfaceMC.compass.west.addEventListener(MouseEvent.MOUSE_UP, panLeftButtonClick);
-			logicInterfaceMC.compass.east.addEventListener(MouseEvent.MOUSE_UP, panRightButtonClick);
-			logicInterfaceMC.compass.center.addEventListener(MouseEvent.MOUSE_UP, centerButtonClick);
+			logicInterfaceMC.compass.south.addEventListener(MouseEvent.MOUSE_UP, panDownButtonClick, false, 0, true);
+			logicInterfaceMC.compass.southEast.addEventListener(MouseEvent.MOUSE_UP, panDownRightButtonClick, false, 0, true);
+			logicInterfaceMC.compass.southWest.addEventListener(MouseEvent.MOUSE_UP, panDownLeftButtonClick, false, 0, true);
+			logicInterfaceMC.compass.north.addEventListener(MouseEvent.MOUSE_UP, panUpButtonClick, false, 0, true);
+			logicInterfaceMC.compass.northWest.addEventListener(MouseEvent.MOUSE_UP, panUpLeftButtonClick, false, 0, true);
+			logicInterfaceMC.compass.northEast.addEventListener(MouseEvent.MOUSE_UP, panUpRightButtonClick, false, 0, true);
+			logicInterfaceMC.compass.west.addEventListener(MouseEvent.MOUSE_UP, panLeftButtonClick, false, 0, true);
+			logicInterfaceMC.compass.east.addEventListener(MouseEvent.MOUSE_UP, panRightButtonClick, false, 0, true);
+			logicInterfaceMC.compass.center.addEventListener(MouseEvent.MOUSE_UP, centerButtonClick, false, 0, true);
 			
-			logicInterfaceMC.compass.south.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanDown);
-			logicInterfaceMC.compass.southEast.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanDownRight);
-			logicInterfaceMC.compass.southWest.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanDownLeft);
-			logicInterfaceMC.compass.north.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanUp);
-			logicInterfaceMC.compass.northWest.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanUpLeft);
-			logicInterfaceMC.compass.northEast.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanUpRight);
-			logicInterfaceMC.compass.west.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanLeft);
-			logicInterfaceMC.compass.east.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanRight);
-			logicInterfaceMC.zoomIn.addEventListener(MouseEvent.MOUSE_DOWN, startFiringZoomIn);
-			logicInterfaceMC.zoomOut.addEventListener(MouseEvent.MOUSE_DOWN, startFiringZoomOut);
+			logicInterfaceMC.compass.south.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanDown, false, 0, true);
+			logicInterfaceMC.compass.southEast.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanDownRight, false, 0, true);
+			logicInterfaceMC.compass.southWest.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanDownLeft, false, 0, true);
+			logicInterfaceMC.compass.north.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanUp, false, 0, true);
+			logicInterfaceMC.compass.northWest.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanUpLeft, false, 0, true);
+			logicInterfaceMC.compass.northEast.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanUpRight, false, 0, true);
+			logicInterfaceMC.compass.west.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanLeft, false, 0, true);
+			logicInterfaceMC.compass.east.addEventListener(MouseEvent.MOUSE_DOWN, startFiringPanRight, false, 0, true);
+			logicInterfaceMC.zoomIn.addEventListener(MouseEvent.MOUSE_DOWN, startFiringZoomIn, false, 0, true);
+			logicInterfaceMC.zoomOut.addEventListener(MouseEvent.MOUSE_DOWN, startFiringZoomOut, false, 0, true);
 			
-			logicInterfaceMC.compass.south.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanDown);
-			logicInterfaceMC.compass.southEast.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanDownRight);
-			logicInterfaceMC.compass.southWest.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanDownLeft);
-			logicInterfaceMC.compass.north.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanUp);
-			logicInterfaceMC.compass.northWest.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanUpLeft);
-			logicInterfaceMC.compass.northEast.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanUpRight);
-			logicInterfaceMC.compass.west.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanLeft);
-			logicInterfaceMC.compass.east.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanRight);
-			logicInterfaceMC.zoomIn.addEventListener(MouseEvent.MOUSE_OUT, stopFiringZoomIn);
-			logicInterfaceMC.zoomOut.addEventListener(MouseEvent.MOUSE_OUT, stopFiringZoomOut);
+			logicInterfaceMC.compass.south.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanDown, false, 0, true);
+			logicInterfaceMC.compass.southEast.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanDownRight, false, 0, true);
+			logicInterfaceMC.compass.southWest.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanDownLeft, false, 0, true);
+			logicInterfaceMC.compass.north.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanUp, false, 0, true);
+			logicInterfaceMC.compass.northWest.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanUpLeft, false, 0, true);
+			logicInterfaceMC.compass.northEast.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanUpRight, false, 0, true);
+			logicInterfaceMC.compass.west.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanLeft, false, 0, true);
+			logicInterfaceMC.compass.east.addEventListener(MouseEvent.MOUSE_OUT, stopFiringPanRight, false, 0, true);
+			logicInterfaceMC.zoomIn.addEventListener(MouseEvent.MOUSE_OUT, stopFiringZoomIn, false, 0, true);
+			logicInterfaceMC.zoomOut.addEventListener(MouseEvent.MOUSE_OUT, stopFiringZoomOut, false, 0, true);
 			
-			logicInterfaceMC.zoomIn.addEventListener(MouseEvent.MOUSE_UP, zoomInButtonClick);
-			logicInterfaceMC.zoomOut.addEventListener(MouseEvent.MOUSE_UP, zoomOutButtonClick);
-			logicInterfaceMC.rotateRight.addEventListener(MouseEvent.MOUSE_UP, rotateRightButtonClick);
-			logicInterfaceMC.rotateLeft.addEventListener(MouseEvent.MOUSE_UP, rotateLeftButtonClick);
+			logicInterfaceMC.zoomIn.addEventListener(MouseEvent.MOUSE_UP, zoomInButtonClick, false, 0, true);
+			logicInterfaceMC.zoomOut.addEventListener(MouseEvent.MOUSE_UP, zoomOutButtonClick, false, 0, true);
+			logicInterfaceMC.rotateRight.addEventListener(MouseEvent.MOUSE_UP, rotateRightButtonClick, false, 0, true);
+			logicInterfaceMC.rotateLeft.addEventListener(MouseEvent.MOUSE_UP, rotateLeftButtonClick, false, 0, true);
 			
 			// Scroll arrow button callbacks
-			logicInterfaceMC.scrollBtnUp.addEventListener(MouseEvent.MOUSE_UP, executionListUpArrowButtonClick);
-			logicInterfaceMC.scrollBtnDown.addEventListener(MouseEvent.MOUSE_UP, executionListDownArrowButtonClick);
+			logicInterfaceMC.scrollBtnUp.addEventListener(MouseEvent.MOUSE_UP, executionListUpArrowButtonClick, false, 0, true);
+			logicInterfaceMC.scrollBtnDown.addEventListener(MouseEvent.MOUSE_UP, executionListDownArrowButtonClick, false, 0, true);
 			
 			// Skip tutorial button callback
-			skipTutorial.skipButton.addEventListener(MouseEvent.MOUSE_UP, skipTutorialButtonClick);
+			skipTutorial.skipButton.addEventListener(MouseEvent.MOUSE_UP, skipTutorialButtonClick, false, 0, true);
 			skipTutorial.skipButton.x = 25;
 			skipTutorial.skipButton.y = 538;
 			skipTutorial.skipButton.width = 216;
@@ -240,16 +240,16 @@ package code
 		{	
 			if (mouseHandlersSet == false)
 			{
-				stage.addEventListener(MouseEvent.MOUSE_DOWN, processMouseDOWN);
-				stage.addEventListener(MouseEvent.MOUSE_UP, processMouseUP);
+				stage.addEventListener(MouseEvent.MOUSE_DOWN, processMouseDOWN, false, 0, true);
+				stage.addEventListener(MouseEvent.MOUSE_UP, processMouseUP, false, 0, true);
 			}
 			
 			if (functionPointersSet == false)
 			{
-				stage.addEventListener("commandAdvanced", CommandAdvanced);
-				stage.addEventListener("reprogramReached", ReprogramReached);
-				stage.addEventListener("clearExecutionList", ClearExecutionListFP);
-				stage.addEventListener("logicInterfaceAbort", manualAbort);
+				stage.addEventListener("commandAdvanced", CommandAdvanced, false, 0, true);
+				stage.addEventListener("reprogramReached", ReprogramReached, false, 0, true);
+				stage.addEventListener("clearExecutionList", ClearExecutionListFP, false, 0, true);
+				stage.addEventListener("logicInterfaceAbort", manualAbort, false, 0, true);
 			
 			}
 		}

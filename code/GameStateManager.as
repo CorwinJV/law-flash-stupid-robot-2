@@ -95,6 +95,8 @@
 				{
 					//trace("State #", i, " is of type ", stateList[i].getStateName(), " is set to status ", stateList[i].getStatus().toInt(), "and i'm going to go ahead and try to delete it");
 					rootContainer.removeChild(stateList[i]);
+					delete(stateList[i]);
+					trace("deleting " + stateList[i]);
 					stateList.splice(i, 1);
 				}
 			}
