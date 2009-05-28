@@ -17,10 +17,10 @@ Corwin VanHook - corwin.j@gmail.com
 Lead Designer
 David Moss - davidbmoss@gmail.com
 
-Lead Artist 
-Giovanni Tolson
-
 Technical Artist
+David Moss - davidbmoss@gmail.com
+
+Temp Art/TV Screen
 Giovanni Tolson
 
 UI Art
