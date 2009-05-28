@@ -41,6 +41,7 @@
 	public class gameBoard extends MovieClip
 	{		
 		var mapList:Array = new Array();
+		var mapListImagesForeground:Array = new Array();
 		var mapListImages:Array = new Array();
 		var myGameVar:GameVars = GameVars.getInstance();
 		
@@ -327,11 +328,21 @@
 					//mapList[x][y].setDrawXY(drawAtX, drawAtY);
 					//mapList[x][y].update(drawAtX, drawAtY, scale);
 					
+					// original background position
 					mapListImages[x][y].x = drawAtX;
 					mapListImages[x][y].y = drawAtY;
 					
+					// newly added foreground position
+					mapListImagesForeground[x][y].x = drawAtX;
+					mapListImagesForeground[x][y].y = drawAtY;
+					
+					// original background width and height
 					mapListImages[x][y].width = imageWidth;
 					mapListImages[x][y].height = imageHeight;
+					
+					// newly added foreground width and height
+					mapListImagesForeground[x][y].width = imageWidth;
+					mapListImagesForeground[x][y].height = imageHeight;
 					
 					
 					if ((x == robotX) && (y == robotY))
@@ -2928,13 +2939,14 @@
 			scale = 1.45;
 		}
 		
-		
+		// make another function for foreground, duplicating this function
 		private function populateMapImages()
 		{
 			// we are going to build a vector full of movieclips
 			// so lets make ourselves a new array yay
 			// first lets empty out the old array
 
+			// delete the background tiles
 			if (mapListImages.length > 0)
 			{
 				for (var xx:int = 0; xx < mapListImages.length; xx++)
@@ -2949,13 +2961,39 @@
 				}
 			}
 			
+			
+			// delete the foregorund tiles
+			if (mapListImagesForeground.length > 0)
+			{
+				for (var xx:int = 0; xx < mapListImagesForeground.length; xx++)
+				{
+					if (mapListImagesForeground[xx].length > 0)
+					{
+						for (var yy:int = 0; yy < mapListImagesForeground[xx].length; yy++)
+						{
+							delete(mapListImagesForeground[xx][yy]);
+						}
+					}
+				}
+			}
+			
+			
+			
+			
+			// do the same here for foreground
+			
 			mapListImages = new Array();
+			mapListImagesForeground = new Array();
 			var tempCols:Array;
+			var tempColsForeground:Array;
 			
 			var tileClip:MovieClip;
+			var tileClipForeground:MovieClip;
 			
 			//trace ("populating map images at width/height of ", Width, Height);
 			// first the columns (x)
+			
+			// check background tiles loaded properly
 			if (mapList.length < Width)
 			{
 				trace("Map failed to load properly");
@@ -2971,10 +3009,13 @@
 				}
 				
 				tempCols = new Array();
+				tempColsForeground = new Array();
+				
 				// now the rows
 				for (var y:int = 0; y < Height; y++)
 				{
 					tileClip = new GenericTileContainer();
+					tileClipForeground = new GenericTileContainer();
 					
 					// now for the horribly ugly messy code that sucks
 					//trace("about to add a tile of type ", mapList[x][y].getType().toInt(), " to the mapList");
@@ -3190,8 +3231,224 @@
 							break;
 					}
 					tempCols.push(tileClip);
+					
+					// now for the foreground switch statement to make it even messier
+					switch(mapList[x][y].getType().toInt())
+					{
+						case 0:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TEmptyAFG());	}
+							else									{	tileClipForeground.addChild(new TEmptyIFG());	}
+							break;
+							
+						case 1:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TDefaultAFG());	}
+							else									{	tileClipForeground.addChild(new TDefaultIFG());	}
+							break;
+							
+						case 2:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TRaised1AFG());	}
+							else									{	tileClipForeground.addChild(new TRaised1IFG());	}
+							break;
+							
+						case 3:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TRaised2AFG());	}
+							else									{	tileClipForeground.addChild(new TRaised2IFG());	}
+							break;
+							
+						case 4:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TRaised3AFG());	}
+							else									{	tileClipForeground.addChild(new TRaised3IFG());	}
+							break;
+							
+						case 5:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TRaised4AFG());	}
+							else									{	tileClipForeground.addChild(new TRaised4IFG());	}
+							break;
+							
+						case 6:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new THalfTopLAFG());	}
+							else									{	tileClipForeground.addChild(new THalfTopLIFG());	}
+							break;
+							
+						case 7:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new THalfTopRAFG());	}
+							else									{	tileClipForeground.addChild(new THalfTopRIFG());	}
+							break;
+							
+						case 8:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new THalfBottomLAFG());	}
+							else									{	tileClipForeground.addChild(new THalfBottomLIFG());	}
+							break;
+							
+						case 9:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new THalfBottomRAFG());	}
+							else									{	tileClipForeground.addChild(new THalfBottomRIFG());	}
+							break;
+							
+						case 10:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TGapAFG());	}
+							else									{	tileClipForeground.addChild(new TGapIFG());	}
+							break;
+							
+						case 11:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TElectricAFG());	}
+							else									{	tileClipForeground.addChild(new TElectricIFG());	}
+							break;
+							
+						case 12:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TElectricTLAFG());	}
+							else									{	tileClipForeground.addChild(new TElectricTLIFG());	}
+							break;
+							
+						case 13:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TElectricTRAFG());	}
+							else									{	tileClipForeground.addChild(new TElectricTRIFG());	}
+							break;
+							
+						case 14:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TElectricBLAFG());	}
+							else									{	tileClipForeground.addChild(new TElectricBLIFG());	}
+							break;
+							
+						case 15:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TElectricBRAFG());	}
+							else									{	tileClipForeground.addChild(new TElectricBRIFG());	}
+							break;
+							
+						case 16:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TIceAFG());	}
+							else									{	tileClipForeground.addChild(new TIceIFG());	}
+							break;
+							
+						case 17:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TWaterAFG());	}
+							else									{	tileClipForeground.addChild(new TWaterIFG());	}
+							break;
+							
+						case 18:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TSwitchTLAFG());	}
+							else									{	tileClipForeground.addChild(new TSwitchTLIFG());	}
+							break;
+							
+						case 19:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TSwitchTRAFG());	}
+							else									{	tileClipForeground.addChild(new TSwitchTRIFG());	}
+							break;
+							
+						case 20:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TSwitchBLAFG());	}
+							else									{	tileClipForeground.addChild(new TSwitchBLIFG());	}
+							break;
+							
+						case 21:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TSwitchBRAFG());	}
+							else									{	tileClipForeground.addChild(new TSwitchBRIFG());	}
+							break;
+							
+						case 22:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TSwitchAFG());	}
+							else									{	tileClipForeground.addChild(new TSwitchIFG());	}
+							break;
+							
+						case 23:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TProgramTLAFG());	}
+							else									{	tileClipForeground.addChild(new TProgramTLIFG());	}
+							break;
+							
+						case 24:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TProgramTRAFG());	}
+							else									{	tileClipForeground.addChild(new TProgramTRIFG());	}
+							break;
+							
+						case 25:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TProgramBLAFG());	}
+							else									{	tileClipForeground.addChild(new TProgramBLIFG());	}
+							break;
+							
+						case 26:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TProgramBRAFG());	}
+							else									{	tileClipForeground.addChild(new TProgramBRIFG());	}
+							break;
+							
+						case 27:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TProgramAFG());	}
+							else									{	tileClipForeground.addChild(new TProgramIFG());	}
+							break;
+							
+						case 28:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TBreakableTLAFG());	}
+							else									{	tileClipForeground.addChild(new TBreakableTLIFG());	}
+							break;	
+							
+						case 29:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TBreakableTRAFG());	}
+							else									{	tileClipForeground.addChild(new TBreakableTRIFG());	}
+							break;	
+							
+						case 30:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TBreakableBLAFG());	}
+							else									{	tileClipForeground.addChild(new TBreakableBLIFG());	}
+							break;	
+						
+						case 31:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TBreakableBRAFG());	}
+							else									{	tileClipForeground.addChild(new TBreakableBRIFG());	}
+							break;	
+							
+						case 32:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TSolidAFG());	}
+							else									{	tileClipForeground.addChild(new TSolidIFG());	}
+							break;
+							
+						case 33:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TBreakableAFG());	}
+							else									{	tileClipForeground.addChild(new TBreakableIFG());	}
+							break;
+							
+						case 34:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TStartAFG());	}
+							else									{	tileClipForeground.addChild(new TStartIFG());	}
+							break;
+							
+						case 35:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TEndAFG());	}
+							else									{	tileClipForeground.addChild(new TEndIFG());	}
+							break;
+							
+						case 36:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TDoorTLAFG());	}
+							else									{	tileClipForeground.addChild(new TDoorTLIFG());	}
+							break;
+							
+						case 37:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TDoorTRAFG());	}
+							else									{	tileClipForeground.addChild(new TDoorTRIFG());	}
+							break;
+							
+						case 38:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TDoorBLAFG());	}
+							else									{	tileClipForeground.addChild(new TDoorBLIFG());	}
+							break;
+							
+						case 39:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TDoorBRAFG());	}
+							else									{	tileClipForeground.addChild(new TDoorBRIFG());	}
+							break;
+							
+						case 40:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TTeleportAFG());	}
+							else									{	tileClipForeground.addChild(new TTeleportIFG());	}
+							break;
+						case 41:
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TDefaultAFG());	}
+							else									{	tileClipForeground.addChild(new TDefaultIFG());	}
+							break;
+					}
+					tempColsForeground.push(tileClipForeground);
 				}
+				// now push what we just loaded into the temp arrays into the background and foreground arrays
 				mapListImages.push(tempCols);
+				mapListImagesForeground.push(tempColsForeground);
 			}
 			rebuildMapClip();						
 		}
@@ -3211,12 +3468,16 @@
 			{
 				for (x = 0; x < Width; x++)
 				{
+					// add background tile images here
 					myMap.addChild(mapListImages[x][y]);
+					// if the robot is at this position, add it
 					if ((x == robotX) && (y == robotY))
 					{
 						setRobotImage(myRobot.getDirection());
 						myMap.addChild(myRobotImage);
 					}
+					// add foreground tile images here
+					myMap.addChild(mapListImagesForeground[x][y]);
 				}
 			}
 			draw();
