@@ -33,6 +33,7 @@
 	import flash.text.TextFormat;
 	import code.Key;
 	import code.enums.ClickOKEnum;
+	import code.states.tutorialPopUpState;
 	
 	
 	public class playGameState extends GameState
@@ -1003,6 +1004,12 @@
 				gamePlay.setReprogramHit(false);
 				playVars.setPMStatus(ClickOKEnum.REPROGRAM.toInt());
 				GSM.addGameState(new clickOKState(GSM));
+			}
+			
+			if (gamePlay.getTutorialHit())
+			{
+				gamePlay.setTutorialHit(false);
+				GSM.addGameState(new tutorialPopUpState(GSM));
 			}
 			
 			if (!this.contains(background))

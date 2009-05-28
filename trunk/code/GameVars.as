@@ -36,6 +36,7 @@
 		public var didYouKnow:Array;
 		public var didYouKnowIterator:int;
 	
+		var tutorialMovieClip:int;
 		var currentLevelBytes:int;
 		var levelHeight:int;
 		var levelWidth:int;
@@ -362,7 +363,6 @@
 
 		public function getTileActive(x:int, y:int):Boolean
 		{
-			// ummm, wtf?
 			return tileActive;
 		}
 
@@ -615,6 +615,16 @@
 		public function getLevelInstructions():int
 		{
 			return levelInstructions;
+		}
+		
+		public function setTutorialMovieClip(mcID:int)
+		{
+			tutorialMovieClip = mcID;
+		}
+		
+		public function getTutorialMovieClip():int
+		{
+			return tutorialMovieClip;
 		}
 
 		public function loadAllLevels():void

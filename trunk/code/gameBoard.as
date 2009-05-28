@@ -36,6 +36,7 @@
 	import code.structs.object;	
 	import flash.ui.Keyboard;
 	import code.structs.subroutine;
+	import code.structs.TutorialData;
 	
 	public class gameBoard extends MovieClip
 	{		
@@ -48,7 +49,10 @@
 		var switchList:Array = new Array();
 		var teleportList:Array = new Array();
 		var dSwitchList:Array = new Array();
+		var tutorialTileList:Array = new Array();
+		
 		var myRobotImage:MovieClip = new robotClip();
+		
 		
 		var myRobot:Object;
 		//var OM:objectManager;
@@ -123,6 +127,7 @@
 		var drawText:Boolean;
 		var delayAdvance:Boolean;
 		var reprogramHit:Boolean;
+		var tutorialTileHit:Boolean;
 		
 		var curState:GameBoardStateEnum;
 		var processSpeed:int;
@@ -175,9 +180,9 @@
 		
 		public function initEventListeners()
 		{
-			stage.addEventListener("gameBoardExecute", interfaceHasFiredExecuteOrder);
-			stage.addEventListener("gameBoardAbort", interfaceHasFiredAbortOrder);
-			stage.addEventListener("gameBoardReset", interfaceHasFiredResetOrder);
+			stage.addEventListener("gameBoardExecute", interfaceHasFiredExecuteOrder, false, 0, true);
+			stage.addEventListener("gameBoardAbort", interfaceHasFiredAbortOrder, false, 0, true);
+			stage.addEventListener("gameBoardReset", interfaceHasFiredResetOrder, false, 0, true);
 		}
 		
 		// these are all debug commands and aren't actually used in game...
@@ -434,6 +439,7 @@
 			processSpeed = 500;
 
 			reprogramHit = false;
+			tutorialTileHit = false;
 		}
 		
 		public function cleanup()
@@ -460,7 +466,7 @@
 			var textLoader:URLLoader = new URLLoader();
 			var textReq:URLRequest = new URLRequest(filename);
 			textLoader.load(textReq);
-			textLoader.addEventListener(Event.COMPLETE, textLoadComplete);
+			textLoader.addEventListener(Event.COMPLETE, textLoadComplete, false, 0, true);
 			
 			var x:int;
 			var y:int;
@@ -758,8 +764,6 @@
 				fileIndex++;
 				var numDSwitches = tens + ones;
 				//trace ("we're about to read in ", numDSwitches, " DSwitches");
-				
-				// read in the dswitches
 							
 				for (x = 0; x < numDSwitches; x++)
 				{
@@ -811,6 +815,48 @@
 					}
 				}
 				
+				// Read in tutorial tiles
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+				fileIndex++;
+				var numTutorialTiles:int = tens + ones;
+				trace("We're about to read in " + numTutorialTiles + " tutorial tiles.");
+				
+				var tempTutorialTile:TutorialData;
+				for (x = 0; x < numTutorialTiles; x++)
+				{
+					// * Tutorial Tile Data layout
+					// * X Y Position
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myX = tens + ones;
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myY = tens + ones;
+					fileIndex++;
+					
+					// * tutorialClipID referenced (Pop up menu)
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					var mcID:int = tens + ones;
+					fileIndex++;
+					
+					// * Commands available at this point
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardAvail = true;	}	else	{	moveForwardAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardUntilAvail = true;	}	else	{	moveForwardUntilAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnLeftAvail = true;	}	else	{	turnLeftAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnRightAvail = true;	}	else	{	turnRightAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	punchAvail = true;	}	else	{	punchAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	climbAvail = true;	}	else	{	climbAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	crouchAvail = true;	}	else	{	crouchAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	jumpAvail = true;	}	else	{	jumpAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	activateAvail = true;	}	else	{	activateAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub1Avail = true;	}	else	{	sub1Avail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub2Avail = true;	}	else	{	sub2Avail = false;	} fileIndex++;
+				
+					// Add the new tutorial tile map object
+					tempTutorialTile = new TutorialData(myX, myY, mcID, moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
+					tutorialTileList.push(tempTutorialTile);
+					//trace("Tutorial Tile X: " + tempTutorialTile.selfX + ", Y: " + tempTutorialTile.selfY + ", ClipID: " + tempTutorialTile.tutorialClipID);
+					
+					fileIndex++;
+				}
 				
 				doneLoadingMapFromFile = true;
 			}
@@ -1091,11 +1137,12 @@
 		
 		public function processRobot()
 		{
-			//trace("entering process robot");
+			trace("entering process robot");
 			delayAdvance = false;
 
 			//===================================
 			//  Command Highlighting
+			trace("2");
 			switch(myRobot.getNextCommand().toInt())
 			{
 			case AiInstructionsEnum.SUBR1.toInt():
@@ -1118,18 +1165,23 @@
 				{
 					myGameVar.setCurrentInstructionTab(instructionTab.TAB_MAIN);
 					myGameVar.setCurrentInstructionBlockIndex(myRobot.getCurrentInstructionIndex());
+					trace("Setting current instruction block to " + myRobot.getCurrentInstructionIndex());
 					break;
 				}
 			}
-			stage.dispatchEvent(new Event("commandAdvanced"));
-
+			trace("2.5");
+			if (stage != null)
+			{
+				stage.dispatchEvent(new Event("commandAdvanced"));
+			}
+			trace("3");
 			if (myRobot.getAlive() == false)
 			{
 				// tempabc
 				curState = GameBoardStateEnum.GB_ROBOTDIED;
 				return;
 			}
-					
+			trace("4");		
 			switch(myRobot.getNextCommand().toInt())//myRobot.getNextCommand())
 			{
 			case AiInstructionsEnum.SUBR1.toInt():
@@ -1202,16 +1254,19 @@
 				break;
 			}
 		
+			trace("5");
 			if(!delayAdvance)
 			{
 				myRobot.advanceCommand();
 			}
 			
+			trace("6");
 			currentX = robotX;
 			currentY = robotY;
 			reInjectRobotImage();
 			verifyCameraCenter();
 			teleporterCheck();
+			doTutorialTileCheckAndExecution();
 		}
 		
 		public function robotAtEndSquare():Boolean
@@ -1259,7 +1314,7 @@
 							// event goes here
 							var i:int = this.processSpeed;
 							teleportTimer = new Timer(i, 1);
-							teleportTimer.addEventListener(TimerEvent.TIMER, postTeleport);
+							teleportTimer.addEventListener(TimerEvent.TIMER, postTeleport, false, 0, true);
 							teleportTimer.start();
 						}						
 					}
@@ -1288,7 +1343,7 @@
 					// setup event time to occur after 500 milliseconds, this tells the system to go continue processing
 					var i:int = this.processSpeed;
 					teleportTimer = new Timer(i, 1);
-					teleportTimer.addEventListener(TimerEvent.TIMER, teleportDone);
+					teleportTimer.addEventListener(TimerEvent.TIMER, teleportDone, false, 0, true);
 					teleportTimer.start();
 				}
 			}
@@ -1365,19 +1420,24 @@
 			curState = GameBoardStateEnum.GB_EXECUTION;
 			
 			//trace("Starting execution Cycle");
-			executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle);
+			executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 			executionCycleTimer.start();
 		}
 		
 		public function processExecutionCycle(e:TimerEvent)
 		{
+			trace(this.parent);
+			//trace("Cycle begin.");
 			if (curState.toInt() == GameBoardStateEnum.GB_EXECUTION.toInt())
 			{
+				//trace("We're in execution mode.");
 				//trace("Beginning to process execution cycle");
 				if ((!switchInProgress) && (!DswitchInProgress))
 				{
+					//trace("Dswitch & switch are not in progress");
 					if (!teleportInProgress)
 					{
+						//trace("Teleport is not in progress");
 						processRobot();
 						setRobotImage(myRobot.getDirection());
 						reInjectRobotImage();
@@ -1387,10 +1447,12 @@
 				{
 					if (switchInProgress)
 					{
+						//trace("processing switch");
 						processSwitch();
 					}
 					if (DswitchInProgress)
 					{
+						//trace("processing dswitch");
 						processDSwitch();
 					}
 				}
@@ -1403,9 +1465,11 @@
 					var i:int = this.processSpeed;
 					
 					//trace(i);
+					//trace("Starting timer at " + i + " time.");
 					executionCycleTimer = new Timer(i, 1);
-					executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle);
+					executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 					executionCycleTimer.start();
+					//trace("Started.");
 				}
 			}
 		}
@@ -1504,7 +1568,8 @@
 				( (robotSquare.toInt() == tileEnums.TDoorTL.toInt()) && (((direction == 3) && (!robotSquareActive)) || (direction != 3))) ||
 				( (robotSquare.toInt() == tileEnums.TDoorTR.toInt()) && (((direction == 0) && (!robotSquareActive)) || (direction != 0))) ||
 				( (robotSquare.toInt() == tileEnums.TDoorBL.toInt()) && (((direction == 2) && (!robotSquareActive)) || (direction != 2))) ||
-				( (robotSquare.toInt() == tileEnums.TDoorBR.toInt()) && (((direction == 1) && (!robotSquareActive)) || (direction != 1))))
+				( (robotSquare.toInt() == tileEnums.TDoorBR.toInt()) && (((direction == 1) && (!robotSquareActive)) || (direction != 1)))
+				( (robotSquare.toInt() == tileEnums.TTutorial.toInt())))
 			{
 				return true;
 			}
@@ -1601,7 +1666,8 @@
 					 ( (destType.toInt() == tileEnums.TDoorTR.toInt()) && (((direction == 0) || (direction == 1) || (direction == 3)) || !destActive)) ||
 					 ( (destType.toInt() == tileEnums.TDoorBL.toInt()) && (((direction == 1) || (direction == 2) || (direction == 3)) || !destActive)) ||
 					 ( (destType.toInt() == tileEnums.TDoorBR.toInt()) && (((direction == 0) || (direction == 1) || (direction == 2)) || !destActive)) ||
-					 (destType.toInt() == tileEnums.TTeleport.toInt()))
+					 (destType.toInt() == tileEnums.TTeleport.toInt()) ||
+					 (destType.toInt() == tileEnums.TTutorial.toInt()))
 				{
 					return true; 
 				}
@@ -1862,8 +1928,6 @@
 				myRobot.setAlive(false);
 				robotAlive = false;
 			}
-			
-			
 		}
 		
 		public function RCcrouch()
@@ -2849,6 +2913,16 @@
 			reprogramHit = newStatus;
 		}
 
+		public function getTutorialHit():Boolean
+		{
+			return tutorialTileHit;
+		}
+		
+		public function setTutorialHit(newStatus:Boolean)
+		{
+			tutorialTileHit = newStatus;
+		}
+		
 		public function resetZoom()
 		{
 			scale = 1.45;
@@ -3110,6 +3184,10 @@
 							if (mapList[x][y].getIsActive())			{	tileClip.addChild(new TTeleportABG());	}
 							else									{	tileClip.addChild(new TTeleportIBG());	}
 							break;
+						case 41:
+							if (mapList[x][y].getIsActive())			{	tileClip.addChild(new TDefaultABG());	}
+							else									{	tileClip.addChild(new TDefaultIBG());	}
+							break;
 					}
 					tempCols.push(tileClip);
 				}
@@ -3219,6 +3297,49 @@
 			{
 				//trace("robot died from electricbr");
 				myGameVar.robotDiedElectricity = true;
+			}
+		}
+		
+		public function doTutorialTileCheckAndExecution()
+		{
+			if (mapList[robotX][robotY].getType().toInt() == tileEnums.TTutorial.toInt())
+			{
+				if(mapList[robotX][robotY].getIsActive())
+				{
+					for (var i:int = 0; i < tutorialTileList.length; i++)
+					{
+						if ((tutorialTileList[i].selfX == robotX)
+						&& (tutorialTileList[i].selfY == robotY))
+						{
+							myRobot.setDefaults(myRobot.getDirection(), robotX, robotY);
+							
+							// store the map tiles actives
+							for(var x:int = 0; x < Width; x++)
+							{
+								for(var y:int = 0; y < Height; y++)
+								{
+									mapList[x][y].setResetActive(mapList[x][y].getIsActive());
+									mapList[x][y].setBaseType(mapList[x][y].getType());
+								}
+							}
+											
+							robotStartX = robotX;
+							robotStartY = robotY;
+							curState = GameBoardStateEnum.GB_LOGICVIEW;
+							
+							// Dispatch Events & Call the tutorial stufffs.
+							tutorialTileList[i].updateGameVarsCommandsAvailable();
+							myGameVar.setTutorialMovieClip(tutorialTileList[i].tutorialClipID);
+							trace("Executing tutorial pop up, mcID: " + tutorialTileList[i].tutorialClipID);
+							
+							
+							stage.dispatchEvent(new Event("reprogramReached"));
+							stage.dispatchEvent(new Event("clearExecutionList"));
+							tutorialTileHit = true;
+							
+						}
+					}
+				}
 			}
 		}
 		
