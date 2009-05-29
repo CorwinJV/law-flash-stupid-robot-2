@@ -74,6 +74,7 @@ package code
 		var currentHoverBlockIndex:int = -1;
 		var isExecuting:Boolean = false;
 		var isButtonBeingClicked:Boolean = false;
+		var tabCoverMC:MovieClip = new tabCovers();
 	
 		//References to the current execution list
 		var curExecutionList:Array = null;
@@ -286,6 +287,7 @@ package code
 					logicBank[i].isCurrentlyUsable = true;
 				}
 			}
+			
 			
 			// Calculating the bytes left
 				//  I think there's a loop deficiency
@@ -662,6 +664,67 @@ package code
 				}
 			}
 
+			//=============================================
+			// Tab Covers (Showing which tab is currently
+			// selected	
+			//if (!this.contains(tabCoverMC))
+			//{
+				//this.addChild(tabCoverMC);
+			//}
+
+			//if (logicInterfaceMC != null)
+			//{			trace("Current instruction tab: " + curInstrTab.toInt())
+				//switch (curInstrTab.toInt())
+				//{
+					//case instructionTab.TAB_MAIN.toInt():
+					//{
+						//if((tabCoverMC.x != logicInterfaceMC.tab_main_btn.x) 
+						//&& (tabCoverMC.x != logicInterfaceMC.tab_main_btn.y))
+						//{
+							//if (!logicInterfaceMC.tab_main_btn.contains(tabCoverMC))
+							//{
+								//var w:int = logicInterfaceMC.tab_main_btn.width;
+								//var h:int = logicInterfaceMC.tab_main_btn.height;
+								//logicInterfaceMC.tab_main_btn.addChild(tabCoverMC);
+								//tabCoverMC.width = w;
+								//tabCoverMC.height = h;
+							//}
+							//tabCoverMC.x = logicInterfaceMC.tab_main_btn.x;
+							//tabCoverMC.y = logicInterfaceMC.tab_main_btn.y;
+							//tabCoverMC.width = logicInterfaceMC.tab_main_btn.width;
+							//tabCoverMC.height = logicInterfaceMC.tab_main_btn.height;
+						//}
+						//break;
+					//}
+					//case instructionTab.TAB_SUB1.toInt():
+					//{
+						//if (this.contains(tabCoverMC) 
+						//&& ((tabCoverMC.x != logicInterfaceMC.tab_sub1_btn.x) 
+						//&& (tabCoverMC.x != logicInterfaceMC.tab_sub1_btn.btn.y)))
+						//{
+							//tabCoverMC.x = logicInterfaceMC.tab_sub1_btn.x;
+							//tabCoverMC.y = logicInterfaceMC.tab_sub1_btn.y;
+							//tabCoverMC.width = logicInterfaceMC.tab_sub1_btn.width;
+							//tabCoverMC.height = logicInterfaceMC.tab_sub1_btn.height;	
+						//}
+						//break;
+					//}
+					//case instructionTab.TAB_SUB2.toInt():
+					//{
+						//if (this.contains(tabCoverMC) 
+						//&& ((tabCoverMC.x != logicInterfaceMC.tab_sub2_btn.x) 
+						//&& (tabCoverMC.x != logicInterfaceMC.tab_sub2_btn.btn.y)))
+						//{
+							//tabCoverMC.x = logicInterfaceMC.tab_sub2_btn.x;
+							//tabCoverMC.y = logicInterfaceMC.tab_sub2_btn.y;
+							//tabCoverMC.width = logicInterfaceMC.tab_sub2_btn.width;
+							//tabCoverMC.height = logicInterfaceMC.tab_sub2_btn.height;	
+						//}
+						//break;
+					//}
+				//}	
+			//}			
+			
 			//=============================================
 			// Hover Over Screen Tipz0rz
 				// If the currentHoverBlockIndex is -1 that 
