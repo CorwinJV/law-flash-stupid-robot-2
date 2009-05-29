@@ -2243,6 +2243,7 @@
 
 			//int sx;
 			//int sy;
+			var switchArtToggled:Boolean = false;
 
 			if((robotSquare.toInt() == tileEnums.TSwitch.toInt()) ||
 			   ((robotSquare.toInt() == tileEnums.TSwitchTR.toInt()) && (robotDirection == 0)) ||
@@ -2256,7 +2257,11 @@
 				{
 					// if there is, lets set the happy go lucky bool in gameboard to true
 					switchInProgress = true;
-					mapList[robotX][robotY].toggleActive();
+					if (!switchArtToggled)
+					{
+						mapList[robotX][robotY].toggleActive();
+						switchArtToggled = true;
+					}
 					myGameVar.SM.startProcessing(robotX, robotY);
 				}
 				// lets also check to see if there's a dswitch at our spot
@@ -2267,6 +2272,17 @@
 					DswitchInProgress = true;
 					mapList[robotX][robotY].toggleActive();
 					myGameVar.SMD.startProcessing(robotX, robotY);
+					if (!switchArtToggled)
+					{
+						mapList[robotX][robotY].toggleActive();
+						switchArtToggled = true;
+					}
+				}
+				
+				if (!switchArtToggled)
+				{
+					mapList[robotX][robotY].toggleActive();
+					switchArtToggled = true;
 				}
 			}
 
