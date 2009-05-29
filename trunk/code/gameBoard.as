@@ -3517,11 +3517,9 @@
 			myMap.setChildIndex(myRobotImage, robotX + (Width * robotY) +1 );
 			//trace("Robot at index ", myMap.getChildIndex(myRobotImage));
 			
-			
-			
 			//myMap.removeChild(myRobotImage);
 			//myMap.addChildAt(myRobotImage, robotX + (Width * robotY));
-		}		
+		}
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
 		{
@@ -3626,6 +3624,7 @@
 			
 			// lets get rid of the living robot
 			var tempClip:MovieClip;
+			
 			if (myRobotImage.numChildren > 0)
 			{
 				myRobotImage.removeChildAt(0);
@@ -3637,6 +3636,7 @@
 				if (!myRobotImage.contains(diedElectricity))
 				{
 					myRobotImage.addChild(diedElectricity);
+					diedElectricity.electricAnimation.gotoAndPlay(0);
 				}
 			}
 			else if (myGameVar.robotDiedGap)
@@ -3660,15 +3660,22 @@
 				// somehow its dead but didn't die from anything
 				trace("ROBOT DIED FROM NOTHING");
 			}
-			reInjectRobotImage();
+			//reInjectRobotImage();
+			
+			myMap.setChildIndex(myRobotImage, myMap.numChildren - 1);
+			
 			update();
+		}
+		
+		public function zoomToMax()
+		{
+			scale = maxScale;
 		}
 		
 		public function resetRobotImage()
 		{
-			
-			setRobotImage(myRobot.getDirection());
-			reInjectRobotImage();
+			//setRobotImage(myRobot.getDirection());
+			//reInjectRobotImage();
 		}
 		
 		public function zoomToHeight(newHeight:Number)

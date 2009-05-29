@@ -94,7 +94,7 @@
 		var preGameTimer:Timer = new Timer(5000, 1);
 		var isPreGameTimerRunning:Boolean = false;
 		
-		var robotIsDeadTimer:Timer = new Timer(5000, 1);
+		var robotIsDeadTimer:Timer = new Timer(3000, 1);
 		var isRobotDeadTimerRunning:Boolean = false;
 		
 		var alreadyLoadedLogicInstructions:Boolean = false;
@@ -623,7 +623,9 @@
 			//playVars.setLevelSpecified( -1);
 			//until profile manager is setup, this is being hardcoded as level one below
 			//abcxyz
-			
+			playerCurrentLevel = 0;
+			playVars.setLevelSpecified(0);
+			playVars.setCurrentLevel(0);
 
 			tempString = playVars.getFilename(playerCurrentLevel);
 			gamePlay.loadMapFromFile(tempString);
@@ -799,14 +801,11 @@
 				if (!doneDead)
 				{
 					//zoom in on the robot to view animation of death
-					for (var zoom:int = 0; zoom < 15; zoom++)
-					{
-						gamePlay.zoomin();
-					}
+					gamePlay.zoomToMax();
+					
 					// fire abort button
 					mInterface.fireAbort();
 					//add the you died text Menu to the Screen
-					this.addChild(deathMC);
 					doneDead = true;
 				}
 				
@@ -825,7 +824,8 @@
 				robotIsDeadTimer.start();	
 				
 				deathMC.x = (screenWidth / 2) - (deathMC.width / 2);
-				deathMC.y = (screenWidth / 2) - (deathMC.width / 2);
+				deathMC.y = (screenHeight / 2) - (deathMC.height / 2);
+				//deathMC.y = 0;
 				break;
 				
 			case GameBoardStateEnum.GB_VIEWSCORE.toInt():
@@ -1244,6 +1244,7 @@
 		public function finishKillingTheRobot(e:TimerEvent)
 		{
 			gamePlay.resetRobotImage();
+			this.addChild(deathMC);
 			curState = GameBoardStateEnum.GB_LOGICVIEW;
 			//mInterface.fireAbort();
 		}
