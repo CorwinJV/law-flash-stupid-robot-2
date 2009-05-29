@@ -1546,41 +1546,41 @@
 			var robotSquareActive:Boolean = mapList[robotX][robotY].getIsActive();
 
 			// squares that can be left
-			if( (robotSquare.toInt() == tileEnums.TDefault.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TRaised1.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TRaised2.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TRaised3.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TRaised4.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TElectric.toInt()) ||
+			if(  (robotSquare.toInt() == tileEnums.TDefault.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TRaised1.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TRaised2.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TRaised3.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TRaised4.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TElectric.toInt()) ||
 				((robotSquare.toInt() == tileEnums.TElectricTL.toInt()) && (direction != 3)) ||
 				((robotSquare.toInt() == tileEnums.TElectricTR.toInt()) && (direction != 0)) || 
 				((robotSquare.toInt() == tileEnums.TElectricBL.toInt()) && (direction != 2)) ||
 				((robotSquare.toInt() == tileEnums.TElectricBR.toInt()) && (direction != 1)) ||
-				(robotSquare.toInt() == tileEnums.TIce.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TWater.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TSwitchTL.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TSwitchTR.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TSwitchBL.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TSwitchBR.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TSwitch.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TProgramTL.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TProgramTR.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TProgramBL.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TProgramBR.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TProgram.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TIce.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TWater.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TSwitchTL.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TSwitchTR.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TSwitchBL.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TSwitchBR.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TSwitch.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TProgramTL.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TProgramTR.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TProgramBL.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TProgramBR.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TProgram.toInt()) ||
 				((robotSquare.toInt() == tileEnums.TBreakableTL.toInt()) && (((!robotSquareActive) && (direction == 3)) || (direction != 3))) ||
 				((robotSquare.toInt() == tileEnums.TBreakableTR.toInt()) && (((!robotSquareActive) && (direction == 0)) || (direction != 0))) ||
 				((robotSquare.toInt() == tileEnums.TBreakableBL.toInt()) && (((!robotSquareActive) && (direction == 2)) || (direction != 2))) ||
 				((robotSquare.toInt() == tileEnums.TBreakableBR.toInt()) && (((!robotSquareActive) && (direction == 1)) || (direction != 1))) ||
-				(robotSquare.toInt() == tileEnums.TSolid.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TBreakable.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TStart.toInt()) ||
-				(robotSquare.toInt() == tileEnums.TEnd.toInt()) ||
-				( (robotSquare.toInt() == tileEnums.TDoorTL.toInt()) && (((direction == 3) && (!robotSquareActive)) || (direction != 3))) ||
-				( (robotSquare.toInt() == tileEnums.TDoorTR.toInt()) && (((direction == 0) && (!robotSquareActive)) || (direction != 0))) ||
-				( (robotSquare.toInt() == tileEnums.TDoorBL.toInt()) && (((direction == 2) && (!robotSquareActive)) || (direction != 2))) ||
-				( (robotSquare.toInt() == tileEnums.TDoorBR.toInt()) && (((direction == 1) && (!robotSquareActive)) || (direction != 1)))
-				( (robotSquare.toInt() == tileEnums.TTutorial.toInt())))
+				 (robotSquare.toInt() == tileEnums.TSolid.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TBreakable.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TStart.toInt()) ||
+				 (robotSquare.toInt() == tileEnums.TEnd.toInt()) ||
+				((robotSquare.toInt() == tileEnums.TDoorTL.toInt()) && (((direction == 3) && (!robotSquareActive)) || (direction != 3))) ||
+				((robotSquare.toInt() == tileEnums.TDoorTR.toInt()) && (((direction == 0) && (!robotSquareActive)) || (direction != 0))) ||
+				((robotSquare.toInt() == tileEnums.TDoorBL.toInt()) && (((direction == 2) && (!robotSquareActive)) || (direction != 2))) ||
+				((robotSquare.toInt() == tileEnums.TDoorBR.toInt()) && (((direction == 1) && (!robotSquareActive)) || (direction != 1))) ||
+				((robotSquare.toInt() == tileEnums.TTutorial.toInt())))
 			{
 				return true;
 			}
