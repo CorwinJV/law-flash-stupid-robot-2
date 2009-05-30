@@ -90,6 +90,20 @@
 		public var robotDiedWater:Boolean = false;
 		public var robotDiedGap:Boolean = false;
 		
+		// boolean variables for all directions for all types of jumping scenarios
+		public var robotJumpSuccessBR:Boolean = false;
+		public var robotJumpSuccessBL:Boolean = false;
+		public var robotJumpSuccessTR:Boolean = false;
+		public var robotJumpSuccessTL:Boolean = false;
+		public var robotJumpFailFarBR = false;
+		public var robotJumpFailFarBL = false;
+		public var robotJumpFailFarTR = false;
+		public var robotJumpFailFarTL = false;
+		public var robotJumpFailCloseBR = false;
+		public var robotJumpFailCloseBL = false;
+		public var robotJumpFailCloseTR = false;
+		public var robotJumpFailCloseTL = false;
+		
 		// ui for instructions
 		public var SSoundInterfaceAddInstruction:Sound;
 		public var SSoundInterfaceRemoveInstruction:Sound;

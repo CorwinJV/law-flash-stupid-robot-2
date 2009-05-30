@@ -53,6 +53,7 @@
 		var tutorialTileList:Array = new Array();
 		
 		var myRobotImage:MovieClip = new robotClip();
+		var jumpAnimation:MovieClip = new MovieClip();
 		
 		
 		var myRobot:Object;
@@ -82,6 +83,9 @@
 		
 		var Width:int;
 		var Height:int;
+		
+		var destX:int; 
+		var destY:int; 
 		
 		var mouseTimer:int; // may not be needed
 		var moustimerStart:int; // may not be needed
@@ -129,6 +133,8 @@
 		var delayAdvance:Boolean;
 		var reprogramHit:Boolean;
 		var tutorialTileHit:Boolean;
+		var areYouJumping:Boolean;
+		var haveYouStartedJumping:Boolean;
 		
 		var curState:GameBoardStateEnum;
 		var processSpeed:int;
@@ -136,9 +142,24 @@
 		//var massInstruct:MovieClip;
 		var doneLoadingMapFromFile:Boolean;
 		
+		// death animation variables
 		var diedElectricity = new robotDiedElectricity();
 		var diedGap = new robotDiedGap();
 		var diedWater = new robotDiedWater();
+		
+		// jump animation variables
+		var jumpSuccessBR = new robotJumpSuccessBR();
+		var jumpSuccessBL = new robotJumpSuccessBL();
+		var jumpSuccessTR = new robotJumpSuccessTR();
+		var jumpSuccessTL = new robotJumpSuccessTL();
+		var jumpFailFarBR = new robotJumpFailFarBR();
+		var jumpFailFarBL = new robotJumpFailFarBL();
+		var jumpFailFarTR = new robotJumpFailFarTR();
+		var jumpFailFarTL = new robotJumpFailFarTL();
+		var jumpFailCloseBR = new robotJumpFailCloseBR();
+		var jumpFailCloseBL = new robotJumpFailCloseBL();
+		var jumpFailCloseTR = new robotJumpFailCloseTR();
+		var jumpFailCloseTL = new robotJumpFailCloseTL();
 		
 		public function gameBoard() 
 		{
@@ -170,7 +191,8 @@
 			this.addChild(myMap);
 			
 			doneLoadingMapFromFile = false;
-			
+			areYouJumping = false;
+			haveYouStartedJumping = false;
 			
 			// MUST CALL INIT DAMMIT!
 			initialize();
@@ -288,6 +310,17 @@
 						
 			draw(); // this should be where everythign is sized/lined up automagically?
 			
+			// if you're done jumping, reposition the robot
+			if ((!areYouJumping) && (haveYouStartedJumping))
+			{
+				setRobotPositionAfterJump();
+			}
+			
+			// if you're in the middle of jumping, see if the animation has finished
+			if ((areYouJumping) && (haveYouStartedJumping))
+			{
+				jumpAnimationCounter();
+			}
 		}
 		
 		public function draw()
@@ -1546,41 +1579,41 @@
 			var robotSquareActive:Boolean = mapList[robotX][robotY].getIsActive();
 
 			// squares that can be left
-			if(  (robotSquare.toInt() == tileEnums.TDefault.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TRaised1.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TRaised2.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TRaised3.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TRaised4.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TElectric.toInt()) ||
+			if( (robotSquare.toInt() == tileEnums.TDefault.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TRaised1.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TRaised2.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TRaised3.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TRaised4.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TElectric.toInt()) ||
 				((robotSquare.toInt() == tileEnums.TElectricTL.toInt()) && (direction != 3)) ||
 				((robotSquare.toInt() == tileEnums.TElectricTR.toInt()) && (direction != 0)) || 
 				((robotSquare.toInt() == tileEnums.TElectricBL.toInt()) && (direction != 2)) ||
 				((robotSquare.toInt() == tileEnums.TElectricBR.toInt()) && (direction != 1)) ||
-				 (robotSquare.toInt() == tileEnums.TIce.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TWater.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TSwitchTL.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TSwitchTR.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TSwitchBL.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TSwitchBR.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TSwitch.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TProgramTL.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TProgramTR.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TProgramBL.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TProgramBR.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TProgram.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TIce.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TWater.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TSwitchTL.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TSwitchTR.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TSwitchBL.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TSwitchBR.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TSwitch.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TProgramTL.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TProgramTR.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TProgramBL.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TProgramBR.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TProgram.toInt()) ||
 				((robotSquare.toInt() == tileEnums.TBreakableTL.toInt()) && (((!robotSquareActive) && (direction == 3)) || (direction != 3))) ||
 				((robotSquare.toInt() == tileEnums.TBreakableTR.toInt()) && (((!robotSquareActive) && (direction == 0)) || (direction != 0))) ||
 				((robotSquare.toInt() == tileEnums.TBreakableBL.toInt()) && (((!robotSquareActive) && (direction == 2)) || (direction != 2))) ||
 				((robotSquare.toInt() == tileEnums.TBreakableBR.toInt()) && (((!robotSquareActive) && (direction == 1)) || (direction != 1))) ||
-				 (robotSquare.toInt() == tileEnums.TSolid.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TBreakable.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TStart.toInt()) ||
-				 (robotSquare.toInt() == tileEnums.TEnd.toInt()) ||
-				((robotSquare.toInt() == tileEnums.TDoorTL.toInt()) && (((direction == 3) && (!robotSquareActive)) || (direction != 3))) ||
-				((robotSquare.toInt() == tileEnums.TDoorTR.toInt()) && (((direction == 0) && (!robotSquareActive)) || (direction != 0))) ||
-				((robotSquare.toInt() == tileEnums.TDoorBL.toInt()) && (((direction == 2) && (!robotSquareActive)) || (direction != 2))) ||
-				((robotSquare.toInt() == tileEnums.TDoorBR.toInt()) && (((direction == 1) && (!robotSquareActive)) || (direction != 1))) ||
-				((robotSquare.toInt() == tileEnums.TTutorial.toInt())))
+				(robotSquare.toInt() == tileEnums.TSolid.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TBreakable.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TStart.toInt()) ||
+				(robotSquare.toInt() == tileEnums.TEnd.toInt()) ||
+				( (robotSquare.toInt() == tileEnums.TDoorTL.toInt()) && (((direction == 3) && (!robotSquareActive)) || (direction != 3))) ||
+				( (robotSquare.toInt() == tileEnums.TDoorTR.toInt()) && (((direction == 0) && (!robotSquareActive)) || (direction != 0))) ||
+				( (robotSquare.toInt() == tileEnums.TDoorBL.toInt()) && (((direction == 2) && (!robotSquareActive)) || (direction != 2))) ||
+				( (robotSquare.toInt() == tileEnums.TDoorBR.toInt()) && (((direction == 1) && (!robotSquareActive)) || (direction != 1))) ||
+				( (robotSquare.toInt() == tileEnums.TTutorial.toInt())))
 			{
 				return true;
 			}
@@ -1712,9 +1745,28 @@
 		
 		public function RCjumpRobotForward()
 		{
+			// set all jump boolean variables to false
+			myGameVar.robotJumpSuccessBR = false;
+			myGameVar.robotJumpSuccessBL = false;
+			myGameVar.robotJumpSuccessTR = false;
+			myGameVar.robotJumpSuccessTL = false;
+			myGameVar.robotJumpFailCloseBR = false;
+			myGameVar.robotJumpFailCloseBL = false;
+			myGameVar.robotJumpFailCloseTR = false;
+			myGameVar.robotJumpFailCloseTL = false;
+			myGameVar.robotJumpFailFarBR = false;
+			myGameVar.robotJumpFailFarBL = false;
+			myGameVar.robotJumpFailFarTR = false;
+			myGameVar.robotJumpFailFarTL = false;
+			
 			var distanceToMove:int = 2;
 
 			var robotDirection:int = myRobot.getDirection();
+			
+			// set both boolean variables to true, which won't trigger function call to reset 
+			// the position of the robot in the update function
+			areYouJumping = true;
+			haveYouStartedJumping = true;
 
 			// lets see if we are going to die attempting to leave this squiare
 			if(RCwillRobotDieTryingToLeaveSquare(robotDirection))
@@ -1731,6 +1783,21 @@
 			{
 				// no we can't leave
 				myGameVar.SSoundTileSolidHit.play();
+				switch(robotDirection)
+				{
+					case 0: // top right
+						myGameVar.robotJumpFailCloseTR = true;
+						break;
+					case 1: // bottom right
+						myGameVar.robotJumpFailCloseBR = true;
+						break;
+					case 2: // bottom left
+						myGameVar.robotJumpFailCloseBL = true;
+						break;
+					case 3: // top left
+						myGameVar.robotJumpFailCloseTL = true;
+						break;
+				}
 				return;
 			}
 
@@ -1743,6 +1810,21 @@
 				{
 					// no we can't even move forward 1 square, you're screwed, stay put
 					myGameVar.SSoundTileSolidHit.play();
+					switch(robotDirection)
+					{
+						case 0: // top right
+							myGameVar.robotJumpFailCloseTR = true;
+							break;
+						case 1: // bottom right
+							myGameVar.robotJumpFailCloseBR = true;
+							break;
+						case 2: // bottom left
+							myGameVar.robotJumpFailCloseBL = true;
+							break;
+						case 3: // top left
+							myGameVar.robotJumpFailCloseTL = true;
+							break;
+					}
 					return;
 				}
 				else
@@ -1759,6 +1841,21 @@
 				{
 					// nope we cannot even move out of this square, we'll just have to stay put
 					myGameVar.SSoundTileSolidHit.play();
+					switch(robotDirection)
+					{
+						case 0: // top right
+							myGameVar.robotJumpFailCloseTR = true;
+							break;
+						case 1: // bottom right
+							myGameVar.robotJumpFailCloseBR = true;
+							break;
+						case 2: // bottom left
+							myGameVar.robotJumpFailCloseBL = true;
+							break;
+						case 3: // top left
+							myGameVar.robotJumpFailCloseTL = true;
+							break;
+					}
 					return;
 				}
 				
@@ -1794,6 +1891,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 						}
@@ -1803,6 +1915,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 							
@@ -1821,6 +1948,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 						}
@@ -1830,6 +1972,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 							
@@ -1848,6 +2005,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 						}
@@ -1857,6 +2029,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 							
@@ -1875,6 +2062,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 						}
@@ -1884,6 +2086,21 @@
 						{
 							// play a solid hit sound
 							myGameVar.SSoundTileSolidHit.play();
+							switch(robotDirection)
+							{
+								case 0: // top right
+									myGameVar.robotJumpFailFarTR = true;
+									break;
+								case 1: // bottom right
+									myGameVar.robotJumpFailFarBR = true;
+									break;
+								case 2: // bottom left
+									myGameVar.robotJumpFailFarBL = true;
+									break;
+								case 3: // top left
+									myGameVar.robotJumpFailFarTL = true;
+									break;
+							}
 							// set distance to move to 1
 							distanceToMove = 1;
 							
@@ -1904,8 +2121,8 @@
 			// square, or can jump forward 1 square, at least we're not dead.. yet
 			// lets do the jump and see what happens!
 
-			var destX:int = robotX;
-			var destY:int = robotY;
+			destX = robotX;
+			destY = robotY;
 			switch(robotDirection)
 			{
 			case 0:// facing up/right (up on map)
@@ -1921,15 +2138,61 @@
 				destX = robotX - distanceToMove;
 				break;
 			}
-			if( (destX >=0) && (destX < Width) )
-				robotX = destX;
-			if( (destY >=0) && (destY < Height) )
-				robotY = destY;
-
-			myRobot.setXPos(robotX);
-			myRobot.setYPos(robotY);
 			
-			myGameVar.SSoundJump.play();
+			if (distanceToMove == 1)
+			{
+				switch(robotDirection)
+				{
+					case 0: // top right
+						myGameVar.robotJumpFailFarTR = true;
+						break;
+					case 1: // bottom right
+						myGameVar.robotJumpFailFarBR = true;
+						break;
+					case 2: // bottom left
+						myGameVar.robotJumpFailFarBL = true;
+						break;
+					case 3: // top left
+						myGameVar.robotJumpFailFarTL = true;
+						break;
+				}
+			}
+			else
+			{
+				switch(robotDirection)
+				{
+					case 0: // top right
+						myGameVar.robotJumpSuccessTR = true;
+						break;
+					case 1: // bottom right
+						myGameVar.robotJumpSuccessBR = true;
+						break;
+					case 2: // bottom left
+						myGameVar.robotJumpSuccessBL = true;
+						break;
+					case 3: // top left
+						myGameVar.robotJumpSuccessBR = true;
+						break;
+				}
+			}
+
+			
+			// now that we've set the boolean variables based on if/how far we can jump
+			setRobotJumpAnimation(destX, destY, distanceToMove, robotDirection); //zzz
+			
+			//previously done here, now done in the function above
+			// |
+			// |
+			// v
+			//if( (destX >=0) && (destX < Width) )
+				//robotX = destX;
+			//if( (destY >=0) && (destY < Height) )
+				//robotY = destY;
+			//
+			//myRobot.setXPos(robotX);
+			//myRobot.setYPos(robotY);
+			
+			
 			
 			// now that we've moved forward
 			// lets see if we're about to die
@@ -2243,7 +2506,6 @@
 
 			//int sx;
 			//int sy;
-			var switchArtToggled:Boolean = false;
 
 			if((robotSquare.toInt() == tileEnums.TSwitch.toInt()) ||
 			   ((robotSquare.toInt() == tileEnums.TSwitchTR.toInt()) && (robotDirection == 0)) ||
@@ -2257,11 +2519,7 @@
 				{
 					// if there is, lets set the happy go lucky bool in gameboard to true
 					switchInProgress = true;
-					if (!switchArtToggled)
-					{
-						mapList[robotX][robotY].toggleActive();
-						switchArtToggled = true;
-					}
+					mapList[robotX][robotY].toggleActive();
 					myGameVar.SM.startProcessing(robotX, robotY);
 				}
 				// lets also check to see if there's a dswitch at our spot
@@ -2272,17 +2530,6 @@
 					DswitchInProgress = true;
 					mapList[robotX][robotY].toggleActive();
 					myGameVar.SMD.startProcessing(robotX, robotY);
-					if (!switchArtToggled)
-					{
-						mapList[robotX][robotY].toggleActive();
-						switchArtToggled = true;
-					}
-				}
-				
-				if (!switchArtToggled)
-				{
-					mapList[robotX][robotY].toggleActive();
-					switchArtToggled = true;
 				}
 			}
 
@@ -2981,13 +3228,13 @@
 			// delete the foregorund tiles
 			if (mapListImagesForeground.length > 0)
 			{
-				for (var xx:int = 0; xx < mapListImagesForeground.length; xx++)
+				for (var xxx:int = 0; xxx < mapListImagesForeground.length; xxx++)
 				{
-					if (mapListImagesForeground[xx].length > 0)
+					if (mapListImagesForeground[xxx].length > 0)
 					{
-						for (var yy:int = 0; yy < mapListImagesForeground[xx].length; yy++)
+						for (var yyy:int = 0; yyy < mapListImagesForeground[xxx].length; yyy++)
 						{
-							delete(mapListImagesForeground[xx][yy]);
+							delete(mapListImagesForeground[xxx][yyy]);
 						}
 					}
 				}
@@ -3514,11 +3761,33 @@
 		
 		private function reInjectRobotImage()
 		{
-			myMap.setChildIndex(myRobotImage, robotX + (Width * robotY) +1 );
+			myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
 			//trace("Robot at index ", myMap.getChildIndex(myRobotImage));
 			
 			//myMap.removeChild(myRobotImage);
 			//myMap.addChildAt(myRobotImage, robotX + (Width * robotY));
+		}		
+		
+		private function injectJumpAnimation(direction:int)
+		{
+			var dir:int = direction;
+			
+			switch(dir)
+			{
+				case 0:
+					//((((
+					myMap.setChildIndex(jumpAnimation, (robotX * 2) + 2 + (Width * (robotY * 2)) + 1);
+					break;
+				case 1:
+				
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+					break;
+			}
 		}
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
@@ -3623,8 +3892,8 @@
 			howDidTheRobotDie();
 			
 			// lets get rid of the living robot
+			// ***why do we have a temp movie clip here that's not being used?
 			var tempClip:MovieClip;
-			
 			if (myRobotImage.numChildren > 0)
 			{
 				myRobotImage.removeChildAt(0);
@@ -3636,7 +3905,6 @@
 				if (!myRobotImage.contains(diedElectricity))
 				{
 					myRobotImage.addChild(diedElectricity);
-					diedElectricity.electricAnimation.gotoAndPlay(0);
 				}
 			}
 			else if (myGameVar.robotDiedGap)
@@ -3660,22 +3928,255 @@
 				// somehow its dead but didn't die from anything
 				trace("ROBOT DIED FROM NOTHING");
 			}
-			//reInjectRobotImage();
-			
-			myMap.setChildIndex(myRobotImage, myMap.numChildren - 1);
-			
+			reInjectRobotImage();
 			update();
 		}
 		
-		public function zoomToMax()
+		public function setRobotJumpAnimation(x:int, y:int, distance:int, direction:int)
+		{	
+			// localize the incoming variables
+			var jumpToX:int = x;
+			var jumpToY:int = y;
+			var jumpDistance:int = distance;
+			var jumpDirection:int = direction;
+			
+			// clear our any previous images
+			//if (myRobotImage.numChildren > 0)
+			//{
+				//myRobotImage.removeChildAt(0);
+			//}//zzz
+			if (myMap.contains(myRobotImage))
+			{
+				myMap.removeChild(myRobotImage);
+			}
+			
+			// directions 
+			// 0 - top right
+			// 1 - bottom right
+			// 2 - bottom left
+			// 3 - top left
+			
+			// set the animation based off of the outcome of the jump which should be 
+			// based on the direction the robot was facing when he jumps and if he
+			// encountered any obstacles along the way. sorry for the mess
+			
+			switch(jumpDirection)
+			{
+				case 0:
+					if (myGameVar.robotJumpSuccessTR)
+					{
+						// if the success animation does not exist
+						if (!myRobotImage.contains(jumpSuccessTR))//zzz
+						{
+							// set the position of the animation movie clip
+							jumpSuccessTR.x = myRobot.x;
+							jumpSuccessTR.y = myRobot.y - (myRobot.height / 2);
+							// add it
+							myRobotImage.addChild(jumpSuccessTR);
+							jumpAnimation = jumpSuccessTR;
+						}
+					}
+					else if (myGameVar.robotJumpFailCloseTR)
+					{
+						// if the fail close animation does not exist
+						if (!myRobotImage.contains(jumpFailCloseTR))
+						{
+							// set the position of the animation movie clip
+							jumpFailCloseTR.x = myRobot.x;
+							jumpFailCloseTR.y = myRobot.y - (myRobot.height / 2);
+							// add it
+							myRobotImage.addChild(jumpFailCloseTR);
+							jumpAnimation = jumpSuccessTR;
+						}
+					}
+					else if (myGameVar.robotJumpFailFarTR)
+					{
+						// if the fail far animation does not exist
+						if (!myRobotImage.contains(jumpFailFarTR))
+						{
+							// set the position of the animation movie clip
+							jumpFailFarTR.x = myRobot.x;
+							jumpFailFarTR.y = myRobot.y - (myRobot.height / 2);
+							// add it
+							myRobotImage.addChild(jumpFailFarTR);	
+							jumpAnimation = jumpSuccessTR;
+						}
+					}
+					break;
+				case 1:
+					if (myGameVar.robotJumpSuccessBR)
+					{
+						// if the success animation does not exist
+						if (!myRobotImage.contains(jumpSuccessBR))
+						{
+							// set the position of the animation movie clip
+							jumpSuccessBR.x = myRobot.x;
+							jumpSuccessBR.y = myRobot.y;
+							// add it
+							myRobotImage.addChild(jumpSuccessBR);	
+							jumpAnimation = jumpSuccessBR;
+						}
+					}
+					else if (myGameVar.robotJumpFailCloseBR)
+					{
+						// if the fail close animation does not exist
+						if (!myRobotImage.contains(jumpFailCloseBR))
+						{
+							// set the position of the animation movie clip
+							jumpFailCloseBR.x = myRobot.x;
+							jumpFailCloseBR.y = myRobot.y;
+							// add it
+							myRobotImage.addChild(jumpFailCloseBR);	
+							jumpAnimation = jumpSuccessBR;
+						}
+					}
+					else if (myGameVar.robotJumpFailFarBR)
+					{
+						// if the fail far animation does not exist
+						if (!myRobotImage.contains(jumpFailFarBR))
+						{
+							// set the position of the animation movie clip
+							jumpFailFarBR.x = myRobot.x;
+							jumpFailFarBR.y = myRobot.y;
+							// add it
+							myRobotImage.addChild(jumpFailFarBR);	
+							jumpAnimation = jumpSuccessBR;
+						}
+					}
+					break;
+				case 2:
+					if (myGameVar.robotJumpSuccessBL)
+					{
+						// if the success animation does not exist
+						if (!myRobotImage.contains(jumpSuccessBL))
+						{
+							// set the position of the animation movie clip
+							jumpSuccessBL.x = myRobot.x - width;
+							jumpSuccessBL.y = myRobot.y;
+							// add it
+							myRobotImage.addChild(jumpSuccessBL);	
+							jumpAnimation = jumpSuccessBL;
+						}
+					}
+					else if (myGameVar.robotJumpFailCloseBL)
+					{
+						// if the fail close animation does not exist
+						if (!myRobotImage.contains(jumpFailCloseBL))
+						{
+							// set the position of the animation movie clip
+							jumpFailCloseBL.x = myRobot.x - width;
+							jumpFailCloseBL.y = myRobot.y;
+							// add it
+							myRobotImage.addChild(jumpFailCloseBL);	
+							jumpAnimation = jumpSuccessBL;
+						}
+					}
+					else if (myGameVar.robotJumpFailFarBL)
+					{
+						// if the fail far animation does not exist
+						if (!myRobotImage.contains(jumpFailFarBL))
+						{
+							// set the position of the animation movie clip
+							jumpFailFarBL.x = myRobot.x - width;
+							jumpFailFarBL.y = myRobot.y;
+							// add it
+							myRobotImage.addChild(jumpFailFarBL);	
+							jumpAnimation = jumpSuccessBL;
+						}
+					}
+					break;
+				case 3:
+					if (myGameVar.robotJumpSuccessTL)
+					{
+						// if the success animation does not exist
+						if (!myRobotImage.contains(jumpSuccessTL))
+						{
+							// set the position of the animation movie clip
+							jumpSuccessTL.x = myRobot.x - myRobot.width;
+							jumpSuccessTL.y = myRobot.y - (myRobot.height / 2);
+							// add it
+							myRobotImage.addChild(jumpSuccessTL);	
+							jumpAnimation = jumpSuccessTL;
+						}
+					}
+					else if (myGameVar.robotJumpFailCloseTL)
+					{
+						// if the fail close animation does not exist
+						if (!myRobotImage.contains(jumpFailCloseTL))
+						{
+							// set the position of the animation movie clip
+							jumpFailCloseTL.x = myRobot.x - myRobot.width;
+							jumpFailCloseTL.y = myRobot.y - (myRobot.height / 2);
+							// add it
+							myRobotImage.addChild(jumpFailCloseTL);
+							jumpAnimation = jumpSuccessTL;
+						}
+					}
+					else if (myGameVar.robotJumpFailFarTL)
+					{
+						// if the fail far animation does not exist
+						if (!myRobotImage.contains(jumpFailFarTL))
+						{
+							// set the position of the animation movie clip
+							jumpFailFarTL.x = myRobot.x - myRobot.width;
+							jumpFailFarTL.y = myRobot.y - (myRobot.height / 2);
+							// add it
+							myRobotImage.addChild(jumpFailFarTL);
+							jumpAnimation = jumpSuccessTL;
+						}
+					}
+					break;
+			}
+			
+			jumpAnimation.width = myRobot.width * 2;
+			jumpAnimation.height = myRobot.height + (myRobot.height / 2);
+			
+			myGameVar.SSoundJump.play();
+			injectJumpAnimation(jumpDirection);
+					
+		}
+		
+		public function setRobotPositionAfterJump()
 		{
-			scale = maxScale;
+			if( (destX >=0) && (destX < Width) )
+				robotX = destX;
+			if( (destY >=0) && (destY < Height) )
+				robotY = destY;
+			
+			myRobot.setXPos(robotX);
+			myRobot.setYPos(robotY);
+			
+			myMap.addChild(myRobotImage);
+			
+			reInjectRobotImage();
+			//update();
+			
+			// set both booleans back to false, so neither the counter function or this
+			// function get called again
+			areYouJumping = false;
+			haveYouStartedJumping = false;
+		}
+		
+		public function jumpAnimationCounter()
+		{
+			// if certain animation count has been reached, set are you jumping to false, 
+			// which will call the function to set the robots position after the jump 
+			
+			// ****if statement needed here to count animation frames
+			if (jumpAnimation.animation.currentFrame == 30)
+			{
+				areYouJumping = false;
+				if (myMap.contains(jumpAnimation))
+				{
+					myMap.removeChild(jumpAnimation);
+				}
+			}
 		}
 		
 		public function resetRobotImage()
 		{
-			//setRobotImage(myRobot.getDirection());
-			//reInjectRobotImage();
+			setRobotImage(myRobot.getDirection());
+			reInjectRobotImage();
 		}
 		
 		public function zoomToHeight(newHeight:Number)
@@ -3716,6 +4217,11 @@
 		{
 			myMap.x = xPos;
 			myMap.y = yPos;
+		}
+		
+		public function zoomToMax()
+		{
+			scale = maxScale;
 		}
 		
 		///////////// functions start before this
