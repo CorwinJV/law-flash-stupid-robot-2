@@ -652,6 +652,10 @@
 			tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "additionalContent/maps/testMap1orig.txt");
 			levelList.push(tempLevel);
 			
+			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
 			tempLevel = new levelData("Needle in a Haystack", "Only one will open your path.", "additionalContent/maps/Needleinahaystack.txt");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
