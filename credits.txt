@@ -86,6 +86,9 @@ What's QA??
 "I blame Dave."
              - Dana
 
+"What do you mean there's no changes? When did I commit this?"
+             - Tom
+
 
 Special Thanks to...
 Caffeine

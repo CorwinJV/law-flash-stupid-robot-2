@@ -3771,11 +3771,14 @@
 		
 		private function reInjectRobotImage()
 		{
-			if (myMap.contains(myRobotImage))
+			if (!isAnimationOcurring && isAnimationDone)
 			{
-				myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
+				if (myMap.contains(myRobotImage))
+				{
+					myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
+				}
+				trace("reInjectRobotImage - Robot at index ", myMap.getChildIndex(myRobotImage));
 			}
-			//trace("Robot at index ", myMap.getChildIndex(myRobotImage));
 			
 			//myMap.removeChild(myRobotImage);
 			//myMap.addChildAt(myRobotImage, robotX + (Width * robotY));
