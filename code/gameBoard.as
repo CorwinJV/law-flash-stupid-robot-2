@@ -135,6 +135,8 @@
 		var tutorialTileHit:Boolean;
 		var areYouJumping:Boolean;
 		var haveYouStartedJumping:Boolean;
+		var isAnimationOcurring:Boolean;
+		var isAnimationDone:Boolean;
 		
 		var curState:GameBoardStateEnum;
 		var processSpeed:int;
@@ -484,6 +486,9 @@
 
 			reprogramHit = false;
 			tutorialTileHit = false;
+			
+			isAnimationDone = true;
+			isAnimationOcurring = false;
 		}
 		
 		public function cleanup()
@@ -1503,17 +1508,20 @@
 				//trace("Populating map");
 				populateMapImages();
 				
-				if (this.curState.toInt() == GameBoardStateEnum.GB_EXECUTION.toInt())
+				if ((!isAnimationOcurring) && (isAnimationDone))
 				{
-					//trace("Attempting to query speed");
-					var i:int = this.processSpeed;
-					
-					//trace(i);
-					//trace("Starting timer at " + i + " time.");
-					executionCycleTimer = new Timer(i, 1);
-					executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
-					executionCycleTimer.start();
-					//trace("Started.");
+					if (this.curState.toInt() == GameBoardStateEnum.GB_EXECUTION.toInt())
+					{
+						//trace("Attempting to query speed");
+						var i:int = this.processSpeed;
+						
+						//trace(i);
+						//trace("Starting timer at " + i + " time.");
+						executionCycleTimer = new Timer(i, 1);
+						executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
+						executionCycleTimer.start();
+						//trace("Started.");
+					}
 				}
 			}
 		}
@@ -2179,6 +2187,8 @@
 			
 			// now that we've set the boolean variables based on if/how far we can jump
 			setRobotJumpAnimation(destX, destY, distanceToMove, robotDirection); //zzz
+			isAnimationOcurring = true;
+			isAnimationDone = false;
 			
 			//previously done here, now done in the function above
 			// |
@@ -3761,7 +3771,10 @@
 		
 		private function reInjectRobotImage()
 		{
-			myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
+			if (myMap.contains(myRobotImage))
+			{
+				myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
+			}
 			//trace("Robot at index ", myMap.getChildIndex(myRobotImage));
 			
 			//myMap.removeChild(myRobotImage);
@@ -3771,6 +3784,11 @@
 		private function injectJumpAnimation(direction:int)
 		{
 			var dir:int = direction;
+			
+			if (!myMap.contains(jumpAnimation))
+			{
+				myMap.addChild(jumpAnimation);
+			}
 			
 			switch(dir)
 			{
@@ -3788,6 +3806,7 @@
 					
 					break;
 			}
+			jumpAnimation.animation.gotoAndPlay(0);
 		}
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
@@ -4170,6 +4189,22 @@
 				{
 					myMap.removeChild(jumpAnimation);
 				}
+				if (!myMap.contains(myRobotImage))
+				{
+					myMap.addChild(myRobotImage);
+					reInjectRobotImage();
+				}
+				isAnimationDone = true;
+				isAnimationOcurring = false;
+			
+				var i:int = this.processSpeed;
+				
+				//trace(i);
+				//trace("Starting timer at " + i + " time.");
+				executionCycleTimer = new Timer(i, 1);
+				executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
+				executionCycleTimer.start();
+				//trace("Started.");
 			}
 		}
 		
