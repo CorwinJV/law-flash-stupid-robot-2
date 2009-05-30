@@ -150,18 +150,18 @@
 		var diedWater = new robotDiedWater();
 		
 		// jump animation variables
-		var jumpSuccessBR = new robotJumpSuccessBR();
-		var jumpSuccessBL = new robotJumpSuccessBL();
-		var jumpSuccessTR = new robotJumpSuccessTR();
-		var jumpSuccessTL = new robotJumpSuccessTL();
-		var jumpFailFarBR = new robotJumpFailFarBR();
-		var jumpFailFarBL = new robotJumpFailFarBL();
-		var jumpFailFarTR = new robotJumpFailFarTR();
-		var jumpFailFarTL = new robotJumpFailFarTL();
-		var jumpFailCloseBR = new robotJumpFailCloseBR();
-		var jumpFailCloseBL = new robotJumpFailCloseBL();
-		var jumpFailCloseTR = new robotJumpFailCloseTR();
-		var jumpFailCloseTL = new robotJumpFailCloseTL();
+		var jumpSuccessBR:MovieClip = new robotJumpSuccessBR();
+		var jumpSuccessBL:MovieClip = new robotJumpSuccessBL();
+		var jumpSuccessTR:MovieClip = new robotJumpSuccessTR();
+		var jumpSuccessTL:MovieClip = new robotJumpSuccessTL();
+		var jumpFailFarBR:MovieClip = new robotJumpFailFarBR();
+		var jumpFailFarBL:MovieClip = new robotJumpFailFarBL();
+		var jumpFailFarTR:MovieClip = new robotJumpFailFarTR();
+		var jumpFailFarTL:MovieClip = new robotJumpFailFarTL();
+		var jumpFailCloseBR:MovieClip = new robotJumpFailCloseBR();
+		var jumpFailCloseBL:MovieClip = new robotJumpFailCloseBL();
+		var jumpFailCloseTR:MovieClip = new robotJumpFailCloseTR();
+		var jumpFailCloseTL:MovieClip = new robotJumpFailCloseTL();
 		
 		public function gameBoard() 
 		{
@@ -3740,32 +3740,36 @@
 		
 		private function rebuildMapClip()
 		{
-			var something:int = myMap.numChildren;
-			
-			for (var x:int = 0; x < something; x++)
+			if (!isAnimationOcurring && isAnimationDone)
 			{
-				myMap.removeChildAt(0);
-			}
-			
-			// add all the children to the mapclip
-			//trace ("Rebuild map of size ", Width, Height);
-			for (y = 0; y < Height; y++)
-			{
-				for (x = 0; x < Width; x++)
+				var something:int = myMap.numChildren;
+				
+				for (var x:int = 0; x < something; x++)
 				{
-					// add background tile images here
-					myMap.addChild(mapListImages[x][y]);
-					// if the robot is at this position, add it
-					if ((x == robotX) && (y == robotY))
-					{
-						setRobotImage(myRobot.getDirection());
-						myMap.addChild(myRobotImage);
-					}
-					// add foreground tile images here
-					myMap.addChild(mapListImagesForeground[x][y]);
+					myMap.removeChildAt(0);
 				}
+				
+				// add all the children to the mapclip
+				//trace ("Rebuild map of size ", Width, Height);
+				for (y = 0; y < Height; y++)
+				{
+					for (x = 0; x < Width; x++)
+					{
+						// add background tile images here
+						myMap.addChild(mapListImages[x][y]);
+						// if the robot is at this position, add it
+						if ((x == robotX) && (y == robotY))
+						{
+							setRobotImage(myRobot.getDirection());
+							trace("inside of rebuildmapclicp - adding myrobotimage");
+							myMap.addChild(myRobotImage);
+						}
+						// add foreground tile images here
+						myMap.addChild(mapListImagesForeground[x][y]);
+					}
+				}
+				draw();
 			}
-			draw();
 		}
 		
 		private function toggleAllMapTiles()
@@ -3802,11 +3806,13 @@
 			
 			if (myMap.contains(myRobotImage))
 			{
+				trace("inside of inject jump animation - nuking myrobotimage");
 				myMap.removeChild(myRobotImage);
 			}
 			
 			if (!myMap.contains(jumpAnimation))
 			{
+				trace("adding jump animation at x/y", jumpAnimation.x, ", ", jumpAnimation.y);
 				myMap.addChild(jumpAnimation);
 			}
 			
@@ -3815,6 +3821,7 @@
 				case 0:
 					//((((
 					myMap.setChildIndex(jumpAnimation, (robotX * 2) + 2 + (Width * (robotY * 2)) + 1);
+					myMap.setChildIndex(jumpAnimation, myMap.numChildren - 1);
 					break;
 				case 1:
 				
@@ -3986,6 +3993,7 @@
 			//}//zzz
 			if (myMap.contains(myRobotImage))
 			{
+				trace("inside setrobotjumpanimation - nuking myrobotimage");
 				myMap.removeChild(myRobotImage);
 			}
 			
@@ -4005,39 +4013,36 @@
 					if (myGameVar.robotJumpSuccessTR)
 					{
 						// if the success animation does not exist
-						if (!myRobotImage.contains(jumpSuccessTR))//zzz
+						if (!myMap.contains(jumpSuccessTR))//zzz
 						{
 							// set the position of the animation movie clip
 							jumpSuccessTR.x = myRobot.x;
 							jumpSuccessTR.y = myRobot.y - (myRobot.height / 2);
 							// add it
-							myRobotImage.addChild(jumpSuccessTR);
 							jumpAnimation = jumpSuccessTR;
 						}
 					}
 					else if (myGameVar.robotJumpFailCloseTR)
 					{
 						// if the fail close animation does not exist
-						if (!myRobotImage.contains(jumpFailCloseTR))
+						if (!myMap.contains(jumpFailCloseTR))
 						{
 							// set the position of the animation movie clip
 							jumpFailCloseTR.x = myRobot.x;
 							jumpFailCloseTR.y = myRobot.y - (myRobot.height / 2);
 							// add it
-							myRobotImage.addChild(jumpFailCloseTR);
 							jumpAnimation = jumpSuccessTR;
 						}
 					}
 					else if (myGameVar.robotJumpFailFarTR)
 					{
 						// if the fail far animation does not exist
-						if (!myRobotImage.contains(jumpFailFarTR))
+						if (!myMap.contains(jumpFailFarTR))
 						{
 							// set the position of the animation movie clip
 							jumpFailFarTR.x = myRobot.x;
 							jumpFailFarTR.y = myRobot.y - (myRobot.height / 2);
-							// add it
-							myRobotImage.addChild(jumpFailFarTR);	
+							// add it	
 							jumpAnimation = jumpSuccessTR;
 						}
 					}
@@ -4046,39 +4051,36 @@
 					if (myGameVar.robotJumpSuccessBR)
 					{
 						// if the success animation does not exist
-						if (!myRobotImage.contains(jumpSuccessBR))
+						if (!myMap.contains(jumpSuccessBR))
 						{
 							// set the position of the animation movie clip
 							jumpSuccessBR.x = myRobot.x;
 							jumpSuccessBR.y = myRobot.y;
 							// add it
-							myRobotImage.addChild(jumpSuccessBR);	
 							jumpAnimation = jumpSuccessBR;
 						}
 					}
 					else if (myGameVar.robotJumpFailCloseBR)
 					{
 						// if the fail close animation does not exist
-						if (!myRobotImage.contains(jumpFailCloseBR))
+						if (!myMap.contains(jumpFailCloseBR))
 						{
 							// set the position of the animation movie clip
 							jumpFailCloseBR.x = myRobot.x;
 							jumpFailCloseBR.y = myRobot.y;
-							// add it
-							myRobotImage.addChild(jumpFailCloseBR);	
+							// add it	
 							jumpAnimation = jumpSuccessBR;
 						}
 					}
 					else if (myGameVar.robotJumpFailFarBR)
 					{
 						// if the fail far animation does not exist
-						if (!myRobotImage.contains(jumpFailFarBR))
+						if (!myMap.contains(jumpFailFarBR))
 						{
 							// set the position of the animation movie clip
 							jumpFailFarBR.x = myRobot.x;
 							jumpFailFarBR.y = myRobot.y;
 							// add it
-							myRobotImage.addChild(jumpFailFarBR);	
 							jumpAnimation = jumpSuccessBR;
 						}
 					}
@@ -4087,39 +4089,36 @@
 					if (myGameVar.robotJumpSuccessBL)
 					{
 						// if the success animation does not exist
-						if (!myRobotImage.contains(jumpSuccessBL))
+						if (!myMap.contains(jumpSuccessBL))
 						{
 							// set the position of the animation movie clip
 							jumpSuccessBL.x = myRobot.x - width;
 							jumpSuccessBL.y = myRobot.y;
 							// add it
-							myRobotImage.addChild(jumpSuccessBL);	
 							jumpAnimation = jumpSuccessBL;
 						}
 					}
 					else if (myGameVar.robotJumpFailCloseBL)
 					{
 						// if the fail close animation does not exist
-						if (!myRobotImage.contains(jumpFailCloseBL))
+						if (!myMap.contains(jumpFailCloseBL))
 						{
 							// set the position of the animation movie clip
 							jumpFailCloseBL.x = myRobot.x - width;
 							jumpFailCloseBL.y = myRobot.y;
-							// add it
-							myRobotImage.addChild(jumpFailCloseBL);	
+							// add it	
 							jumpAnimation = jumpSuccessBL;
 						}
 					}
 					else if (myGameVar.robotJumpFailFarBL)
 					{
 						// if the fail far animation does not exist
-						if (!myRobotImage.contains(jumpFailFarBL))
+						if (!myMap.contains(jumpFailFarBL))
 						{
 							// set the position of the animation movie clip
 							jumpFailFarBL.x = myRobot.x - width;
 							jumpFailFarBL.y = myRobot.y;
 							// add it
-							myRobotImage.addChild(jumpFailFarBL);	
 							jumpAnimation = jumpSuccessBL;
 						}
 					}
@@ -4128,39 +4127,36 @@
 					if (myGameVar.robotJumpSuccessTL)
 					{
 						// if the success animation does not exist
-						if (!myRobotImage.contains(jumpSuccessTL))
+						if (!myMap.contains(jumpSuccessTL))
 						{
 							// set the position of the animation movie clip
 							jumpSuccessTL.x = myRobot.x - myRobot.width;
 							jumpSuccessTL.y = myRobot.y - (myRobot.height / 2);
 							// add it
-							myRobotImage.addChild(jumpSuccessTL);	
 							jumpAnimation = jumpSuccessTL;
 						}
 					}
 					else if (myGameVar.robotJumpFailCloseTL)
 					{
 						// if the fail close animation does not exist
-						if (!myRobotImage.contains(jumpFailCloseTL))
+						if (!myMap.contains(jumpFailCloseTL))
 						{
 							// set the position of the animation movie clip
 							jumpFailCloseTL.x = myRobot.x - myRobot.width;
 							jumpFailCloseTL.y = myRobot.y - (myRobot.height / 2);
 							// add it
-							myRobotImage.addChild(jumpFailCloseTL);
 							jumpAnimation = jumpSuccessTL;
 						}
 					}
 					else if (myGameVar.robotJumpFailFarTL)
 					{
 						// if the fail far animation does not exist
-						if (!myRobotImage.contains(jumpFailFarTL))
+						if (!myMap.contains(jumpFailFarTL))
 						{
 							// set the position of the animation movie clip
 							jumpFailFarTL.x = myRobot.x - myRobot.width;
 							jumpFailFarTL.y = myRobot.y - (myRobot.height / 2);
 							// add it
-							myRobotImage.addChild(jumpFailFarTL);
 							jumpAnimation = jumpSuccessTL;
 						}
 					}
@@ -4185,6 +4181,7 @@
 			myRobot.setXPos(robotX);
 			myRobot.setYPos(robotY);
 			
+			trace("inside of setrobotpositionafterjump - adding myrobotimage");
 			myMap.addChild(myRobotImage);
 			
 			reInjectRobotImage();
@@ -4211,6 +4208,7 @@
 				}
 				if (!myMap.contains(myRobotImage))
 				{
+					("inside of jumpanimationcounter - adding myrobotimage");
 					myMap.addChild(myRobotImage);
 					reInjectRobotImage();
 				}
