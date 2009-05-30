@@ -3785,6 +3785,11 @@
 		{
 			var dir:int = direction;
 			
+			if (myMap.contains(myRobotImage))
+			{
+				myMap.removeChild(myRobotImage);
+			}
+			
 			if (!myMap.contains(jumpAnimation))
 			{
 				myMap.addChild(jumpAnimation);
