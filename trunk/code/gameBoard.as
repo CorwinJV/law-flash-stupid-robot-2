@@ -4012,159 +4012,114 @@
 				case 0:
 					if (myGameVar.robotJumpSuccessTR)
 					{
-						// if the success animation does not exist
-						// set the position of the animation movie clip
 						jumpAnimation = jumpSuccessTR;
-						jumpAnimation.x = myRobot.x;
-						jumpAnimation.y = myRobot.y - (myRobot.height / 2);						
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x;
+						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
+						// add it
 					}
 					else if (myGameVar.robotJumpFailCloseTR)
 					{
-						// if the fail close animation does not exist
-						if (!myMap.contains(jumpFailCloseTR))
-						{
-							// set the position of the animation movie clip
-							jumpFailCloseTR.x = myRobot.x;
-							jumpFailCloseTR.y = myRobot.y - (myRobot.height / 2);
-							// add it
-							jumpAnimation = jumpSuccessTR;
-						}
+						jumpAnimation = jumpFailCloseTR;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x;
+						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
+						// add it						
 					}
 					else if (myGameVar.robotJumpFailFarTR)
 					{
-						// if the fail far animation does not exist
-						if (!myMap.contains(jumpFailFarTR))
-						{
-							// set the position of the animation movie clip
-							jumpFailFarTR.x = myRobot.x;
-							jumpFailFarTR.y = myRobot.y - (myRobot.height / 2);
-							// add it	
-							jumpAnimation = jumpSuccessTR;
-						}
+						// add it	
+						jumpAnimation = jumpFailFarTR;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x;
+						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
 					}
 					break;
 				case 1:
 					if (myGameVar.robotJumpSuccessBR)
 					{
-						// if the success animation does not exist
-						if (!myMap.contains(jumpSuccessBR))
-						{
-							// set the position of the animation movie clip
-							jumpSuccessBR.x = myRobot.x;
-							jumpSuccessBR.y = myRobot.y;
-							// add it
-							jumpAnimation = jumpSuccessBR;
-						}
+						jumpAnimation = jumpSuccessBR;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x;
+						jumpAnimation.y = myRobotImage.y;
 					}
 					else if (myGameVar.robotJumpFailCloseBR)
 					{
-						// if the fail close animation does not exist
-						if (!myMap.contains(jumpFailCloseBR))
-						{
-							// set the position of the animation movie clip
-							jumpFailCloseBR.x = myRobot.x;
-							jumpFailCloseBR.y = myRobot.y;
-							// add it	
-							jumpAnimation = jumpSuccessBR;
-						}
+						// add it	
+						jumpAnimation = jumpSuccessBR;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x;
+						jumpAnimation.y = myRobotImage.y;
 					}
 					else if (myGameVar.robotJumpFailFarBR)
 					{
-						// if the fail far animation does not exist
-						if (!myMap.contains(jumpFailFarBR))
-						{
-							// set the position of the animation movie clip
-							jumpFailFarBR.x = myRobot.x;
-							jumpFailFarBR.y = myRobot.y;
-							// add it
-							jumpAnimation = jumpSuccessBR;
-						}
+						// add it
+						jumpAnimation = jumpSuccessBR;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x;
+						jumpAnimation.y = myRobotImage.y;
 					}
 					break;
 				case 2:
 					if (myGameVar.robotJumpSuccessBL)
 					{
-						// if the success animation does not exist
-						if (!myMap.contains(jumpSuccessBL))
-						{
-							// set the position of the animation movie clip
-							jumpSuccessBL.x = myRobot.x - width;
-							jumpSuccessBL.y = myRobot.y;
-							// add it
-							jumpAnimation = jumpSuccessBL;
-						}
+						// add it
+						jumpAnimation = jumpSuccessBL;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x - width;
+						jumpAnimation.y = myRobotImage.y;
+						
 					}
 					else if (myGameVar.robotJumpFailCloseBL)
 					{
-						// if the fail close animation does not exist
-						if (!myMap.contains(jumpFailCloseBL))
-						{
-							// set the position of the animation movie clip
-							jumpFailCloseBL.x = myRobot.x - width;
-							jumpFailCloseBL.y = myRobot.y;
-							// add it	
-							jumpAnimation = jumpSuccessBL;
-						}
+						// add it	
+						jumpAnimation = jumpSuccessBL;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x - width;
+						jumpAnimation.y = myRobotImage.y;
 					}
 					else if (myGameVar.robotJumpFailFarBL)
 					{
-						// if the fail far animation does not exist
-						if (!myMap.contains(jumpFailFarBL))
-						{
-							// set the position of the animation movie clip
-							jumpFailFarBL.x = myRobot.x - width;
-							jumpFailFarBL.y = myRobot.y;
-							// add it
-							jumpAnimation = jumpSuccessBL;
-						}
+						// add it
+						jumpAnimation = jumpSuccessBL;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x - width;
+						jumpAnimation.y = myRobotImage.y;
 					}
 					break;
 				case 3:
 					if (myGameVar.robotJumpSuccessTL)
 					{
-						// if the success animation does not exist
-						if (!myMap.contains(jumpSuccessTL))
-						{
-							// set the position of the animation movie clip
-							jumpSuccessTL.x = myRobot.x - myRobot.width;
-							jumpSuccessTL.y = myRobot.y - (myRobot.height / 2);
-							// add it
-							jumpAnimation = jumpSuccessTL;
-						}
+						// add it
+						jumpAnimation = jumpSuccessTL;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
+						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);					
 					}
 					else if (myGameVar.robotJumpFailCloseTL)
 					{
-						// if the fail close animation does not exist
-						if (!myMap.contains(jumpFailCloseTL))
-						{
-							// set the position of the animation movie clip
-							jumpFailCloseTL.x = myRobot.x - myRobot.width;
-							jumpFailCloseTL.y = myRobot.y - (myRobot.height / 2);
-							// add it
-							jumpAnimation = jumpSuccessTL;
-						}
+						// add it
+						jumpAnimation = jumpSuccessTL;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
+						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
 					}
 					else if (myGameVar.robotJumpFailFarTL)
 					{
-						// if the fail far animation does not exist
-						if (!myMap.contains(jumpFailFarTL))
-						{
-							// set the position of the animation movie clip
-							jumpFailFarTL.x = myRobot.x - myRobot.width;
-							jumpFailFarTL.y = myRobot.y - (myRobot.height / 2);
-							// add it
-							jumpAnimation = jumpSuccessTL;
-						}
+						// add it
+						jumpAnimation = jumpSuccessTL;
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
+						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
 					}
 					break;
 			}
 			
-			jumpAnimation.width = myRobot.width * 2;
-			jumpAnimation.height = myRobot.height + (myRobot.height / 2);
+			jumpAnimation.width = myRobotImage.width * 2;
+			jumpAnimation.height = myRobotImage.height + (myRobotImage.height / 2);
 			
 			myGameVar.SSoundJump.play();
 			injectJumpAnimation(jumpDirection);
-					
 		}
 		
 		public function setRobotPositionAfterJump()
