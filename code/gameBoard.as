@@ -1770,6 +1770,7 @@
 			var distanceToMove:int = 2;
 
 			var robotDirection:int = myRobot.getDirection();
+			var stopProcessShit:Boolean = false;
 			
 			// set both boolean variables to true, which won't trigger function call to reset 
 			// the position of the robot in the update function
@@ -1783,40 +1784,15 @@
 				myGameVar.SSoundRobotDiedElectric.play();
 				myRobot.setAlive(false);
 				robotAlive = false;
-				return;
+				stopProcessShit = true;
 			}
 
-			// at this point we're still alive, now lets see if we can leave this square
-			if(!RCcanRobotLeaveSquare(robotDirection))
+			if (!stopProcessShit)
 			{
-				// no we can't leave
-				myGameVar.SSoundTileSolidHit.play();
-				switch(robotDirection)
+				// at this point we're still alive, now lets see if we can leave this square
+				if(!RCcanRobotLeaveSquare(robotDirection))
 				{
-					case 0: // top right
-						myGameVar.robotJumpFailCloseTR = true;
-						break;
-					case 1: // bottom right
-						myGameVar.robotJumpFailCloseBR = true;
-						break;
-					case 2: // bottom left
-						myGameVar.robotJumpFailCloseBL = true;
-						break;
-					case 3: // top left
-						myGameVar.robotJumpFailCloseTL = true;
-						break;
-				}
-				return;
-			}
-
-			// now lets see if our jump can allow us to move forward from our square to the destination square
-			if(!RCcanRobotMoveForward(robotDirection, 2))
-			{
-				// no we can't actually land at the destination square
-				// lets check the one square infront of us and see if that can be landed on instead
-				if(!RCcanRobotMoveForward(robotDirection, 1))
-				{
-					// no we can't even move forward 1 square, you're screwed, stay put
+					// no we can't leave
 					myGameVar.SSoundTileSolidHit.play();
 					switch(robotDirection)
 					{
@@ -1833,302 +1809,339 @@
 							myGameVar.robotJumpFailCloseTL = true;
 							break;
 					}
-					return;
+					stopProcessShit = true;
+				}
+			}
+
+			if (!stopProcessShit)
+			{
+				// now lets see if our jump can allow us to move forward from our square to the destination square
+				if(!RCcanRobotMoveForward(robotDirection, 2))
+				{
+					// no we can't actually land at the destination square
+					// lets check the one square infront of us and see if that can be landed on instead
+					if(!RCcanRobotMoveForward(robotDirection, 1))
+					{
+						// no we can't even move forward 1 square, you're screwed, stay put
+						myGameVar.SSoundTileSolidHit.play();
+						switch(robotDirection)
+						{
+							case 0: // top right
+								myGameVar.robotJumpFailCloseTR = true;
+								break;
+							case 1: // bottom right
+								myGameVar.robotJumpFailCloseBR = true;
+								break;
+							case 2: // bottom left
+								myGameVar.robotJumpFailCloseBL = true;
+								break;
+							case 3: // top left
+								myGameVar.robotJumpFailCloseTL = true;
+								break;
+						}
+						stopProcessShit = true;
+					}
+					else
+					{
+						// at least we can move forward 1 square, lets set our distance to 1
+						distanceToMove = 1;
+					}
 				}
 				else
 				{
-					// at least we can move forward 1 square, lets set our distance to 1
-					distanceToMove = 1;
-				}
-			}
-			else
-			{
-				// wow we can jump two squares forward! amazing!
-				// lets see if we can also clear the square infront of us
-				if(!this.RCcanRobotMoveForward(robotDirection, 1))
-				{
-					// nope we cannot even move out of this square, we'll just have to stay put
-					myGameVar.SSoundTileSolidHit.play();
-					switch(robotDirection)
+					// wow we can jump two squares forward! amazing!
+					// lets see if we can also clear the square infront of us
+					if(!this.RCcanRobotMoveForward(robotDirection, 1))
 					{
-						case 0: // top right
-							myGameVar.robotJumpFailCloseTR = true;
-							break;
-						case 1: // bottom right
-							myGameVar.robotJumpFailCloseBR = true;
-							break;
-						case 2: // bottom left
-							myGameVar.robotJumpFailCloseBL = true;
-							break;
-						case 3: // top left
-							myGameVar.robotJumpFailCloseTL = true;
-							break;
+						// nope we cannot even move out of this square, we'll just have to stay put
+						myGameVar.SSoundTileSolidHit.play();
+						switch(robotDirection)
+						{
+							case 0: // top right
+								myGameVar.robotJumpFailCloseTR = true;
+								break;
+							case 1: // bottom right
+								myGameVar.robotJumpFailCloseBR = true;
+								break;
+							case 2: // bottom left
+								myGameVar.robotJumpFailCloseBL = true;
+								break;
+							case 3: // top left
+								myGameVar.robotJumpFailCloseTL = true;
+								break;
+						}
+						stopProcessShit = true;
 					}
-					return;
-				}
-				
-				// now for the odd circumstance
-				// we can land 2 squares away.. and can enter the square infront of us which means that this is actually a viable square to enter
+					
+					if (!stopProcessShit)
+					{
+						// now for the odd circumstance
+						// we can land 2 squares away.. and can enter the square infront of us which means that this is actually a viable square to enter
 
-				// what if what's in the next square is a wall that we're facing, so lets check against that
-				// and while we're at it, lets also see if that wall is an electric wall that's about to kill us
-				// first lets check for solid unbroken walls
-				var tempDestX:int = robotX;
-				var tempDestY:int = robotY;
-				switch(robotDirection)
-				{
-				case 0:// facing up/right (up on map)
-					tempDestY = robotY - 1;
-					break;
-				case 1:// facing down/right (right on map)
-					tempDestX = robotX + 1;
-					break;
-				case 2:// facing down/left (down on map)
-					tempDestY = robotY + 1;
-					break;
-				case 3:// facing up/left (left on map)
-					tempDestX = robotX - 1;
-					break;
+						// what if what's in the next square is a wall that we're facing, so lets check against that
+						// and while we're at it, lets also see if that wall is an electric wall that's about to kill us
+						// first lets check for solid unbroken walls
+						var tempDestX:int = robotX;
+						var tempDestY:int = robotY;
+						switch(robotDirection)
+						{
+						case 0:// facing up/right (up on map)
+							tempDestY = robotY - 1;
+							break;
+						case 1:// facing down/right (right on map)
+							tempDestX = robotX + 1;
+							break;
+						case 2:// facing down/left (down on map)
+							tempDestY = robotY + 1;
+							break;
+						case 3:// facing up/left (left on map)
+							tempDestX = robotX - 1;
+							break;
+						}
+					}
+					
+					if (!stopProcessShit)
+					{
+						switch(robotDirection)
+						{
+							case 0: // facing up/right
+								// if its a breakable wall that isn't broken
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableTR.toInt() && mapList[tempDestX][tempDestY].getIsActive())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+								}
+								
+								// if its an electric wall..
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricTR.toInt())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+									
+									// if its active, set robot to dead and play a death sound
+									if (mapList[tempDestX][tempDestY].getIsActive())
+									{
+										myGameVar.SSoundRobotDiedElectric.play();
+										myRobot.setAlive(false);
+										robotAlive = false;
+									}
+								}
+								break;
+							case 1:	// facing down/right
+								// if its a breakable wall that isn't broken
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableBR.toInt() && mapList[tempDestX][tempDestY].getIsActive())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+								}
+								
+								// if its an electric wall..
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricBR.toInt())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+									
+									// if its active, set robot to dead and play a death sound
+									if (mapList[tempDestX][tempDestY].getIsActive())
+									{
+										myGameVar.SSoundRobotDiedElectric.play();
+										myRobot.setAlive(false);
+										robotAlive = false;
+									}
+								}
+								break;
+							case 2:	// facing down/left
+								// if its a breakable wall that isn't broken
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableBL.toInt() && mapList[tempDestX][tempDestY].getIsActive())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+								}
+								
+								// if its an electric wall..
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricBL.toInt())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+									
+									// if its active, set robot to dead and play a death sound
+									if (mapList[tempDestX][tempDestY].getIsActive())
+									{
+										myGameVar.SSoundRobotDiedElectric.play();
+										myRobot.setAlive(false);
+										robotAlive = false;
+									}
+								}
+								break;
+							case 3:	// facing up/left
+								// if its a breakable wall that isn't broken
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableTL.toInt() && mapList[tempDestX][tempDestY].getIsActive())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+								}
+								
+								// if its an electric wall..
+								if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricTL.toInt())
+								{
+									// play a solid hit sound
+									myGameVar.SSoundTileSolidHit.play();
+									switch(robotDirection)
+									{
+										case 0: // top right
+											myGameVar.robotJumpFailFarTR = true;
+											break;
+										case 1: // bottom right
+											myGameVar.robotJumpFailFarBR = true;
+											break;
+										case 2: // bottom left
+											myGameVar.robotJumpFailFarBL = true;
+											break;
+										case 3: // top left
+											myGameVar.robotJumpFailFarTL = true;
+											break;
+									}
+									// set distance to move to 1
+									distanceToMove = 1;
+									
+									// if its active, set robot to dead and play a death sound
+									if (mapList[tempDestX][tempDestY].getIsActive())
+									{
+										myGameVar.SSoundRobotDiedElectric.play();
+										myRobot.setAlive(false);
+										robotAlive = false;
+									}
+								}
+								break;
+						}
+					}
 				}
-				
-				switch(robotDirection)
-				{
-					case 0: // facing up/right
-						// if its a breakable wall that isn't broken
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableTR.toInt() && mapList[tempDestX][tempDestY].getIsActive())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-						}
-						
-						// if its an electric wall..
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricTR.toInt())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-							
-							// if its active, set robot to dead and play a death sound
-							if (mapList[tempDestX][tempDestY].getIsActive())
-							{
-								myGameVar.SSoundRobotDiedElectric.play();
-								myRobot.setAlive(false);
-								robotAlive = false;
-							}
-						}
-						break;
-					case 1:	// facing down/right
-						// if its a breakable wall that isn't broken
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableBR.toInt() && mapList[tempDestX][tempDestY].getIsActive())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-						}
-						
-						// if its an electric wall..
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricBR.toInt())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-							
-							// if its active, set robot to dead and play a death sound
-							if (mapList[tempDestX][tempDestY].getIsActive())
-							{
-								myGameVar.SSoundRobotDiedElectric.play();
-								myRobot.setAlive(false);
-								robotAlive = false;
-							}
-						}
-						break;
-					case 2:	// facing down/left
-						// if its a breakable wall that isn't broken
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableBL.toInt() && mapList[tempDestX][tempDestY].getIsActive())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-						}
-						
-						// if its an electric wall..
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricBL.toInt())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-							
-							// if its active, set robot to dead and play a death sound
-							if (mapList[tempDestX][tempDestY].getIsActive())
-							{
-								myGameVar.SSoundRobotDiedElectric.play();
-								myRobot.setAlive(false);
-								robotAlive = false;
-							}
-						}
-						break;
-					case 3:	// facing up/left
-						// if its a breakable wall that isn't broken
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TBreakableTL.toInt() && mapList[tempDestX][tempDestY].getIsActive())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-						}
-						
-						// if its an electric wall..
-						if (mapList[tempDestX][tempDestY].getType().toInt() == tileEnums.TElectricTL.toInt())
-						{
-							// play a solid hit sound
-							myGameVar.SSoundTileSolidHit.play();
-							switch(robotDirection)
-							{
-								case 0: // top right
-									myGameVar.robotJumpFailFarTR = true;
-									break;
-								case 1: // bottom right
-									myGameVar.robotJumpFailFarBR = true;
-									break;
-								case 2: // bottom left
-									myGameVar.robotJumpFailFarBL = true;
-									break;
-								case 3: // top left
-									myGameVar.robotJumpFailFarTL = true;
-									break;
-							}
-							// set distance to move to 1
-							distanceToMove = 1;
-							
-							// if its active, set robot to dead and play a death sound
-							if (mapList[tempDestX][tempDestY].getIsActive())
-							{
-								myGameVar.SSoundRobotDiedElectric.play();
-								myRobot.setAlive(false);
-								robotAlive = false;
-							}
-						}
-						break;
-				}
-				
 			}
 
 			// ok at this point we're not dead, we can leave our square, and we can either jump 2 squares clearing the middle
 			// square, or can jump forward 1 square, at least we're not dead.. yet
 			// lets do the jump and see what happens!
 
+			trace("about to set destination squares accoringly, distance to move = ", distanceToMove);
 			destX = robotX;
 			destY = robotY;
 			switch(robotDirection)
@@ -2146,7 +2159,7 @@
 				destX = robotX - distanceToMove;
 				break;
 			}
-			
+
 			if (distanceToMove == 1)
 			{
 				switch(robotDirection)
@@ -2183,7 +2196,6 @@
 						break;
 				}
 			}
-
 			
 			// now that we've set the boolean variables based on if/how far we can jump
 			setRobotJumpAnimation(destX, destY, distanceToMove, robotDirection); //zzz
