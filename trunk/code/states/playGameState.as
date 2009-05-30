@@ -1005,7 +1005,7 @@
 				playVars.setPMStatus(ClickOKEnum.REPROGRAM.toInt());
 				GSM.addGameState(new clickOKState(GSM));
 			}
-			trace("Tutorial hit checking...")
+			//trace("Tutorial hit checking...")
 			if (gamePlay.getTutorialHit())
 			{
 				trace("End tutorial hit checking");
