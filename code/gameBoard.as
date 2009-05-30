@@ -4013,14 +4013,10 @@
 					if (myGameVar.robotJumpSuccessTR)
 					{
 						// if the success animation does not exist
-						if (!myMap.contains(jumpSuccessTR))//zzz
-						{
-							// set the position of the animation movie clip
-							jumpSuccessTR.x = myRobot.x;
-							jumpSuccessTR.y = myRobot.y - (myRobot.height / 2);
-							// add it
-							jumpAnimation = jumpSuccessTR;
-						}
+						// set the position of the animation movie clip
+						jumpAnimation = jumpSuccessTR;
+						jumpAnimation.x = myRobot.x;
+						jumpAnimation.y = myRobot.y - (myRobot.height / 2);						
 					}
 					else if (myGameVar.robotJumpFailCloseTR)
 					{
