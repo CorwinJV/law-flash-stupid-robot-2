@@ -652,6 +652,10 @@
 			tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "additionalContent/maps/testMap1orig.txt");
 			levelList.push(tempLevel);
 			
+			tempLevel = new levelData("Stupid Robot Tutorial.", "Everything you need to know to enjoy the game.", "additionalContent/maps/Tutorialmap.txt");
+			levelList.push(tempLevel);			
+			numTutorialLevels++;
+			
 			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
