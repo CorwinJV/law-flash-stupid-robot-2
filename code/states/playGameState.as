@@ -715,19 +715,21 @@
 					
 					//====================================
 					// Add the pre-game stuff to the display list
-					if (!this.contains(PreGameMC))
+					if (gamePlay.areYouDoneLoadingAMapFromFile())
 					{
-						this.addChild(PreGameMC);
-						// Add text fields...
-						PreGameMC.playerNameTextBox.text = playVars.getPlayerName();
-						PreGameMC.levelNameTextBox.text = playVars.getLevelName(playVars.getCurrentLevel());
-						PreGameMC.levelDescriptionTextBox.text = playVars.getDesc(playVars.getCurrentLevel());
-						PreGameMC.bytesAvailableTextBox.text = playVars.getCurrentLevelBytes();
-						PreGameMC.didYouKnowTextBox.text = playVars.didYouKnow[playVars.didYouKnowIterator];
-						
-						PreGameMC.addEventListener(MouseEvent.MOUSE_UP, skippingPregame);						
+						if (!this.contains(PreGameMC))
+						{
+							this.addChild(PreGameMC);
+							// Add text fields...
+							PreGameMC.playerNameTextBox.text = playVars.getPlayerName();
+							PreGameMC.levelNameTextBox.text = playVars.getLevelName(playVars.getCurrentLevel());
+							PreGameMC.levelDescriptionTextBox.text = playVars.getDesc(playVars.getCurrentLevel());
+							PreGameMC.bytesAvailableTextBox.text = playVars.getCurrentLevelBytes();
+							PreGameMC.didYouKnowTextBox.text = playVars.didYouKnow[playVars.didYouKnowIterator];
+							
+							PreGameMC.addEventListener(MouseEvent.MOUSE_UP, skippingPregame);						
+						}
 					}
-					
 					//====================================
 					// Check if the pregame is running,
 					// If it is not, start the pregame timer and
