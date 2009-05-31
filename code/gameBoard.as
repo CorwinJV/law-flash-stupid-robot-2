@@ -1155,6 +1155,8 @@
 					mapList[x][y].resetTileType();
 				}
 			}
+			
+			rebuildMapClip();
 		}
 		
 		public function drawObject(txPos:int, tyPos:int, scale:Number)
@@ -3855,7 +3857,7 @@
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
 		{
-			trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
+			//trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
 			return doneLoadingMapFromFile;
 		}
 		
