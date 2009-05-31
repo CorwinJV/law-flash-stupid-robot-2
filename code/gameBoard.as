@@ -142,7 +142,7 @@
 		var processSpeed:int;
 		var myMap:MovieClip;
 		//var massInstruct:MovieClip;
-		var doneLoadingMapFromFile:Boolean;
+		var doneLoadingMapFromFile:Boolean = false;
 		
 		// death animation variables
 		var diedElectricity = new robotDiedElectricity();
@@ -430,7 +430,7 @@
 		{
 			mapOffsetX = 0;
 			mapOffsetY = 0;
-			scale = 1;
+			scale = 1.45;
 			imageBaseWidth = 144;
 			imageBaseHeight = 72;
 			
@@ -508,6 +508,7 @@
 			var loadedFile:TextField = new TextField();
 			var tempString:String = new String();
 			
+			trace("*** setting done loading map from file to false");
 			doneLoadingMapFromFile = false;
 			
 						
@@ -522,7 +523,9 @@
 						
 			function textLoadComplete(event:Event):void
 			{
-				//trace ("Starting to read in file ", filename);
+				trace("**************************************************************************************");
+				trace ("Starting to read in file ", filename);
+				trace("**************************************************************************************");
 				var fileIndex:int = 0;
 				// this could maybe use some error checking incase the text file doesn't exist
 				loadedFile.text = textLoader.data;
@@ -907,7 +910,11 @@
 					fileIndex++;
 				}
 				
+				trace("*** setting doneloadingmapfromfile to true");
 				doneLoadingMapFromFile = true;
+				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				trace("finished loading map ", filename);
+				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			}
 
 			//centerX = (int)((Width+1)/2);
@@ -1518,7 +1525,10 @@
 						//trace(i);
 						//trace("Starting timer at " + i + " time.");
 						executionCycleTimer = new Timer(i, 1);
-						executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
+						if (!executionCycleTimer.hasEventListener(TimerEvent.TIMER))
+						{
+							executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
+						}
 						executionCycleTimer.start();
 						//trace("Started.");
 					}
@@ -3838,6 +3848,7 @@
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
 		{
+			trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
 			return doneLoadingMapFromFile;
 		}
 		
@@ -4131,8 +4142,9 @@
 			
 			myRobot.setXPos(robotX);
 			myRobot.setYPos(robotY);
-			
+		
 			trace("inside of setrobotpositionafterjump - adding myrobotimage");
+			draw();
 			myMap.addChild(myRobotImage);
 			
 			reInjectRobotImage();
