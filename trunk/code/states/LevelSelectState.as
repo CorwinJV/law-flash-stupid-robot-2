@@ -136,7 +136,7 @@ package code.states
 				}
 			}
 		
-			fixMap();
+			//fixMap();
 		}
 		
 		//===================================
@@ -196,6 +196,7 @@ package code.states
 			}
 			
 			var tempString:String = GameVars.getInstance().getFilename(playerCurrentLevel);
+			gamePlay = new gameBoard();
 			gamePlay.setState(GameBoardStateEnum.GB_PREGAME);
 			//trace("+++ loadMapFromFile is being called inside levelselectstate INCREMENTBUTTONCLICK to load in map ", tempString);
 			gamePlay.loadMapFromFile(tempString);
@@ -221,6 +222,7 @@ package code.states
 				this.removeChild(gamePlay);
 			}
 			
+			gamePlay = new gameBoard();
 			var tempString:String = GameVars.getInstance().getFilename(playerCurrentLevel);
 			gamePlay.setState(GameBoardStateEnum.GB_PREGAME);
 			//trace("+++ loadMapFromFile is being called inside levelselectstate DECREMENTBUTTONCLICK to load in map ", tempString);
