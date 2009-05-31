@@ -163,8 +163,6 @@
 		var jumpFailCloseTR:MovieClip = new robotJumpFailCloseTR();
 		var jumpFailCloseTL:MovieClip = new robotJumpFailCloseTL();
 		
-		var filenameToLoad:String;
-		
 		public function gameBoard() 
 		{
 			// temp shit for testing, remove this later
@@ -301,6 +299,7 @@
 		
 		public function update()
 		{
+				
 			processKeyboard();
 			
 			mapScroll();
@@ -506,7 +505,6 @@
 		
 		public function loadMapFromFile(filename:String)
 		{
-			filenameToLoad = filename;
 			var loadedFile:TextField = new TextField();
 			var tempString:String = new String();
 			
@@ -517,7 +515,6 @@
 			// TODO: add error handling here
 			var textLoader:URLLoader = new URLLoader();
 			var textReq:URLRequest = new URLRequest(filename);
-			
 			textLoader.load(textReq);
 			trace("textloadcomplete event timer starting");
 			textLoader.addEventListener(Event.COMPLETE, textLoadComplete, false, 0, true);
@@ -527,7 +524,6 @@
 			
 			function textLoadComplete(event:Event):void
 			{
-				textLoader.close();
 				trace("**************************************************************************************");
 				trace("Starting to read in file ", filename);
 				trace("**************************************************************************************");
@@ -2904,146 +2900,152 @@
 		
 		public function rotateMapRight()
 		{
-			mapRotation++;
-
-			var tempWidth:int = Height;
-			var tempHeight:int = Width;
-
-			// make it all empty
-			var mapListTemp:Array = new Array(tempWidth);
-			var x:int;
-			
-			for(x = 0; x < tempWidth; x++)
+			if (curState.toInt() == GameBoardStateEnum.GB_LOGICVIEW.toInt())
 			{
-				mapListTemp[x] = new Array(tempHeight);
-			}
-			
-			var foundRobot:Boolean = false;
+				mapRotation++;
 
-			// now that we have an empty vector
-			for(x = 0; x < tempWidth; x++)
-			{
-				for(var y:int = 0; y < tempHeight; y++)
+				var tempWidth:int = Height;
+				var tempHeight:int = Width;
+
+				// make it all empty
+				var mapListTemp:Array = new Array(tempWidth);
+				var x:int;
+				
+				for(x = 0; x < tempWidth; x++)
 				{
-					var newY:int = Height - x - 1;
-					mapListTemp[x][y] = mapList[y][newY];
-					mapListTemp[x][y].rotateRight();
+					mapListTemp[x] = new Array(tempHeight);
+				}
+				
+				var foundRobot:Boolean = false;
 
-					if((robotX == y) && (robotY == (newY)) && (!foundRobot))
+				// now that we have an empty vector
+				for(x = 0; x < tempWidth; x++)
+				{
+					for(var y:int = 0; y < tempHeight; y++)
 					{
-						foundRobot = true;
-						robotX = x;
-						robotY = y;
-						myRobot.rotate(1);	
+						var newY:int = Height - x - 1;
+						mapListTemp[x][y] = mapList[y][newY];
+						mapListTemp[x][y].rotateRight();
+
+						if((robotX == y) && (robotY == (newY)) && (!foundRobot))
+						{
+							foundRobot = true;
+							robotX = x;
+							robotY = y;
+							myRobot.rotate(1);	
+						}
 					}
 				}
+
+				// now rotate the camera whee
+				var tempX:Number;
+				var tempY:Number;
+
+				tempX = Height - currentY;
+				tempY = currentX;
+
+				currentX = tempX;
+				currentY = tempY;
+
+				// now for switches
+				myGameVar.SM.rotateRight(Width, Height);
+
+				var tempTargetX:int;
+				var tempTargetY:int;
+
+				// now for teleporters
+				for(x; x < teleportList.length; x++)
+				{
+					tempX = teleportList[x].getXPos();
+					tempY = teleportList[x].getYPos();
+					tempTargetX = teleportList[x].getTargetX();
+					tempTargetY = teleportList[x].getTargetY();
+					teleportList[x].setXPos(Height - tempY - 1);
+					teleportList[x].setYPos(tempX);
+					teleportList[x].setTarget(Height - tempTargetY - 1, tempTargetX);
+				}
+
+				// recalculate any positions that need recalculating
+				recalcPositions();
+
+				Width = tempWidth;
+				Height = tempHeight;
+				mapList = mapListTemp;
+				populateMapImages();
+				rebuildMapClip();
 			}
-
-			// now rotate the camera whee
-			var tempX:Number;
-			var tempY:Number;
-
-			tempX = Height - currentY;
-			tempY = currentX;
-
-			currentX = tempX;
-			currentY = tempY;
-
-			// now for switches
-			myGameVar.SM.rotateRight(Width, Height);
-
-			var tempTargetX:int;
-			var tempTargetY:int;
-
-			// now for teleporters
-			for(x; x < teleportList.length; x++)
-			{
-				tempX = teleportList[x].getXPos();
-				tempY = teleportList[x].getYPos();
-				tempTargetX = teleportList[x].getTargetX();
-				tempTargetY = teleportList[x].getTargetY();
-				teleportList[x].setXPos(Height - tempY - 1);
-				teleportList[x].setYPos(tempX);
-				teleportList[x].setTarget(Height - tempTargetY - 1, tempTargetX);
-			}
-
-			// recalculate any positions that need recalculating
-			recalcPositions();
-
-			Width = tempWidth;
-			Height = tempHeight;
-			mapList = mapListTemp;
-			populateMapImages();
-			rebuildMapClip();
 		}
 			
 		public function rotateMapLeft()
 		{
-			mapRotation--;
-			var mapListTemp:Array;
-
-			var tempWidth:int = Height;
-			var tempHeight:int = Width;
-
-			var x:int;
-			// make it all empty
-			mapListTemp = new Array(tempWidth);
-			for(x = 0; x < tempWidth; x++)
+			if (curState.toInt() == GameBoardStateEnum.GB_LOGICVIEW.toInt())
 			{
-				mapListTemp[x] = new Array(tempHeight);
-			}
-			var foundRobot:Boolean = false;
+				mapRotation--;
+				var mapListTemp:Array;
 
-			// now that we have an empty vector
-			for(x = 0; x < tempWidth; x++)
-			{
-				for(var y:int = 0; y < tempHeight; y++)
+				var tempWidth:int = Height;
+				var tempHeight:int = Width;
+
+				var x:int;
+				// make it all empty
+				mapListTemp = new Array(tempWidth);
+				for(x = 0; x < tempWidth; x++)
 				{
-					mapListTemp[x][y] = mapList[Width - y - 1][x];
-					mapListTemp[x][y].rotateLeft();
+					mapListTemp[x] = new Array(tempHeight);
+				}
+				var foundRobot:Boolean = false;
 
-					if((robotX == (Width-y-1)) && (robotY == x) && (!foundRobot))
+				// now that we have an empty vector
+				for(x = 0; x < tempWidth; x++)
+				{
+					for(var y:int = 0; y < tempHeight; y++)
 					{
-						foundRobot = true;
-						robotX = x;
-						robotY = y;
-						myRobot.rotate(-1);				
+						mapListTemp[x][y] = mapList[Width - y - 1][x];
+						mapListTemp[x][y].rotateLeft();
+
+						if((robotX == (Width-y-1)) && (robotY == x) && (!foundRobot))
+						{
+							foundRobot = true;
+							robotX = x;
+							robotY = y;
+							myRobot.rotate(-1);				
+						}
 					}
 				}
+				var tempX:Number;
+				var tempY:Number;
+
+				tempX = currentY;
+				tempY = Width - currentX;
+
+				currentX = tempX;
+				currentY = tempY;
+
+				var tempTargetX:int;
+				var tempTargetY:int;
+
+				// now for switches
+				myGameVar.SM.rotateLeft(Width, Height);
+
+				// now for teleporters
+				for(x = 0; x < teleportList.length; x++)
+				{
+					tempX = teleportList[x].getXPos();
+					tempY = teleportList[x].getYPos();
+					tempTargetX = teleportList[x].getTargetX();
+					tempTargetY = teleportList[x].getTargetY();
+					teleportList[x].setXPos(tempY);
+					teleportList[x].setYPos(Width-tempX-1);
+					teleportList[x].setTarget(tempTargetY, Width-tempTargetX -1);
+				}
+				recalcPositions();
+
+				Width = tempWidth;
+				Height = tempHeight;
+				mapList = mapListTemp;
+				populateMapImages();
+				rebuildMapClip();
 			}
-			var tempX:Number;
-			var tempY:Number;
-
-			tempX = currentY;
-			tempY = Width - currentX;
-
-			currentX = tempX;
-			currentY = tempY;
-
-			var tempTargetX:int;
-			var tempTargetY:int;
-
-			// now for switches
-			myGameVar.SM.rotateLeft(Width, Height);
-
-			// now for teleporters
-			for(x = 0; x < teleportList.length; x++)
-			{
-				tempX = teleportList[x].getXPos();
-				tempY = teleportList[x].getYPos();
-				tempTargetX = teleportList[x].getTargetX();
-				tempTargetY = teleportList[x].getTargetY();
-				teleportList[x].setXPos(tempY);
-				teleportList[x].setYPos(Width-tempX-1);
-				teleportList[x].setTarget(tempTargetY, Width-tempTargetX -1);
-			}
-			recalcPositions();
-
-			Width = tempWidth;
-			Height = tempHeight;
-			mapList = mapListTemp;
-			populateMapImages();
-			rebuildMapClip();
 		}
 		
 		
@@ -3853,7 +3855,7 @@
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
 		{
-			//trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
+			trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
 			return doneLoadingMapFromFile;
 		}
 		

@@ -146,8 +146,11 @@ package code
 			
 			// Sub Routine Buttons
 			logicInterfaceMC.tab_main_btn.addEventListener(MouseEvent.MOUSE_UP, MainTabButtonClick, false, 0, true);
+			logicInterfaceMC.tab_main_btn_dark_inst.addEventListener(MouseEvent.MOUSE_UP, MainTabButtonClick, false, 0, true);
 			logicInterfaceMC.tab_sub1_btn.addEventListener(MouseEvent.MOUSE_UP, Sub1TabButtonClick, false, 0, true);
+			logicInterfaceMC.tab_sub1_btn_dark_inst.addEventListener(MouseEvent.MOUSE_UP, Sub1TabButtonClick, false, 0, true);
 			logicInterfaceMC.tab_sub2_btn.addEventListener(MouseEvent.MOUSE_UP, Sub2TabButtonClick, false, 0, true);
+			logicInterfaceMC.tab_sub2_btn_dark_inst.addEventListener(MouseEvent.MOUSE_UP, Sub2TabButtonClick, false, 0, true);
 			
 			// compass callbacks
 			logicInterfaceMC.compass.south.addEventListener(MouseEvent.MOUSE_UP, panDownButtonClick, false, 0, true);
@@ -466,7 +469,7 @@ package code
 					this.removeChild(executionListSub2[i].blockTexture);
 				}
 			}
-			
+
 			var tempBlackThing:MovieClip = new black();
 			tempBlackThing.x = 760;
 			tempBlackThing.y = logicBank.y - 60;
@@ -489,7 +492,6 @@ package code
 				curExecutionListYOffset = executionListSub2YOffset;
 			}
 
-			
 			//=============================================
 			// Robot Instructions
 			var rowCount:int = 0;
@@ -523,7 +525,6 @@ package code
 					columnIndex = 0;
 				}
 			}
-		
 			
 
 			//=============================================
@@ -537,7 +538,6 @@ package code
 				}
 			}
 			blackBoxArray = new Array();
-			
 			//=============================================
 			// LogicBank Instructions (bottom bar)
 			rowCount = 0;
@@ -667,6 +667,34 @@ package code
 			//=============================================
 			// Tab Covers (Showing which tab is currently
 			// selected	
+			switch(curInstrTab.toInt())
+			{
+				case instructionTab.TAB_MAIN.toInt():
+				{
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_main_btn, logicInterfaceMC.numChildren - 1);
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_sub1_btn_dark_inst, logicInterfaceMC.numChildren - 1);
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_sub2_btn_dark_inst, logicInterfaceMC.numChildren - 1);
+					//logicInterfaceMC.tab_main_btn_dark_inst.alpha = 1.0;
+					//logicInterfaceMC.tab_sub1_btn_dark_inst.alpha = 0.0;
+					//logicInterfaceMC.tab_sub2_btn_dark_inst.alpha = 0.0;
+					break;
+				}
+				case instructionTab.TAB_SUB1.toInt():
+				{
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_main_btn_dark_inst, logicInterfaceMC.numChildren - 1);
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_sub1_btn, logicInterfaceMC.numChildren - 1);
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_sub2_btn_dark_inst, logicInterfaceMC.numChildren - 1);					break;
+				}
+				case instructionTab.TAB_SUB2.toInt():
+				{
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_main_btn_dark_inst, logicInterfaceMC.numChildren - 1);
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_sub1_btn_dark_inst, logicInterfaceMC.numChildren - 1);
+					logicInterfaceMC.setChildIndex(logicInterfaceMC.tab_sub2_btn, logicInterfaceMC.numChildren - 1);					break;
+					break;
+				}
+			}
+			
+			
 			//if (!this.contains(tabCoverMC))
 			//{
 				//this.addChild(tabCoverMC);
