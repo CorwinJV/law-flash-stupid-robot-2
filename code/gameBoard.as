@@ -163,6 +163,8 @@
 		var jumpFailCloseTR:MovieClip = new robotJumpFailCloseTR();
 		var jumpFailCloseTL:MovieClip = new robotJumpFailCloseTL();
 		
+		var filenameToLoad:String;
+		
 		public function gameBoard() 
 		{
 			// temp shit for testing, remove this later
@@ -299,7 +301,6 @@
 		
 		public function update()
 		{
-				
 			processKeyboard();
 			
 			mapScroll();
@@ -505,6 +506,7 @@
 		
 		public function loadMapFromFile(filename:String)
 		{
+			filenameToLoad = filename;
 			var loadedFile:TextField = new TextField();
 			var tempString:String = new String();
 			
@@ -515,6 +517,7 @@
 			// TODO: add error handling here
 			var textLoader:URLLoader = new URLLoader();
 			var textReq:URLRequest = new URLRequest(filename);
+			
 			textLoader.load(textReq);
 			trace("textloadcomplete event timer starting");
 			textLoader.addEventListener(Event.COMPLETE, textLoadComplete, false, 0, true);
@@ -524,6 +527,7 @@
 			
 			function textLoadComplete(event:Event):void
 			{
+				textLoader.close();
 				trace("**************************************************************************************");
 				trace("Starting to read in file ", filename);
 				trace("**************************************************************************************");
@@ -3849,7 +3853,7 @@
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
 		{
-			trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
+			//trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
 			return doneLoadingMapFromFile;
 		}
 		
