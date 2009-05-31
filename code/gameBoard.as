@@ -516,410 +516,408 @@
 			var textLoader:URLLoader = new URLLoader();
 			var textReq:URLRequest = new URLRequest(filename);
 			textLoader.load(textReq);
-			trace("textloadcomplete event requested");
+			trace("textloadcomplete event timer starting");
 			textLoader.addEventListener(Event.COMPLETE, textLoadComplete, false, 0, true);
 			
-			return true;
-		}
-		
-		
-		private function textLoadComplete(event:Event):void
-		{
 			var x:int;
 			var y:int;
 			
-			trace("**************************************************************************************");
-			trace ("Starting to read in file ", filename);
-			trace("**************************************************************************************");
-			var fileIndex:int = 0;
-			// this could maybe use some error checking incase the text file doesn't exist
-			loadedFile.text = textLoader.data;
-			tempString = textLoader.data;				
-			
-			// first read in width and height
-			var ones:int;
-			var tens:int;
-			
-			var nWidth:int;
-			var nHeight:int;
-			var startDirection:int;
-			var bytesAvail:int;
-							
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
-			nWidth = tens + ones;
-			fileIndex++;
-			// error checking!
-			if (nWidth < 1)
+			function textLoadComplete(event:Event):void
 			{
-				trace ("ERROR: nWidth <1, nWidth = ", nWidth);
-				return;
-			}
-			
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
-			nHeight = tens + ones;
-			fileIndex++;
-			
-			// error checking!
-			if (nHeight < 1)
-			{
-				trace ("ERROR: nHeight <1, nHeight = ", nHeight);
-				return;
-			}
-			
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
-			startDirection = tens + ones;
-			fileIndex++;
-			
-			// error checking!
-			if ((startDirection < 0) || (startDirection > 4))
-			{
-				trace ("ERROR: Invalid startDirection of ", startDirection);
-				return;
-			}
-			
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
-			bytesAvail = tens + ones;
-			bytesAvail *= 100;
-			
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
-			bytesAvail += tens + ones;
-			fileIndex++;
-			fileIndex++;
+				trace("**************************************************************************************");
+				trace("Starting to read in file ", filename);
+				trace("**************************************************************************************");
+				var fileIndex:int = 0;
+				// this could maybe use some error checking incase the text file doesn't exist
+				loadedFile.text = textLoader.data;
+				tempString = textLoader.data;				
+				
+				// first read in width and height
+				var ones:int;
+				var tens:int;
+				
+				var nWidth:int;
+				var nHeight:int;
+				var startDirection:int;
+				var bytesAvail:int;
+								
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
+				nWidth = tens + ones;
+				fileIndex++;
+				// error checking!
+				if (nWidth < 1)
+				{
+					trace ("ERROR: nWidth <1, nWidth = ", nWidth);
+					return;
+				}
+				
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
+				nHeight = tens + ones;
+				fileIndex++;
+				
+				// error checking!
+				if (nHeight < 1)
+				{
+					trace ("ERROR: nHeight <1, nHeight = ", nHeight);
+					return;
+				}
+				
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
+				startDirection = tens + ones;
+				fileIndex++;
+				
+				// error checking!
+				if ((startDirection < 0) || (startDirection > 4))
+				{
+					trace ("ERROR: Invalid startDirection of ", startDirection);
+					return;
+				}
+				
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
+				bytesAvail = tens + ones;
+				bytesAvail *= 100;
+				
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48;
+				bytesAvail += tens + ones;
+				fileIndex++;
+				fileIndex++;
 
-			if (bytesAvail < 0)
-			{
-				trace ("ERROR: bytesAvail < 0, bytesAvail = ", bytesAvail);
-				return;
-			}
-			
-			//trace ("nWidth = ", nWidth, "  nHeight = ", nHeight, "   startDirection =", startDirection, "   bytesAvail = ", bytesAvail);
-			
-			
-			setRobotImage(startDirection);
-							
-			var moveForwardAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardAvail = true;	}	else	{	moveForwardAvail = false;	} fileIndex++;
-			
-			var moveForwardUntilAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardUntilAvail = true;	}	else	{	moveForwardUntilAvail = false;	} fileIndex++;
-							
-			var turnLeftAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnLeftAvail = true;	}	else	{	turnLeftAvail = false;	} fileIndex++;
-			
-			var turnRightAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnRightAvail = true;	}	else	{	turnRightAvail = false;	} fileIndex++;
-			
-			var punchAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	punchAvail = true;	}	else	{	punchAvail = false;	} fileIndex++;
-			
-			var climbAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	climbAvail = true;	}	else	{	climbAvail = false;	} fileIndex++;
-			
-			var crouchAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	crouchAvail = true;	}	else	{	crouchAvail = false;	} fileIndex++;
-			
-			var jumpAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	jumpAvail = true;	}	else	{	jumpAvail = false;	} fileIndex++;
-			
-			var activateAvail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	activateAvail = true;	}	else	{	activateAvail = false;	} fileIndex++;
-			
-			var sub1Avail:Boolean;
-			if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub1Avail = true;	}	else	{	sub1Avail = false;	} fileIndex++;
-			
-			var sub2Avail:Boolean;
-			if (tempString.charCodeAt(fileIndex++) - 48 == 1)	{	sub2Avail = true;	}	else	{	sub2Avail = false;	} fileIndex++;
-			
-			//trace ("moveForward, moveForwardUntil, turnLeft, turnRight, punch, climb, crouch, jump, activate, sub1, sub2 = ", moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
-							
-			myGameVar.setCurrentLogicBank(moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
-			myGameVar.setCurrentLevelBytes(bytesAvail);
-			//
+				if (bytesAvail < 0)
+				{
+					trace ("ERROR: bytesAvail < 0, bytesAvail = ", bytesAvail);
+					return;
+				}
+				
+				//trace ("nWidth = ", nWidth, "  nHeight = ", nHeight, "   startDirection =", startDirection, "   bytesAvail = ", bytesAvail);
+				
+				
+				setRobotImage(startDirection);
+								
+				var moveForwardAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardAvail = true;	}	else	{	moveForwardAvail = false;	} fileIndex++;
+				
+				var moveForwardUntilAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardUntilAvail = true;	}	else	{	moveForwardUntilAvail = false;	} fileIndex++;
+								
+				var turnLeftAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnLeftAvail = true;	}	else	{	turnLeftAvail = false;	} fileIndex++;
+				
+				var turnRightAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnRightAvail = true;	}	else	{	turnRightAvail = false;	} fileIndex++;
+				
+				var punchAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	punchAvail = true;	}	else	{	punchAvail = false;	} fileIndex++;
+				
+				var climbAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	climbAvail = true;	}	else	{	climbAvail = false;	} fileIndex++;
+				
+				var crouchAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	crouchAvail = true;	}	else	{	crouchAvail = false;	} fileIndex++;
+				
+				var jumpAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	jumpAvail = true;	}	else	{	jumpAvail = false;	} fileIndex++;
+				
+				var activateAvail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	activateAvail = true;	}	else	{	activateAvail = false;	} fileIndex++;
+				
+				var sub1Avail:Boolean;
+				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub1Avail = true;	}	else	{	sub1Avail = false;	} fileIndex++;
+				
+				var sub2Avail:Boolean;
+				if (tempString.charCodeAt(fileIndex++) - 48 == 1)	{	sub2Avail = true;	}	else	{	sub2Avail = false;	} fileIndex++;
+				
+				//trace ("moveForward, moveForwardUntil, turnLeft, turnRight, punch, climb, crouch, jump, activate, sub1, sub2 = ", moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
+								
+				myGameVar.setCurrentLogicBank(moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
+				myGameVar.setCurrentLevelBytes(bytesAvail);
+				//
 
-			
-			//trace ("maplist = new array()");
-			mapList = new Array();
-			
-			
-			var currentCol:Array;
-			
-			// populate the array with a bunch of empty arrays.. argh!
-			for (x = 0; x < nWidth; x++)
-			{
-				currentCol = new Array();
-				mapList.push(currentCol);
-			}
-			
-			var tempTile:mapTile;
-			var total:int;
-
-			fileIndex++;
-			for (y = 0; y < nHeight; y++)
-			{
-				currentCol = new Array();
+				
+				//trace ("maplist = new array()");
+				mapList = new Array();
+				
+				
+				var currentCol:Array;
+				
+				// populate the array with a bunch of empty arrays.. argh!
 				for (x = 0; x < nWidth; x++)
 				{
-					// read in a value
-					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-					var val:int = tens + ones;
-					if ((val == tileEnums.THalfBottomL.toInt()) || (val == tileEnums.THalfBottomR.toInt()))
-					{
-						val = tileEnums.TGap.toInt();
-						trace(filename, " is referencing a THalfBottomL or THalfBottomR, I have converted it to a TGap");
-					}
-					
-					if (val < 0)
-					{
-						trace ("Read in invalid tileType of ", val, ". aborting now before bad things happen");
-						return;
-					}
-					// push it on to current col
-					//trace ("At map position ", x, ", ", y, " I just read in a value of ", val);
-					mapList[x].push(new mapTile(new tileEnums(val), true));	
-					
-					// if its a start spot, add the robot to the object list
-					if(val == tileEnums.TStart.toInt())
-					{
-						//trace ("Oh and the start spot is here so I set up the robot");
-						myRobot = new object(x, y, startDirection);
-						robotX = x;
-						robotY = y;
-						robotStartX = x;
-						robotStartY = y;
-						currentX = robotX;
-						currentY = robotY;
-					}
+					currentCol = new Array();
+					mapList.push(currentCol);
 				}
+				
+				var tempTile:mapTile;
+				var total:int;
+
 				fileIndex++;
-				// now that the whole column has been read, push it onto maplist
-				//trace ("CurrentCol = ", currentCol);
-				//trace ("Done with row");
-			}
-			
-			Width = nWidth;
-			Height = nHeight;
-			myGameVar.setLevelHeight(Height);
-			myGameVar.setLevelWidth(Width);
-			populateMapImages();
-			
-			/////////////////////////////////////////////////////////////////
-			// now lets see if there's any switches in the game map
-			// either way lets clear the switchlist manager first
-			
-			var switchCount:int;
-			var teleportCount:int;
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-			switchCount = tens + ones;
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-			teleportCount = tens + ones;
-			fileIndex++;
-			
-			//trace ("Switches = ", switchCount, "   Teleporters = ", teleportCount);
+				for (y = 0; y < nHeight; y++)
+				{
+					currentCol = new Array();
+					for (x = 0; x < nWidth; x++)
+					{
+						// read in a value
+						tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+						var val:int = tens + ones;
+						if ((val == tileEnums.THalfBottomL.toInt()) || (val == tileEnums.THalfBottomR.toInt()))
+						{
+							val = tileEnums.TGap.toInt();
+							trace(filename, " is referencing a THalfBottomL or THalfBottomR, I have converted it to a TGap");
+						}
+						
+						if (val < 0)
+						{
+							trace ("Read in invalid tileType of ", val, ". aborting now before bad things happen");
+							return;
+						}
+						// push it on to current col
+						//trace ("At map position ", x, ", ", y, " I just read in a value of ", val);
+						mapList[x].push(new mapTile(new tileEnums(val), true));	
+						
+						// if its a start spot, add the robot to the object list
+						if(val == tileEnums.TStart.toInt())
+						{
+							//trace ("Oh and the start spot is here so I set up the robot");
+							myRobot = new object(x, y, startDirection);
+							robotX = x;
+							robotY = y;
+							robotStartX = x;
+							robotStartY = y;
+							currentX = robotX;
+							currentY = robotY;
+						}
+					}
+					fileIndex++;
+					// now that the whole column has been read, push it onto maplist
+					//trace ("CurrentCol = ", currentCol);
+					//trace ("Done with row");
+				}
+				
+				Width = nWidth;
+				Height = nHeight;
+				myGameVar.setLevelHeight(Height);
+				myGameVar.setLevelWidth(Width);
+				populateMapImages();
+				
+				/////////////////////////////////////////////////////////////////
+				// now lets see if there's any switches in the game map
+				// either way lets clear the switchlist manager first
+				
+				var switchCount:int;
+				var teleportCount:int;
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+				switchCount = tens + ones;
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+				teleportCount = tens + ones;
+				fileIndex++;
+				
+				//trace ("Switches = ", switchCount, "   Teleporters = ", teleportCount);
+								
+				myGameVar.SM.clearSwitchList();
+				
+				var numcnt:int;
+				var myX:int;
+				var myY:int;
+				var tempX:int;
+				var tempY:int;
+				
+				var tempObj:Switch;
+				var tempObjT:Teleport;
+
+				// read in the switches
+				var x:int;
 							
-			myGameVar.SM.clearSwitchList();
-			
-			var numcnt:int;
-			var myX:int;
-			var myY:int;
-			var tempX:int;
-			var tempY:int;
-			
-			var tempObj:Switch;
-			var tempObjT:Teleport;
-
-			// read in the switches
-			var x:int;
-						
-			for (x = 0; x < switchCount; x++)
-			{
-				
-				// switch data layout
-				// # of tiles controlled
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				numcnt = tens + ones;
-				fileIndex++;
-
-				// x y of this switch
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myX = tens + ones;
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myY = tens + ones;
-				fileIndex++;
-
-				/////////////////////////////////////
-				// add a switch to the switch manager
-				myGameVar.SM.addSwitch(myX, myY, numcnt);
-				//trace("added a switch at ", myX, myY, " with ", numcnt, " targets");
-				
-				for(var sx:int = 0; sx < numcnt; sx++)
+				for (x = 0; x < switchCount; x++)
 				{
-					///////////////////////////////
-					// x y of first tile controlled
+					
+					// switch data layout
+					// # of tiles controlled
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					numcnt = tens + ones;
+					fileIndex++;
+
+					// x y of this switch
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myX = tens + ones;
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myY = tens + ones;
+					fileIndex++;
+
+					/////////////////////////////////////
+					// add a switch to the switch manager
+					myGameVar.SM.addSwitch(myX, myY, numcnt);
+					//trace("added a switch at ", myX, myY, " with ", numcnt, " targets");
+					
+					for(var sx:int = 0; sx < numcnt; sx++)
+					{
+						///////////////////////////////
+						// x y of first tile controlled
+						tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+						tempX = tens + ones;
+						tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+						tempY = tens + ones;
+						fileIndex++;
+						//trace ("Added target at ", tempX, ", ", tempY);
+
+						///////////////////////////////////////////////////////////
+						// add this target to the last switch in the switch manager
+						myGameVar.SM.addTargetToLastSwitch(tempX, tempY);
+					}
+				}
+
+				// read in the teleporters
+				for(x = 0; x < teleportCount; x++)
+				{
+					// read in source
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myX = tens + ones;
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myY = tens + ones;
+					fileIndex++;
+					
+					// read in destination
 					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 					tempX = tens + ones;
 					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 					tempY = tens + ones;
 					fileIndex++;
-					//trace ("Added target at ", tempX, ", ", tempY);
-
-					///////////////////////////////////////////////////////////
-					// add this target to the last switch in the switch manager
-					myGameVar.SM.addTargetToLastSwitch(tempX, tempY);
+					
+					tempObjT = new Teleport(myX, myY, 0);
+					//trace("added a teleport at position ", myX, ", ", myY);
+					tempObjT.setTarget(tempX, tempY);
+					//trace("teleport targets are ", tempX, ", ", tempY);
+					teleportList.push(tempObjT);
 				}
-			}
-
-			// read in the teleporters
-			for(x = 0; x < teleportCount; x++)
-			{
-				// read in source
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myX = tens + ones;
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myY = tens + ones;
-				fileIndex++;
 				
-				// read in destination
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				tempX = tens + ones;
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				tempY = tens + ones;
-				fileIndex++;
+				// read in tiles that start as inactive
 				
-				tempObjT = new Teleport(myX, myY, 0);
-				//trace("added a teleport at position ", myX, ", ", myY);
-				tempObjT.setTarget(tempX, tempY);
-				//trace("teleport targets are ", tempX, ", ", tempY);
-				teleportList.push(tempObjT);
-			}
-			
-			// read in tiles that start as inactive
-			
-			// first lets find out how many tiles we have
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-			fileIndex++;
-			var numInactives:int = tens + ones;
-			//trace ("we're about to read in ", numInactives, " inactive tiles");
-			
-			// now read in the inactive tiles
-			for (x = 0; x < numInactives; x++)
-			{
+				// first lets find out how many tiles we have
 				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				tempX = tens + ones;
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				tempY = tens + ones;
 				fileIndex++;
-				//trace("setting tile at location ", tempX, ", ", tempY, " to inactive");
-				mapList[tempX][tempY].setActive(false);	
-				mapList[tempX][tempY].setResetActive(false);
-			}
-			populateMapImages();
-			
-			myGameVar.SMD.clearSwitchList();
-			
-			// read in dswitches
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-			fileIndex++;
-			var numDSwitches = tens + ones;
-			//trace ("we're about to read in ", numDSwitches, " DSwitches");
-						
-			for (x = 0; x < numDSwitches; x++)
-			{
+				var numInactives:int = tens + ones;
+				//trace ("we're about to read in ", numInactives, " inactive tiles");
 				
-				// switch data layout
-				// # of tiles controlled
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				numcnt = tens + ones;
-				fileIndex++;
-
-				// x y of this switch
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myX = tens + ones;
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myY = tens + ones;
-				fileIndex++;
-
-				/////////////////////////////////////
-				// add a switch to the switch manager
-				myGameVar.SMD.addSwitch(myX, myY, numcnt);
-				//trace("added a Dswitch at ", myX, myY, " with ", numcnt, " targets");
-				
-				var targetType:tileEnums;
-				
-				for(sx = 0; sx < numcnt; sx++)
+				// now read in the inactive tiles
+				for (x = 0; x < numInactives; x++)
 				{
-					///////////////////////////////
-					// x y of first tile controlled
 					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 					tempX = tens + ones;
 					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 					tempY = tens + ones;
-					// and now target type of the tile controlled
+					fileIndex++;
+					//trace("setting tile at location ", tempX, ", ", tempY, " to inactive");
+					mapList[tempX][tempY].setActive(false);	
+					mapList[tempX][tempY].setResetActive(false);
+				}
+				populateMapImages();
+				
+				myGameVar.SMD.clearSwitchList();
+				
+				// read in dswitches
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+				fileIndex++;
+				var numDSwitches = tens + ones;
+				//trace ("we're about to read in ", numDSwitches, " DSwitches");
+							
+				for (x = 0; x < numDSwitches; x++)
+				{
+					
+					// switch data layout
+					// # of tiles controlled
 					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-					var targetNum = tens + ones;
-					if ((targetNum > 40) || (targetNum < 0))
+					numcnt = tens + ones;
+					fileIndex++;
+
+					// x y of this switch
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myX = tens + ones;
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myY = tens + ones;
+					fileIndex++;
+
+					/////////////////////////////////////
+					// add a switch to the switch manager
+					myGameVar.SMD.addSwitch(myX, myY, numcnt);
+					//trace("added a Dswitch at ", myX, myY, " with ", numcnt, " targets");
+					
+					var targetType:tileEnums;
+					
+					for(sx = 0; sx < numcnt; sx++)
 					{
-						trace ("we read in an invalid dSwitch target type of ", targetNum, " this has been overriden with a empty tile");
-						targetNum = 0;
+						///////////////////////////////
+						// x y of first tile controlled
+						tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+						tempX = tens + ones;
+						tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+						tempY = tens + ones;
+						// and now target type of the tile controlled
+						tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+						var targetNum = tens + ones;
+						if ((targetNum > 40) || (targetNum < 0))
+						{
+							trace ("we read in an invalid dSwitch target type of ", targetNum, " this has been overriden with a empty tile");
+							targetNum = 0;
+						}
+						targetType = new tileEnums(targetNum);
+						
+						fileIndex++;
+
+						///////////////////////////////////////////////////////////
+						// add this target to the last switch in the switch manager
+						//trace ("Adding Dtarget at ", tempX, ", ", tempY, " of type ", targetType.toInt());
+						myGameVar.SMD.addTargetToLastSwitchD(tempX, tempY, targetType);
 					}
-					targetType = new tileEnums(targetNum);
+				}
+				
+				// Read in tutorial tiles
+				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+				fileIndex++;
+				var numTutorialTiles:int = tens + ones;
+				trace("We're about to read in " + numTutorialTiles + " tutorial tiles.");
+				
+				var tempTutorialTile:TutorialData;
+				for (x = 0; x < numTutorialTiles; x++)
+				{
+					// * Tutorial Tile Data layout
+					// * X Y Position
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myX = tens + ones;
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					myY = tens + ones;
+					fileIndex++;
+					
+					// * tutorialClipID referenced (Pop up menu)
+					tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
+					var mcID:int = tens + ones;
+					fileIndex++;
+					
+					// * Commands available at this point
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardAvail = true;	}	else	{	moveForwardAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardUntilAvail = true;	}	else	{	moveForwardUntilAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnLeftAvail = true;	}	else	{	turnLeftAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnRightAvail = true;	}	else	{	turnRightAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	punchAvail = true;	}	else	{	punchAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	climbAvail = true;	}	else	{	climbAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	crouchAvail = true;	}	else	{	crouchAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	jumpAvail = true;	}	else	{	jumpAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	activateAvail = true;	}	else	{	activateAvail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub1Avail = true;	}	else	{	sub1Avail = false;	} fileIndex++;
+					if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub2Avail = true;	}	else	{	sub2Avail = false;	} fileIndex++;
+				
+					// Add the new tutorial tile map object
+					tempTutorialTile = new TutorialData(myX, myY, mcID, moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
+					tutorialTileList.push(tempTutorialTile);
+					//trace("Tutorial Tile X: " + tempTutorialTile.selfX + ", Y: " + tempTutorialTile.selfY + ", ClipID: " + tempTutorialTile.tutorialClipID);
 					
 					fileIndex++;
-
-					///////////////////////////////////////////////////////////
-					// add this target to the last switch in the switch manager
-					//trace ("Adding Dtarget at ", tempX, ", ", tempY, " of type ", targetType.toInt());
-					myGameVar.SMD.addTargetToLastSwitchD(tempX, tempY, targetType);
 				}
+				
+				trace("*** setting doneloadingmapfromfile to true");
+				doneLoadingMapFromFile = true;
+				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				trace("finished loading map ", filename);
+				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			}
-			
-			// Read in tutorial tiles
-			tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-			fileIndex++;
-			var numTutorialTiles:int = tens + ones;
-			trace("We're about to read in " + numTutorialTiles + " tutorial tiles.");
-			
-			var tempTutorialTile:TutorialData;
-			for (x = 0; x < numTutorialTiles; x++)
-			{
-				// * Tutorial Tile Data layout
-				// * X Y Position
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myX = tens + ones;
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				myY = tens + ones;
-				fileIndex++;
-				
-				// * tutorialClipID referenced (Pop up menu)
-				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
-				var mcID:int = tens + ones;
-				fileIndex++;
-				
-				// * Commands available at this point
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardAvail = true;	}	else	{	moveForwardAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	moveForwardUntilAvail = true;	}	else	{	moveForwardUntilAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnLeftAvail = true;	}	else	{	turnLeftAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	turnRightAvail = true;	}	else	{	turnRightAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	punchAvail = true;	}	else	{	punchAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	climbAvail = true;	}	else	{	climbAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	crouchAvail = true;	}	else	{	crouchAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	jumpAvail = true;	}	else	{	jumpAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	activateAvail = true;	}	else	{	activateAvail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub1Avail = true;	}	else	{	sub1Avail = false;	} fileIndex++;
-				if (tempString.charCodeAt(fileIndex++)-48 == 1)	{	sub2Avail = true;	}	else	{	sub2Avail = false;	} fileIndex++;
-			
-				// Add the new tutorial tile map object
-				tempTutorialTile = new TutorialData(myX, myY, mcID, moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
-				tutorialTileList.push(tempTutorialTile);
-				//trace("Tutorial Tile X: " + tempTutorialTile.selfX + ", Y: " + tempTutorialTile.selfY + ", ClipID: " + tempTutorialTile.tutorialClipID);
-				
-				fileIndex++;
-			}
-			
-			trace("*** setting doneloadingmapfromfile to true");
-			doneLoadingMapFromFile = true;
-			trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-			trace("finished loading map ", filename);
-			trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
 			//centerX = (int)((Width+1)/2);
 			//centerY = (int)((Height+1)/2);
 			//currentX = centerX;
@@ -937,6 +935,8 @@
 			currentY = robotY;
 			
 			recalcPositions();
+			
+			return true;
 		}
 		
 		public function setScale(newScale:Number)
