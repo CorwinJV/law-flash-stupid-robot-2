@@ -1835,6 +1835,8 @@ package code
 		public function skipTutorialButtonClick(e:MouseEvent)
 		{
 			var level:int = logicVars.getCurrentLevel();
+			
+			ClearExecutionList();
 			// go to the next tutorial level
 			if (level <= logicVars.getNumTutorialLevels())
 			{
@@ -1844,7 +1846,6 @@ package code
 				//trace("from the skip this tutorial button, current level is ", level);
 				// make a call to create a new playGameState
 				stage.dispatchEvent(new Event("skipLevel"));
-
 			}
 		}
 
