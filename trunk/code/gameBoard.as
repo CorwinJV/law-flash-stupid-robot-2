@@ -145,9 +145,9 @@
 		var doneLoadingMapFromFile:Boolean = false;
 		
 		// death animation variables
-		var diedElectricity = new robotDiedElectricity();
-		var diedGap = new robotDiedGap();
-		var diedWater = new robotDiedWater();
+		var diedElectricity:MovieClip = new robotDiedElectricity();
+		var diedGap:MovieClip = new robotDiedGap();
+		var diedWater:MovieClip = new robotDiedWater();
 		
 		// jump animation variables
 		var jumpSuccessBR:MovieClip = new robotJumpSuccessBR();
@@ -4014,6 +4014,7 @@
 				if (!myRobotImage.contains(diedElectricity))
 				{
 					myRobotImage.addChild(diedElectricity);
+					diedElectricity.electricAnimation.gotoAndPlay(0);
 				}
 			}
 			else if (myGameVar.robotDiedGap)
@@ -4037,7 +4038,9 @@
 				// somehow its dead but didn't die from anything
 				trace("ROBOT DIED FROM NOTHING");
 			}
+
 			reInjectRobotImage();
+
 			update();
 		}
 		
