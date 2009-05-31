@@ -84,7 +84,7 @@ package code.states
 			
 			// level preview stuff
 			var tempString:String = GameVars.getInstance().getFilename(playerCurrentLevel);
-			trace("+++ loadMapFromFile is being called inside LEVELSELCTSTATE constructor to load in map ", tempString);
+			//trace("+++ loadMapFromFile is being called inside LEVELSELCTSTATE constructor to load in map ", tempString);
 			gamePlay.loadMapFromFile(tempString);
 		
 			Update();
@@ -197,7 +197,7 @@ package code.states
 			
 			var tempString:String = GameVars.getInstance().getFilename(playerCurrentLevel);
 			gamePlay.setState(GameBoardStateEnum.GB_PREGAME);
-			trace("+++ loadMapFromFile is being called inside levelselectstate INCREMENTBUTTONCLICK to load in map ", tempString);
+			//trace("+++ loadMapFromFile is being called inside levelselectstate INCREMENTBUTTONCLICK to load in map ", tempString);
 			gamePlay.loadMapFromFile(tempString);
 			fixMap();
 		}
@@ -223,7 +223,7 @@ package code.states
 			
 			var tempString:String = GameVars.getInstance().getFilename(playerCurrentLevel);
 			gamePlay.setState(GameBoardStateEnum.GB_PREGAME);
-			trace("+++ loadMapFromFile is being called inside levelselectstate DECREMENTBUTTONCLICK to load in map ", tempString);
+			//trace("+++ loadMapFromFile is being called inside levelselectstate DECREMENTBUTTONCLICK to load in map ", tempString);
 			gamePlay.loadMapFromFile(tempString);
 			fixMap();
 		}

@@ -323,6 +323,8 @@
 			{
 				jumpAnimationCounter();
 			}
+			
+			shouldWeKillTheRobot();
 		}
 		
 		public function draw()
@@ -508,7 +510,7 @@
 			var loadedFile:TextField = new TextField();
 			var tempString:String = new String();
 			
-			trace("*** setting done loading map from file to false");
+			//trace("*** setting done loading map from file to false");
 			doneLoadingMapFromFile = false;
 			
 						
@@ -516,7 +518,7 @@
 			var textLoader:URLLoader = new URLLoader();
 			var textReq:URLRequest = new URLRequest(filename);
 			textLoader.load(textReq);
-			trace("textloadcomplete event timer starting");
+			//trace("textloadcomplete event timer starting");
 			textLoader.addEventListener(Event.COMPLETE, textLoadComplete, false, 0, true);
 			
 			var x:int;
@@ -524,9 +526,9 @@
 			
 			function textLoadComplete(event:Event):void
 			{
-				trace("**************************************************************************************");
-				trace("Starting to read in file ", filename);
-				trace("**************************************************************************************");
+				//trace("**************************************************************************************");
+				//trace("Starting to read in file ", filename);
+				//trace("**************************************************************************************");
 				var fileIndex:int = 0;
 				// this could maybe use some error checking incase the text file doesn't exist
 				loadedFile.text = textLoader.data;
@@ -911,11 +913,11 @@
 					fileIndex++;
 				}
 				
-				trace("*** setting doneloadingmapfromfile to true");
+				//trace("*** setting doneloadingmapfromfile to true");
 				doneLoadingMapFromFile = true;
-				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				trace("finished loading map ", filename);
-				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				//trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+				///trace("finished loading map ", filename);
+				//trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			}
 
 			//centerX = (int)((Width+1)/2);
@@ -3202,6 +3204,8 @@
 			{
 				//trace("dswitchtoggled was true, we're going to set the tile type of map location ", myGameVar.SMD.getCurrentTargetX(robotX, robotY), ", ", myGameVar.SMD.getCurrentTargetY(robotX, robotY), " to type ", myGameVar.SMD.getCurrentTargetType(robotX, robotY).toInt());
 				mapList[myGameVar.SMD.getCurrentTargetX(robotX, robotY)][myGameVar.SMD.getCurrentTargetY(robotX, robotY)].setType(myGameVar.SMD.getCurrentTargetType(robotX, robotY));
+				//mapList[myGameVar.SMD.getCurrentTargetX(robotX, robotY)][myGameVar.SMD.getCurrentTargetY(robotX, robotY)].setActive(true);
+				
 				
 				//trace ("now we're going to advance the target");
 				myGameVar.SMD.advanceTarget(robotX, robotY);
@@ -3780,7 +3784,7 @@
 						if ((x == robotX) && (y == robotY))
 						{
 							setRobotImage(myRobot.getDirection());
-							trace("inside of rebuildmapclicp - adding myrobotimage");
+							//trace("inside of rebuildmapclicp - adding myrobotimage");
 							myMap.addChild(myRobotImage);
 						}
 						// add foreground tile images here
@@ -3812,7 +3816,7 @@
 				{
 					myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
 				}
-				trace("reInjectRobotImage - Robot at index ", myMap.getChildIndex(myRobotImage));
+				//trace("reInjectRobotImage - Robot at index ", myMap.getChildIndex(myRobotImage));
 			}
 			
 			//myMap.removeChild(myRobotImage);
@@ -3859,6 +3863,45 @@
 		{
 			//trace("xxx areYouDoneLoadingAMapFromFile returning ", doneLoadingMapFromFile);
 			return doneLoadingMapFromFile;
+		}
+		
+		public function shouldWeKillTheRobot()
+		{
+			if (areYouDoneLoadingAMapFromFile())
+			{
+				var killIt:Boolean = false;
+				if (mapList[robotX][robotY].getType().toInt() == tileEnums.TWater.toInt())
+				{
+					//trace("robot died from Water");
+					killIt = true;
+				}
+				
+				// or it could have died from standing in a gap
+				else if (mapList[robotX][robotY].getType().toInt() == tileEnums.TGap.toInt())
+				{
+					//trace("robot died from gap");
+					killIt = true;
+				}
+				
+				// or maybe it was something electrical
+				else if (mapList[robotX][robotY].getType().toInt() == tileEnums.TElectric.toInt())
+				{
+					if (mapList[robotX][robotY].getIsActive())
+					{
+						//trace("robot died from electric");
+						killIt = true;
+					}
+				}
+				
+				if (killIt)
+				{
+					myRobot.setAlive(false);
+					robotAlive = false;
+					
+					howDidTheRobotDie();
+					//curState = GameBoardStateEnum.GB_ROBOTDIED;
+				}
+			}
 		}
 		
 		public function howDidTheRobotDie()
