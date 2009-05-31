@@ -163,6 +163,7 @@
 			// curstate = GameBoardstateEnum.GB_PREGAME;
 			// gameplay.setState(curState);
 			// stage.dispatchEvent(new Event("skipButtonClicked"));
+			// stage.dispatchEvent(new Event("skipButtonClicked"));
 		//}
 		//
 		
@@ -183,7 +184,6 @@
 			gamePlay = new gameBoard();
 			
 			// load the map for the appropriate level
-			trace("+++ loadMapFromFile is being called inside SKIPLEVEL to load in map ", playVars.getFilename(playVars.getCurrentLevel()));
 			gamePlay.loadMapFromFile(playVars.getFilename(playVars.getCurrentLevel()));
 			// add game board to the scene
 			this.addChild(gamePlay);
@@ -629,7 +629,6 @@
 			playVars.setCurrentLevel(0);
 
 			tempString = playVars.getFilename(playerCurrentLevel);
-			trace("+++ loadMapFromFile is being called inside initialize to load in map ", tempString);
 			gamePlay.loadMapFromFile(tempString);
 			//gamePlay.loadMapFromFile("additionalContent/maps/testMap1.txt");
 			mInterface.GetCurrentMapLogicBank();
@@ -687,69 +686,61 @@
 			switch(curState.toInt())
 			{
 			case GameBoardStateEnum.GB_PREGAME.toInt():
-			// ok we're not going to do a damned thing in pregame until the map is finished being loaded from the file
-				if (gamePlay.areYouDoneLoadingAMapFromFile())
+				// if coming from between levels, remove the view score screen
+				if (this.contains(ViewScoreMC))
 				{
-					// if coming from between levels, remove the view score screen
-					if (this.contains(ViewScoreMC))
-					{
-						this.removeChild(ViewScoreMC);
-					}
-					
-					// Set the bool for loading current logic blocks
-					alreadyLoadedLogicInstructions = false;
-					
-					// nuke the previous gameboard if it exists
-					if (this.contains(gamePlay))
-					{
-						this.removeChild(gamePlay);
-					}
-					
-					if(currentStatus.toInt() == GameStateEnum.PASSIVE.toInt())	// waiting for click ok to continue to finish...
-					{
-						pregameRunning = true;
-						gamePlay.setState(GameBoardStateEnum.GB_PREGAME);
-					}
-					
-					if(currentStatus.toInt() == GameStateEnum.ACTIVE.toInt())
-					{
-						inGameStatus = true;
-						playVars.setInGame(inGameStatus);
-						gameSaved = false;
-						
-						//====================================
-						// Add the pre-game stuff to the display list
-						if (!this.contains(PreGameMC))
-						{
-							this.addChild(PreGameMC);
-							// Add text fields...
-							PreGameMC.playerNameTextBox.text = playVars.getPlayerName();
-							PreGameMC.levelNameTextBox.text = playVars.getLevelName(playVars.getCurrentLevel());
-							PreGameMC.levelDescriptionTextBox.text = playVars.getDesc(playVars.getCurrentLevel());
-							PreGameMC.bytesAvailableTextBox.text = playVars.getCurrentLevelBytes();
-							PreGameMC.didYouKnowTextBox.text = playVars.didYouKnow[playVars.didYouKnowIterator];
-							
-							PreGameMC.addEventListener(MouseEvent.MOUSE_UP, skippingPregame);						
-						}
-						
-						//====================================
-						// Check if the pregame is running,
-						// If it is not, start the pregame timer and
-						// set the bool for pregame running.
-						if (this.isPreGameTimerRunning == false)
-						{
-							this.isPreGameTimerRunning = true;
-							this.preGameTimer.addEventListener(TimerEvent.TIMER_COMPLETE, preGameTimerEnded);
-							this.preGameTimer.start();
-						}
-						
-						// reset the bool for the you died text
-						doneDead = false;
-					}
+					this.removeChild(ViewScoreMC);
 				}
-				else
+				
+				// Set the bool for loading current logic blocks
+				alreadyLoadedLogicInstructions = false;
+				
+				// nuke the previous gameboard if it exists
+				if (this.contains(gamePlay))
 				{
-					trace("still waiting for playgame to finish loading a file....");
+					this.removeChild(gamePlay);
+				}
+				
+				if(currentStatus.toInt() == GameStateEnum.PASSIVE.toInt())	// waiting for click ok to continue to finish...
+				{
+					pregameRunning = true;
+					gamePlay.setState(GameBoardStateEnum.GB_PREGAME);
+				}
+				
+				if(currentStatus.toInt() == GameStateEnum.ACTIVE.toInt())
+				{
+					inGameStatus = true;
+					playVars.setInGame(inGameStatus);
+					gameSaved = false;
+					
+					//====================================
+					// Add the pre-game stuff to the display list
+					if (!this.contains(PreGameMC))
+					{
+						this.addChild(PreGameMC);
+						// Add text fields...
+						PreGameMC.playerNameTextBox.text = playVars.getPlayerName();
+						PreGameMC.levelNameTextBox.text = playVars.getLevelName(playVars.getCurrentLevel());
+						PreGameMC.levelDescriptionTextBox.text = playVars.getDesc(playVars.getCurrentLevel());
+						PreGameMC.bytesAvailableTextBox.text = playVars.getCurrentLevelBytes();
+						PreGameMC.didYouKnowTextBox.text = playVars.didYouKnow[playVars.didYouKnowIterator];
+						
+						PreGameMC.addEventListener(MouseEvent.MOUSE_UP, skippingPregame);						
+					}
+					
+					//====================================
+					// Check if the pregame is running,
+					// If it is not, start the pregame timer and
+					// set the bool for pregame running.
+					if (this.isPreGameTimerRunning == false)
+					{
+						this.isPreGameTimerRunning = true;
+						this.preGameTimer.addEventListener(TimerEvent.TIMER_COMPLETE, preGameTimerEnded);
+						this.preGameTimer.start();
+					}
+					
+					// reset the bool for the you died text
+					doneDead = false;
 				}
 				break;
 			case GameBoardStateEnum.GB_LOGICVIEW.toInt():
@@ -891,7 +882,6 @@
 					gamePlay = new gameBoard();		
 					tempString = playVars.getFilename(levelCounter);
 					tempInt = playVars.getCurrentLevel();
-					trace("+++ loadMapFromFile is being called inside UPDATE -> case GB_FINISHED to load in map ", tempString);
 					gamePlay.loadMapFromFile(tempString);
 					mInterface.GetCurrentMapLogicBank();
 					mInterface.GetCurrentLevelBytes();
@@ -1024,7 +1014,7 @@
 				trace("End set tutorial hit");
 				GSM.addGameState(new tutorialPopUpState(GSM));
 			}
-
+			
 			if (!this.contains(background))
 			{
 				background.x = 0;
@@ -1140,7 +1130,6 @@
 			//trace ("inside of delete board, we are about to set the level to ", playVars.getCurrentLevel());
 			var tempString:String = playVars.getFilename(playVars.getCurrentLevel());
 			
-			trace("+++ loadMapFromFile is being called inside REMOVEANDREBUILD to load in map ", tempString);
 			gamePlay.loadMapFromFile(tempString);
 			mInterface.GetCurrentMapLogicBank();
 			mInterface.GetCurrentLevelBytes();
@@ -1216,28 +1205,21 @@
 
 		public function preGameTimerEnded(e:TimerEvent)
 		{
-			if (gamePlay.areYouDoneLoadingAMapFromFile())
+			if (isPreGameTimerRunning == true)
 			{
-				if (isPreGameTimerRunning == true)
+				isPreGameTimerRunning = false;
+				playVars.commandsProcessed = 0;
+				playVars.totalCommandsProcessed = 0; 
+				
+				// Remove the pre game movie clips from the display list as we
+				// transition into logic view
+				if (this.contains(PreGameMC))
 				{
-					isPreGameTimerRunning = false;
-					playVars.commandsProcessed = 0;
-					playVars.totalCommandsProcessed = 0; 
-					
-					// Remove the pre game movie clips from the display list as we
-					// transition into logic view
-					if (this.contains(PreGameMC))
-					{
-						this.removeChild(PreGameMC);
-					}
-					
-					gamePlay.setState(GameBoardStateEnum.GB_LOGICVIEW);
-					//trace("Setting state to logicview");
+					this.removeChild(PreGameMC);
 				}
-			}
-			else
-			{
-				trace("the map somehow wasn't finished being loaded from the file");
+				
+				gamePlay.setState(GameBoardStateEnum.GB_LOGICVIEW);
+				//trace("Setting state to logicview");
 			}
 		}
 		
