@@ -15,7 +15,7 @@
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.media.Sound;
-	
+	import flash.media.SoundChannel;
 	
 	public class DevLogoState extends GameState
 	{
@@ -26,7 +26,10 @@
 		var skipDisabled:Boolean = false;
 		var skipTimer:Timer = new Timer(150, 1);
 		var armyMarch:Sound;
-		var drumBeats:Sound;
+		//var drumBeats:Sound;
+		var mrroboto:Sound;
+		var mySoundChannel:SoundChannel;
+		
 		
 		public function DevLogoState(gsm:GameStateManager)
 		{
@@ -35,9 +38,9 @@
 			progress = 1;
 			this.addChild(DevLogo);
 			armyMarch = new armyMarching();
-			drumBeats = new drumBeat();
-			armyMarch.play();
-			drumBeats.play();
+			mrroboto = new mrRoboto();
+			//drumBeats = new drumBeat();
+			mySoundChannel = armyMarch.play();
 			
 			DevLogo.addEventListener(MouseEvent.MOUSE_UP, forceSkip);
 			PubLogo.addEventListener(MouseEvent.MOUSE_UP, forceSkip);
@@ -82,7 +85,7 @@
 					}
 					break;
 				case 3:
-					if (GameLogo.currentFrame >= 235)
+					if (GameLogo.currentFrame >= 305)
 					{
 						skipLogo();
 					}
@@ -121,16 +124,21 @@
 		
 		function launchPublisherLogoS()
 		{
+			mySoundChannel.stop();
 			progress = 2;
 			this.removeChild(DevLogo);
 			this.addChild(PubLogo);
+			PubLogo.gotoAndPlay(0);
 		}
 		
 		function launchGameLogoS()
 		{
+			mySoundChannel.stop();
+			mySoundChannel = mrroboto.play();
 			progress = 3;
 			this.removeChild(PubLogo);
 			this.addChild(GameLogo);
+			GameLogo.gotoAndPlay(0);
 		}
 		
 		function launchMainMenuS()
@@ -139,6 +147,7 @@
 			{
 				this.removeChild(GameLogo);
 			}
+			mySoundChannel.stop();
 			GSM.addGameState(new MainMenuState(GSM));
 			this.setStatus(GameStateEnum.DELETE_ME);
 		}
