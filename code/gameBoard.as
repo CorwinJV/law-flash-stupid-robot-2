@@ -2815,14 +2815,20 @@
 		
 		public function zoomout()
 		{
-			scale -= 0.05;
-			if (scale < minScale)	scale = minScale;
+			if(!isAnimationOcurring)
+			{
+				scale -= 0.05;
+				if (scale < minScale)	scale = minScale;
+			}
 		}
 		
 		public function zoomin()
 		{
-			scale += 0.05;
-			if (scale > maxScale)	scale = maxScale;
+			if (!isAnimationOcurring)
+			{
+				scale += 0.05;
+				if (scale > maxScale)	scale = maxScale;
+			}
 		}
 		
 		public function center()
@@ -3703,36 +3709,45 @@
 		
 		private function rebuildMapClip()
 		{
-			if (!isAnimationOcurring && isAnimationDone)
+			
+			var something:int = myMap.numChildren;
+			
+			for (var x:int = 0; x < something; x++)
 			{
-				var something:int = myMap.numChildren;
-				
-				for (var x:int = 0; x < something; x++)
+				myMap.removeChildAt(0);
+			}
+			
+			// add all the children to the mapclip
+			//trace ("Rebuild map of size ", Width, Height);
+			for (y = 0; y < Height; y++)
+			{
+				for (x = 0; x < Width; x++)
 				{
-					myMap.removeChildAt(0);
-				}
-				
-				// add all the children to the mapclip
-				//trace ("Rebuild map of size ", Width, Height);
-				for (y = 0; y < Height; y++)
-				{
-					for (x = 0; x < Width; x++)
+					// add background tile images here
+					myMap.addChild(mapListImages[x][y]);
+					// if the robot is at this position, add it
+					if (!isAnimationOcurring && isAnimationDone)
 					{
-						// add background tile images here
-						myMap.addChild(mapListImages[x][y]);
-						// if the robot is at this position, add it
 						if ((x == robotX) && (y == robotY))
 						{
 							setRobotImage(myRobot.getDirection());
 							//trace("inside of rebuildmapclicp - adding myrobotimage");
 							myMap.addChild(myRobotImage);
 						}
-						// add foreground tile images here
-						myMap.addChild(mapListImagesForeground[x][y]);
 					}
+					// add foreground tile images here
+					myMap.addChild(mapListImagesForeground[x][y]);
 				}
 			}
+			if (isAnimationOcurring)
+			{
+				myMap.addChild(jumpAnimation);
+				injectJumpAnimation(myRobot.getDirection());
+			}
+			
 			draw();
+			
+			
 		}
 		
 		private function toggleAllMapTiles()
