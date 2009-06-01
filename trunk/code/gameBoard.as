@@ -3770,23 +3770,33 @@
 				trace("adding jump animation at x/y", jumpAnimation.x, ", ", jumpAnimation.y);
 				myMap.addChild(jumpAnimation);
 			}
+			var newIndexPosition:int = 0;
 			
 			// determine which animation is being displayed, depending on the direction the robot is facing
 			switch(dir)
 			{
 				case 0: // top right
-					myMap.setChildIndex(jumpAnimation, (robotX * 2) + 2 + (Width * (robotY * 2)) + 1);
+					newIndexPosition = (robotX * 2) + 4 + (Width * (robotY * 2)) + 1;
 					break;
 				case 1: // bottom right
-					myMap.setChildIndex(jumpAnimation, (robotX * 2) + 2 + (Width * (robotY * 2)) + 2 + 1);
+					newIndexPosition = (robotX * 2) + 4 + (Width * ((robotY * 2) + 4) + 1);
 					break;
 				case 2: // bottom left
-					myMap.setChildIndex(jumpAnimation, (robotX * 2) + (Width * (robotY * 2)) + 2 + 1);
+					newIndexPosition = (robotX * 2) + (Width * ((robotY * 2) + 4) + 1);
 					break;
 				case 3: // top left
-					myMap.setChildIndex(jumpAnimation, (robotX * 2) + (Width * (robotY * 2)));
+					newIndexPosition = (robotX * 2) + (Width * (robotY * 2));
 					break;
 			}
+			
+			if (newIndexPosition > myMap.numChildren - 1)
+			{
+				newIndexPosition = myMap.numChildren - 1;
+			}
+			
+			myMap.setChildIndex(jumpAnimation, newIndexPosition);
+			myMap.setChildIndex(jumpAnimation, myMap.numChildren - 1);
+			
 			// start the animation at frame 0
 			jumpAnimation.animation.gotoAndPlay(0);
 		}
@@ -3987,6 +3997,7 @@
 			// clear out robot image if it exists
 			if (myMap.contains(myRobotImage))
 			{
+				// if it is, remove it
 				trace("inside setrobotjumpanimation - nuking myrobotimage");
 				myMap.removeChild(myRobotImage);
 			}
@@ -4003,7 +4014,7 @@
 			
 			switch(jumpDirection)
 			{
-				case 0:
+				case 0: // top right
 					if (myGameVar.robotJumpSuccessTR)
 					{
 						jumpAnimation = jumpSuccessTR;
@@ -4029,7 +4040,7 @@
 						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
 					}
 					break;
-				case 1:
+				case 1: // bottom right
 					if (myGameVar.robotJumpSuccessBR)
 					{
 						jumpAnimation = jumpSuccessBR;
@@ -4054,7 +4065,7 @@
 						jumpAnimation.y = myRobotImage.y;
 					}
 					break;
-				case 2:
+				case 2: // bottom left
 					if (myGameVar.robotJumpSuccessBL)
 					{
 						// add it
@@ -4081,7 +4092,7 @@
 						jumpAnimation.y = myRobotImage.y;
 					}
 					break;
-				case 3:
+				case 3: // top left
 					if (myGameVar.robotJumpSuccessTL)
 					{
 						// add it
