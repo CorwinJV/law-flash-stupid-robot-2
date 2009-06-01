@@ -143,16 +143,12 @@ package code.states
 		// Click Event Handlers
 		public function selectButtonClick(e:MouseEvent)
 		{
-			// local variables
-			var gamePlay:gameBoard = new gameBoard();
-			var levelInfo:String;
-			
 			// player has pressed the select button, set the level
 			// they selected as the current level and load the game
-	
 			selectVars.setLevel(playerCurrentLevel);
 			selectVars.setLevelSpecified(playerCurrentLevel);
-			
+	
+			// then delete the level select menu
 			this.setStatus(GameStateEnum.DELETE_ME);
 			stage.dispatchEvent(new Event("skipButtonClicked"));
 		}		

@@ -510,13 +510,13 @@
 			var loadedFile:TextField = new TextField();
 			var tempString:String = new String();
 			
-			trace("*** setting done loading map from file to false");
+			//trace("*** setting done loading map from file to false");
 			doneLoadingMapFromFile = false;
 			
 			var textLoader:URLLoader = new URLLoader();
 			var textReq:URLRequest = new URLRequest(filename);
 			textLoader.load(textReq);
-			trace("textloadcomplete event timer starting");
+			//trace("textloadcomplete event timer starting");
 			textLoader.addEventListener(Event.COMPLETE, textLoadComplete, false, 0, true);
 			
 			var x:int;
@@ -524,9 +524,9 @@
 			
 			function textLoadComplete(event:Event):void
 			{
-				trace("**************************************************************************************");
-				trace("Starting to read in file ", filename);
-				trace("**************************************************************************************");
+				//trace("**************************************************************************************");
+				//trace("Starting to read in file ", filename);
+				//trace("**************************************************************************************");
 				var fileIndex:int = 0;
 				// this could maybe use some error checking incase the text file doesn't exist
 				loadedFile.text = textLoader.data;
@@ -588,7 +588,7 @@
 					return;
 				}
 				
-				trace ("nWidth = ", nWidth, "  nHeight = ", nHeight, "   startDirection =", startDirection, "   bytesAvail = ", bytesAvail);
+		//		trace ("nWidth = ", nWidth, "  nHeight = ", nHeight, "   startDirection =", startDirection, "   bytesAvail = ", bytesAvail);
 				
 				
 				setRobotImage(startDirection);
@@ -626,7 +626,7 @@
 				var sub2Avail:Boolean;
 				if (tempString.charCodeAt(fileIndex++) - 48 == 1)	{	sub2Avail = true;	}	else	{	sub2Avail = false;	} fileIndex++;
 				
-				trace ("moveForward, moveForwardUntil, turnLeft, turnRight, punch, climb, crouch, jump, activate, sub1, sub2 = ", moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
+				//trace ("moveForward, moveForwardUntil, turnLeft, turnRight, punch, climb, crouch, jump, activate, sub1, sub2 = ", moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
 								
 				myGameVar.setCurrentLogicBank(moveForwardAvail, moveForwardUntilAvail, turnLeftAvail, turnRightAvail, punchAvail, climbAvail, crouchAvail, jumpAvail, activateAvail, sub1Avail, sub2Avail);
 				myGameVar.setCurrentLevelBytes(bytesAvail);
@@ -716,7 +716,7 @@
 				teleportCount = tens + ones;
 				fileIndex++;
 				
-				trace ("Switches = ", switchCount, "   Teleporters = ", teleportCount);
+				//trace ("Switches = ", switchCount, "   Teleporters = ", teleportCount);
 								
 				myGameVar.SM.clearSwitchList();
 				
@@ -800,7 +800,7 @@
 				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 				fileIndex++;
 				var numInactives:int = tens + ones;
-				trace ("we're about to read in ", numInactives, " inactive tiles");
+				//trace ("we're about to read in ", numInactives, " inactive tiles");
 				
 				// now read in the inactive tiles
 				for (x = 0; x < numInactives; x++)
@@ -822,7 +822,7 @@
 				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 				fileIndex++;
 				var numDSwitches = tens + ones;
-				trace ("we're about to read in ", numDSwitches, " DSwitches");
+				//trace ("we're about to read in ", numDSwitches, " DSwitches");
 							
 				for (x = 0; x < numDSwitches; x++)
 				{
@@ -878,7 +878,7 @@
 				tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 				fileIndex++;
 				var numTutorialTiles:int = tens + ones;
-				trace("We're about to read in " + numTutorialTiles + " tutorial tiles.");
+			//	trace("We're about to read in " + numTutorialTiles + " tutorial tiles.");
 				
 				var tempTutorialTile:TutorialData;
 				for (x = 0; x < numTutorialTiles; x++)
@@ -917,11 +917,11 @@
 					fileIndex++;
 				}
 				
-				trace("*** setting doneloadingmapfromfile to true");
+			//	trace("*** setting doneloadingmapfromfile to true");
 				doneLoadingMapFromFile = true;
-				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-				trace("finished loading map ", filename);
-				trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+			//	trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+			//	trace("finished loading map ", filename);
+			//	trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			}
 
 			//centerX = (int)((Width+1)/2);
