@@ -3801,16 +3801,16 @@
 			switch(dir)
 			{
 				case 0: // top right
-					newIndexPosition = ((robotX + 2) * 2) + (Width * (robotY * 2)) + 1;
+					newIndexPosition = ((robotX + 2) * 2) + (Width * ((robotY    ) * 2)) + 1;
 					break;
 				case 1: // bottom right
-					newIndexPosition = (((robotX + 2) * 2) + (Width * ((robotY + 2) * 2)) + 1);
+					newIndexPosition = ((robotX + 2) * 2) + (Width * ((robotY + 2) * 2)) + 1;
 					break;
 				case 2: // bottom left
-					newIndexPosition = (robotX * 2) + (Width * ((robotY + 2) * 2) + 1);
+					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY + 2) * 2)) + 1;
 					break;
 				case 3: // top left
-					newIndexPosition = (robotX * 2) + (Width * (robotY * 2));
+					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY    ) * 2));
 					break;
 			}
 			
