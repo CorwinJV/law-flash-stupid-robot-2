@@ -1925,21 +1925,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarTR = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 								}
@@ -1949,21 +1936,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarTR = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 									
@@ -1982,21 +1956,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarBR = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 								}
@@ -2006,21 +1967,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarBR = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 									
@@ -2039,21 +1987,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarBL = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 								}
@@ -2063,21 +1998,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarBL = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 									
@@ -2096,21 +2018,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarTL = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 								}
@@ -2120,21 +2029,8 @@
 								{
 									// play a solid hit sound
 									myGameVar.SSoundTileSolidHit.play();
-									switch(robotDirection)
-									{
-										case 0: // top right
-											myGameVar.robotJumpFailFarTR = true;
-											break;
-										case 1: // bottom right
-											myGameVar.robotJumpFailFarBR = true;
-											break;
-										case 2: // bottom left
-											myGameVar.robotJumpFailFarBL = true;
-											break;
-										case 3: // top left
-											myGameVar.robotJumpFailFarTL = true;
-											break;
-									}
+									myGameVar.robotJumpFailFarTL = true;
+									
 									// set distance to move to 1
 									distanceToMove = 1;
 									
@@ -2161,18 +2057,18 @@
 			destY = robotY;
 			switch(robotDirection)
 			{
-			case 0:// facing up/right (up on map)
-				destY = robotY - distanceToMove;					
-				break;
-			case 1:// facing down/right (right on map)
-				destX = robotX + distanceToMove;
-				break;
-			case 2:// facing down/left (down on map)
-				destY = robotY + distanceToMove;
-				break;
-			case 3:// facing up/left (left on map)
-				destX = robotX - distanceToMove;
-				break;
+				case 0:// facing up/right (up on map)
+					destY = robotY - distanceToMove;					
+					break;
+				case 1:// facing down/right (right on map)
+					destX = robotX + distanceToMove;
+					break;
+				case 2:// facing down/left (down on map)
+					destY = robotY + distanceToMove;
+					break;
+				case 3:// facing up/left (left on map)
+					destX = robotX - distanceToMove;
+					break;
 			}
 
 			if (distanceToMove == 1)
@@ -3827,35 +3723,38 @@
 		{
 			var dir:int = direction;
 			
+			// if the robot exists on the screen, remove it
 			if (myMap.contains(myRobotImage))
 			{
 				trace("inside of inject jump animation - nuking myrobotimage");
 				myMap.removeChild(myRobotImage);
 			}
 			
+			// add the kump animation
 			if (!myMap.contains(jumpAnimation))
 			{
 				trace("adding jump animation at x/y", jumpAnimation.x, ", ", jumpAnimation.y);
 				myMap.addChild(jumpAnimation);
 			}
 			
+			// determine which animation is being displayed, depending on the direction the robot is facing
 			switch(dir)
 			{
-				case 0:
-					//((((
+				case 0: // top right
 					myMap.setChildIndex(jumpAnimation, (robotX * 2) + 2 + (Width * (robotY * 2)) + 1);
 					myMap.setChildIndex(jumpAnimation, myMap.numChildren - 1);
 					break;
-				case 1:
+				case 1: // bottom right
 				
 					break;
-				case 2:
+				case 2: // bottom left
 					
 					break;
-				case 3:
+				case 3: // top left
 					
 					break;
 			}
+			// start the animation at frame 0
 			jumpAnimation.animation.gotoAndPlay(0);
 		}
 
@@ -4052,11 +3951,7 @@
 			var jumpDistance:int = distance;
 			var jumpDirection:int = direction;
 			
-			// clear our any previous images
-			//if (myRobotImage.numChildren > 0)
-			//{
-				//myRobotImage.removeChildAt(0);
-			//}//zzz
+			// clear out robot image if it exists
 			if (myMap.contains(myRobotImage))
 			{
 				trace("inside setrobotjumpanimation - nuking myrobotimage");
@@ -4112,7 +4007,7 @@
 					else if (myGameVar.robotJumpFailCloseBR)
 					{
 						// add it	
-						jumpAnimation = jumpSuccessBR;
+						jumpAnimation = jumpFailCloseBR;
 						// set the position of the animation movie clip
 						jumpAnimation.x = myRobotImage.x;
 						jumpAnimation.y = myRobotImage.y;
@@ -4120,7 +4015,7 @@
 					else if (myGameVar.robotJumpFailFarBR)
 					{
 						// add it
-						jumpAnimation = jumpSuccessBR;
+						jumpAnimation = jumpFailFarBR;
 						// set the position of the animation movie clip
 						jumpAnimation.x = myRobotImage.x;
 						jumpAnimation.y = myRobotImage.y;
@@ -4139,7 +4034,7 @@
 					else if (myGameVar.robotJumpFailCloseBL)
 					{
 						// add it	
-						jumpAnimation = jumpSuccessBL;
+						jumpAnimation = jumpFailCloseBL;
 						// set the position of the animation movie clip
 						jumpAnimation.x = myRobotImage.x - width;
 						jumpAnimation.y = myRobotImage.y;
@@ -4147,7 +4042,7 @@
 					else if (myGameVar.robotJumpFailFarBL)
 					{
 						// add it
-						jumpAnimation = jumpSuccessBL;
+						jumpAnimation = jumpFailFarBL;
 						// set the position of the animation movie clip
 						jumpAnimation.x = myRobotImage.x - width;
 						jumpAnimation.y = myRobotImage.y;
@@ -4165,7 +4060,7 @@
 					else if (myGameVar.robotJumpFailCloseTL)
 					{
 						// add it
-						jumpAnimation = jumpSuccessTL;
+						jumpAnimation = jumpFailCloseTL;
 						// set the position of the animation movie clip
 						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
 						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
@@ -4173,7 +4068,7 @@
 					else if (myGameVar.robotJumpFailFarTL)
 					{
 						// add it
-						jumpAnimation = jumpSuccessTL;
+						jumpAnimation = jumpFailFarTL;
 						// set the position of the animation movie clip
 						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
 						jumpAnimation.y = myRobotImage.y - (myRobotImage.height / 2);
@@ -4189,19 +4084,23 @@
 		}
 		
 		public function setRobotPositionAfterJump()
-		{
+		{ 
+			// set the coordinates of the robot
 			if( (destX >=0) && (destX < Width) )
 				robotX = destX;
 			if( (destY >=0) && (destY < Height) )
 				robotY = destY;
+				
+			keepRobotOnTheBoard();
 			
 			myRobot.setXPos(robotX);
 			myRobot.setYPos(robotY);
 		
 			trace("inside of setrobotpositionafterjump - adding myrobotimage");
 			draw();
+			// add the robot image back to the movie clip
 			myMap.addChild(myRobotImage);
-			
+			// re add the robot image, as the jump animation should now be off
 			reInjectRobotImage();
 			//update();
 			
@@ -4227,8 +4126,9 @@
 				if (!myMap.contains(myRobotImage))
 				{
 					("inside of jumpanimationcounter - adding myrobotimage");
-					myMap.addChild(myRobotImage);
-					reInjectRobotImage();
+					//myMap.addChild(myRobotImage);
+					//reInjectRobotImage();
+					setRobotPositionAfterJump();
 				}
 				isAnimationDone = true;
 				isAnimationOcurring = false;
