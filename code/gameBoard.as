@@ -1797,6 +1797,21 @@
 			{
 				// yes we died
 				myGameVar.SSoundRobotDiedElectric.play();
+				switch(robotDirection)
+				{
+					case 0: // top right
+						myGameVar.robotJumpFailCloseTR = true;
+						break;
+					case 1: // bottom right
+						myGameVar.robotJumpFailCloseBR = true;
+						break;
+					case 2: // bottom left
+						myGameVar.robotJumpFailCloseBL = true;
+						break;
+					case 3: // top left
+						myGameVar.robotJumpFailCloseTL = true;
+						break;
+				}
 				myRobot.setAlive(false);
 				robotAlive = false;
 				stopProcessShit = true;
@@ -1886,6 +1901,7 @@
 								break;
 						}
 						stopProcessShit = true;
+						distanceToMove = 0;
 					}
 					
 					if (!stopProcessShit)
@@ -1900,18 +1916,18 @@
 						var tempDestY:int = robotY;
 						switch(robotDirection)
 						{
-						case 0:// facing up/right (up on map)
-							tempDestY = robotY - 1;
-							break;
-						case 1:// facing down/right (right on map)
-							tempDestX = robotX + 1;
-							break;
-						case 2:// facing down/left (down on map)
-							tempDestY = robotY + 1;
-							break;
-						case 3:// facing up/left (left on map)
-							tempDestX = robotX - 1;
-							break;
+							case 0:// facing up/right (up on map)
+								tempDestY = robotY - 1;
+								break;
+							case 1:// facing down/right (right on map)
+								tempDestX = robotX + 1;
+								break;
+							case 2:// facing down/left (down on map)
+								tempDestY = robotY + 1;
+								break;
+							case 3:// facing up/left (left on map)
+								tempDestX = robotX - 1;
+								break;
 						}
 					}
 					
@@ -2071,7 +2087,25 @@
 					break;
 			}
 
-			if (distanceToMove == 1)
+			if (distanceToMove == 0)
+			{
+				switch(robotDirection)
+				{
+					case 0: // top right
+						myGameVar.robotJumpFailCloseTR = true;
+						break;
+					case 1: // bottom right
+						myGameVar.robotJumpFailCloseBR = true;
+						break;
+					case 2: // bottom left
+						myGameVar.robotJumpFailCloseBL = true;
+						break;
+					case 3: // top left
+						myGameVar.robotJumpFailCloseTL = true;
+						break;
+				}
+			}				
+			else if (distanceToMove == 1)
 			{
 				switch(robotDirection)
 				{
@@ -3730,7 +3764,7 @@
 				myMap.removeChild(myRobotImage);
 			}
 			
-			// add the kump animation
+			// add the jump animation
 			if (!myMap.contains(jumpAnimation))
 			{
 				trace("adding jump animation at x/y", jumpAnimation.x, ", ", jumpAnimation.y);
@@ -3742,16 +3776,15 @@
 			{
 				case 0: // top right
 					myMap.setChildIndex(jumpAnimation, (robotX * 2) + 2 + (Width * (robotY * 2)) + 1);
-					myMap.setChildIndex(jumpAnimation, myMap.numChildren - 1);
 					break;
 				case 1: // bottom right
-				
+					myMap.setChildIndex(jumpAnimation, (robotX * 2) + 2 + (Width * (robotY * 2)) + 2 + 1);
 					break;
 				case 2: // bottom left
-					
+					myMap.setChildIndex(jumpAnimation, (robotX * 2) + (Width * (robotY * 2)) + 2 + 1);
 					break;
 				case 3: // top left
-					
+					myMap.setChildIndex(jumpAnimation, (robotX * 2) + (Width * (robotY * 2)));
 					break;
 			}
 			// start the animation at frame 0
