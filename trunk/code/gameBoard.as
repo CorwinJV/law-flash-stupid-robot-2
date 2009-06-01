@@ -3804,13 +3804,13 @@
 					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY    ) * 2)) + 1;
 					break;
 				case 1: // bottom right
-					newIndexPosition = ((robotX + 2) * 2) + (Width * ((robotY    ) * 2)) + 1;
+					newIndexPosition = ((robotX  + 2) * 2) + (Width * ((robotY    ) * 2)) + 1;
 					break;
 				case 2: // bottom left
 					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY + 1) * 2)) + 1;
 					break;
 				case 3: // top left
-					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY    ) * 2));
+					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY    ) * 2)  +1 );
 					break;
 			}
 			
@@ -3820,7 +3820,6 @@
 			}
 			
 			myMap.setChildIndex(jumpAnimation, newIndexPosition);
-			myMap.setChildIndex(jumpAnimation, myMap.numChildren - 1);
 			
 			// start the animation at frame 0
 			jumpAnimation.animation.gotoAndPlay(0);
