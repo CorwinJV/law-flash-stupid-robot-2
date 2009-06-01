@@ -666,6 +666,12 @@
 							trace(filename, " is referencing a THalfBottomL or THalfBottomR, I have converted it to a TGap");
 						}
 						
+						if ((val == tileEnums.TWater.toInt()))
+						{
+							val = tileEnums.TGap.toInt();
+							trace(filename, " is referencing TWater, I have converted it to a TGap");
+						}
+						
 						if (val < 0)
 						{
 							trace ("Read in invalid tileType of ", val, ". aborting now before bad things happen");
@@ -3769,7 +3775,10 @@
 			{
 				if (myMap.contains(myRobotImage))
 				{
-					myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
+					if (myMap.getChildIndex(myRobotImage) != (robotX * 2) + (Width * (robotY * 2)) + 1)
+					{
+						myMap.setChildIndex(myRobotImage, (robotX * 2) + (Width * (robotY * 2)) + 1);
+					}
 				}
 				//trace("reInjectRobotImage - Robot at index ", myMap.getChildIndex(myRobotImage));
 			}
@@ -3819,7 +3828,11 @@
 				newIndexPosition = myMap.numChildren - 1;
 			}
 			
-			myMap.setChildIndex(jumpAnimation, newIndexPosition);
+			// if this not at the right position, insert it, otherwise dont do anything
+			if (myMap.getChildIndex(jumpAnimation) != newIndexPosition)
+			{
+				myMap.setChildIndex(jumpAnimation, newIndexPosition);
+			}
 			
 			// start the animation at frame 0
 			jumpAnimation.animation.gotoAndPlay(0);
