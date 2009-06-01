@@ -402,7 +402,7 @@
 						{
 							drawAtY -= (hh * 1.8);
 						}
-//						drawObject(0, drawAtX, drawAtY, scale);
+//		jjj				drawObject(0, drawAtX, drawAtY, scale);
 						myRobotImage.x = drawAtX;
 						myRobotImage.y = drawAtY;
 						myRobotImage.width = imageWidth;
@@ -1815,6 +1815,7 @@
 				myRobot.setAlive(false);
 				robotAlive = false;
 				stopProcessShit = true;
+				distanceToMove = 0;
 			}
 
 			if (!stopProcessShit)
@@ -1840,6 +1841,7 @@
 							break;
 					}
 					stopProcessShit = true;
+					distanceToMove = 0;
 				}
 			}
 
@@ -1870,6 +1872,7 @@
 								break;
 						}
 						stopProcessShit = true;
+						distanceToMove = 0;
 					}
 					else
 					{
@@ -3943,8 +3946,6 @@
 			howDidTheRobotDie();
 			
 			// lets get rid of the living robot
-			// ***why do we have a temp movie clip here that's not being used?
-			var tempClip:MovieClip;
 			if (myRobotImage.numChildren > 0)
 			{
 				myRobotImage.removeChildAt(0);
@@ -4071,16 +4072,15 @@
 						// add it
 						jumpAnimation = jumpSuccessBL;
 						// set the position of the animation movie clip
-						jumpAnimation.x = myRobotImage.x - width;
+						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
 						jumpAnimation.y = myRobotImage.y;
-						
 					}
 					else if (myGameVar.robotJumpFailCloseBL)
 					{
 						// add it	
 						jumpAnimation = jumpFailCloseBL;
 						// set the position of the animation movie clip
-						jumpAnimation.x = myRobotImage.x - width;
+						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
 						jumpAnimation.y = myRobotImage.y;
 					}
 					else if (myGameVar.robotJumpFailFarBL)
@@ -4088,7 +4088,7 @@
 						// add it
 						jumpAnimation = jumpFailFarBL;
 						// set the position of the animation movie clip
-						jumpAnimation.x = myRobotImage.x - width;
+						jumpAnimation.x = myRobotImage.x - myRobotImage.width;
 						jumpAnimation.y = myRobotImage.y;
 					}
 					break;
@@ -4125,6 +4125,95 @@
 			
 			myGameVar.SSoundJump.play();
 			injectJumpAnimation(jumpDirection);
+		}
+		
+		public function jumpScale()
+		{
+			var jumpDirection:int = myRobot.getDirection();
+			
+			switch(jumpDirection)
+			{
+				case 0: // top right
+					if (myGameVar.robotJumpSuccessTR)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x * scale;
+						jumpAnimation.y = (myRobotImage.y - (myRobotImage.height / 2)) * scale;
+					}
+					else if (myGameVar.robotJumpFailCloseTR)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x * scale;
+						jumpAnimation.y = (myRobotImage.y - (myRobotImage.height / 2)) * scale;					
+					}
+					else if (myGameVar.robotJumpFailFarTR)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x * scale;
+						jumpAnimation.y = (myRobotImage.y - (myRobotImage.height / 2)) * scale;
+					}
+					break;
+				case 1: // bottom right
+					if (myGameVar.robotJumpSuccessBR)
+					{
+						jumpAnimation.x = myRobotImage.x * scale;
+						jumpAnimation.y = myRobotImage.y * scale;
+					}
+					else if (myGameVar.robotJumpFailCloseBR)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x * scale;
+						jumpAnimation.y = myRobotImage.y * scale;
+					}
+					else if (myGameVar.robotJumpFailFarBR)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = myRobotImage.x * scale;
+						jumpAnimation.y = myRobotImage.y * scale;
+					}
+					break;
+				case 2: // bottom left
+					if (myGameVar.robotJumpSuccessBL)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = (myRobotImage.x - myRobotImage.width) * scale;
+						jumpAnimation.y = myRobotImage.y * scale;
+					}
+					else if (myGameVar.robotJumpFailCloseBL)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = (myRobotImage.x - myRobotImage.width) * scale;
+						jumpAnimation.y = myRobotImage.y * scale;
+					}
+					else if (myGameVar.robotJumpFailFarBL)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = (myRobotImage.x - myRobotImage.width) * scale;
+						jumpAnimation.y = myRobotImage.y * scale;
+					}
+					break;
+				case 3: // top left
+					if (myGameVar.robotJumpSuccessTL)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = (myRobotImage.x - myRobotImage.width) * scale;
+						jumpAnimation.y = (myRobotImage.y - (myRobotImage.height / 2))* scale;					
+					}
+					else if (myGameVar.robotJumpFailCloseTL)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = (myRobotImage.x - myRobotImage.width) * scale;
+						jumpAnimation.y = (myRobotImage.y - (myRobotImage.height / 2)) * scale;
+					}
+					else if (myGameVar.robotJumpFailFarTL)
+					{
+						// set the position of the animation movie clip
+						jumpAnimation.x = (myRobotImage.x - myRobotImage.width) * scale;
+						jumpAnimation.y = (myRobotImage.y - (myRobotImage.height / 2)) * scale;
+					}
+					break;
+			}
+			
 		}
 		
 		public function setRobotPositionAfterJump()

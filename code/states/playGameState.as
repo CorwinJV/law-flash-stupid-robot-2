@@ -1246,7 +1246,6 @@
 		
 		public function finishKillingTheRobot(e:TimerEvent)
 		{
-			gamePlay.resetRobotImage();
 			this.addChild(deathMC);
 			curState = GameBoardStateEnum.GB_LOGICVIEW;
 			//mInterface.fireAbort();
