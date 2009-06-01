@@ -149,22 +149,10 @@ package code.states
 			
 			// player has pressed the select button, set the level
 			// they selected as the current level and load the game
-			selectVars.setLevelSpecified(playerCurrentLevel);
-
-			levelInfo = selectVars.getFilename(playerCurrentLevel);
-			//trace("+++ loadMapFromFile is being called inside levelselectstate SELECTBUTTONCLICK to load in map ", levelInfo);
-			//gamePlay.loadMapFromFile(levelInfo);
 	
 			selectVars.setLevel(playerCurrentLevel);
 			selectVars.setLevelSpecified(playerCurrentLevel);
 			
-			
-			//GSM->launchNewGame();
-			// im not sure if the code below will replace the line above
-			//GSM.addGameState(new playGameState(GSM));
-			//gamePlay.setState(GameBoardStateEnum.GB_PREGAME);
-	
-			// then delete the level select menu
 			this.setStatus(GameStateEnum.DELETE_ME);
 			stage.dispatchEvent(new Event("skipButtonClicked"));
 		}		

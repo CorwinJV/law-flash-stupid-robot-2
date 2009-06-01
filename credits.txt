@@ -89,6 +89,11 @@ What's QA??
 "What do you mean there's no changes? When did I commit this?"
              - Tom
 
+"There's an inactive door status?"
+             - Dana
+
+"Yeah, when you open it"
+             - Dave
 
 Special Thanks to...
 Caffeine

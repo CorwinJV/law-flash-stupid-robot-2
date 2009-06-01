@@ -94,7 +94,7 @@
 				if(stateList[i].getStatus().toInt() == GameStateEnum.DELETE_ME.toInt())
 				{
 					//trace("State #", i, " is of type ", stateList[i].getStateName(), " is set to status ", stateList[i].getStatus().toInt(), "and i'm going to go ahead and try to delete it");
-					//rootContainer.removeChild(stateList[i]);
+					rootContainer.removeChild(stateList[i]);
 					trace("about to delete " + stateList[i]);
 					delete(stateList[i]);
 					//trace("finished deleting (should say undefined) " + stateList[i]);

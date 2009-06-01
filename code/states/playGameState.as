@@ -1082,6 +1082,8 @@
 		
 		public function removeAndRebuild()
 		{
+			trace("entered remove and rebuild");
+			
 			//setup and initialize variables
 			finishNow = false;
 			finishing = false;			
