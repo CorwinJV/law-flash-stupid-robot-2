@@ -402,7 +402,7 @@
 						{
 							drawAtY -= (hh * 1.8);
 						}
-//		jjj				drawObject(0, drawAtX, drawAtY, scale);
+//						drawObject(0, drawAtX, drawAtY, scale);
 						myRobotImage.x = drawAtX;
 						myRobotImage.y = drawAtY;
 						myRobotImage.width = imageWidth;
@@ -1563,6 +1563,13 @@
 				DswitchInProgress = false;
 				DswitchToggled = false;
 				teleportInProgress = false;
+				if (isAnimationOcurring)
+				{
+					myMap.removeChild(jumpAnimation);
+					setRobotPositionAfterJump();
+					isAnimationOcurring = false;
+					isAnimationDone = true;
+				}
 			}
 			return false;
 		}
@@ -3724,8 +3731,8 @@
 						myMap.addChild(mapListImagesForeground[x][y]);
 					}
 				}
-				draw();
 			}
+			draw();
 		}
 		
 		private function toggleAllMapTiles()
@@ -4300,7 +4307,6 @@
 					draw();
 					//trace("Now the width/height of the mapclip is ", myMap.width, ", ", myMap.height);
 				}
-				
 			}
 			else if (myMap.height > newHeight)
 			{
@@ -4314,7 +4320,6 @@
 					//trace("Now the width/height of the mapclip is ", myMap.width, ", ", myMap.height);
 				}
 			}
-			
 		}
 		
 		public function setPosition(xPos:int, yPos:int)
