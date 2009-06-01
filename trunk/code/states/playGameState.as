@@ -188,7 +188,11 @@
 			// add game board to the scene
 			this.addChild(gamePlay);
 			// set it to draw behind everything
-			this.setChildIndex(gamePlay, 0);
+			if (this.getChildIndex(gamePlay) != 0)
+			{
+				this.setChildIndex(gamePlay, 0);
+			}
+			
 			gamePlay.update();
 			gamePlay.draw();
 		}
@@ -751,7 +755,10 @@
 					if (!this.contains(gamePlay))
 					{
 						this.addChild(gamePlay);
-						this.setChildIndex(gamePlay, 0);
+						if (this.getChildIndex(gamePlay) != 0)
+						{
+							this.setChildIndex(gamePlay, 0);
+						}
 					}
 					if (!this.contains(mInterface))
 					{
@@ -1027,7 +1034,10 @@
 			}
 			else
 			{
-				this.setChildIndex(background, 0);
+				if (this.getChildIndex(background) != 0)
+				{
+					this.setChildIndex(background, 0);
+				}			
 			}
 
 		}
