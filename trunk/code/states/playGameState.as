@@ -1150,7 +1150,7 @@
 
 			playVars.commandsProcessed = 0;
 			playVars.totalCommandsProcessed = 0;
-			curState = GameBoardStateEnum.GB_FINISHED;
+			//curState = GameBoardStateEnum.GB_FINISHED;
 			playVars.didYouKnowIterator++;
 	
 			if(playVars.didYouKnowIterator == playVars.didYouKnow.length)
