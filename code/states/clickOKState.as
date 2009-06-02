@@ -84,6 +84,7 @@
 			var tempTopY:int;
 			var tempMidX:int;
 			var tempMidY:int;
+			var basetextY = 125;
 			
 			switch(check)
 			{
@@ -141,16 +142,17 @@
 			
 			bottomText.text = "Click \"Help\" to learn more about the game.";
 			bottomText.x = 75;
-			bottomText.y = 150;
+			bottomText.y = basetextY + 150;
 			topText.x = tempTopX;
-			topText.y = tempTopY;
+			topText.y = basetextY + tempTopY;
 			midText.x = tempMidX;
-			midText.y = tempMidY;
+			midText.y = basetextY + tempMidY;
 			
 			//happy fun format stuff
 			tFormat.size = 24;
 			tFormat.font = "Arial";
 			tFormat.leading = 0;
+			tFormat.color = 0x00FF00;
 			
 			//now apply the happy fun format stuff
 			topText.setTextFormat(tFormat);	
