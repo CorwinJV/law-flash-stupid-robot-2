@@ -95,6 +95,10 @@ What's QA??
 "Yeah, when you open it"
              - Dave
 
+"That bug is a <insert programmer name here> thing and I'm not touching it"
+             - Programming Team Motto
+
+
 Special Thanks to...
 Caffeine
 Bacardi
