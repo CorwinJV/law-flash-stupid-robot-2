@@ -1171,6 +1171,7 @@
 		public function deathClick(e:MouseEvent)
 		{
 			this.removeChild(deathMC);
+			gamePlay.resetZoom();
 		}
 		
 		public function doEndGameDraw():void
