@@ -3941,9 +3941,13 @@
 						if ((tutorialTileList[i].selfX == robotX)
 						&& (tutorialTileList[i].selfY == robotY))
 						{
+							// Set the tutorial tile to inactive
+								mapList[robotX][robotY].setActive(false);
+
+							// Save everything as if we've hit a checkpoint
 							myRobot.setDefaults(myRobot.getDirection(), robotX, robotY);
 							
-							// store the map tiles actives
+								// store the map tiles actives
 							for(var x:int = 0; x < Width; x++)
 							{
 								for(var y:int = 0; y < Height; y++)
