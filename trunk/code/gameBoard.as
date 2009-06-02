@@ -388,19 +388,19 @@
 						
 						if (mapList[robotX][robotY].getType().toInt() == tileEnums.TRaised1.toInt())
 						{
-							drawAtY -= (hh * 0.45);
+							drawAtY -= (hh * 0.15);
 						}
 						else  if (mapList[robotX][robotY].getType().toInt() == tileEnums.TRaised2.toInt())
 						{
-							drawAtY -= (hh * 0.9);
+							drawAtY -= (hh * 0.30);
 						}
 						else  if (mapList[robotX][robotY].getType().toInt() == tileEnums.TRaised3.toInt())
 						{
-							drawAtY -= (hh * 1.35);
+							drawAtY -= (hh * 0.45);
 						}
 						else  if (mapList[robotX][robotY].getType().toInt() == tileEnums.TRaised4.toInt())
 						{
-							drawAtY -= (hh * 1.8);
+							drawAtY -= (hh * 0.6);
 						}
 //						drawObject(0, drawAtX, drawAtY, scale);
 						myRobotImage.x = drawAtX;
@@ -858,7 +858,7 @@
 						// and now target type of the tile controlled
 						tens = (tempString.charCodeAt(fileIndex++) - 48) * 10; 	ones = tempString.charCodeAt(fileIndex++) - 48; fileIndex++;
 						var targetNum = tens + ones;
-						if ((targetNum > 40) || (targetNum < 0))
+						if ((targetNum > 41) || (targetNum < 0))
 						{
 							trace ("we read in an invalid dSwitch target type of ", targetNum, " this has been overriden with a empty tile");
 							targetNum = 0;
@@ -1065,14 +1065,7 @@
 				//trace("zoomin()");
 			//}
 			}
-			else if (Key.isDown(106) || Key.isDown(49)) // * - 1 (not numpad)
-			{
-				rotateMapRight();
-			}
-			else if (Key.isDown(111) || Key.isDown(50))	// "/" - 2
-			{
-				rotateMapLeft();
-			}
+			
 			else if (Key.isDown(57)) // 9
 			{
 				toggleAllMapTiles();
@@ -1141,6 +1134,32 @@
 				}
 			}
 			
+			myGameVar.SM.resetAllSwitches();
+			switchInProgress = false;
+			switchToggled = false;
+			
+			myGameVar.SMD.resetAllSwitches();
+			DswitchInProgress = false;
+			DswitchToggled = false;
+			
+			robotX = robotStartX;
+			robotY = robotStartY;
+			myRobot.setXPos(robotX);
+			myRobot.setYPos(robotY);
+			for (var x:int = 0; x < Width; x++)
+			{
+				for (var y:int = 0; y < Height; y++)
+				{
+					mapList[x][y].resetActive();
+					mapList[x][y].resetTileType();
+				}
+			}
+			
+			rebuildMapClip();
+		}
+		
+		public function resetMapForExecution()
+		{			
 			myGameVar.SM.resetAllSwitches();
 			switchInProgress = false;
 			switchToggled = false;
@@ -1434,7 +1453,8 @@
 		public function interfaceHasFiredExecuteOrder(e:Event)
 		{
 			//trace ("just entered interface has fired execute order");
-			resetMap();
+			//resetMap();
+			resetMapForExecution();
 			teleportInProgress = false;
 			var exList:Array = myGameVar.getMainExecutionList();
 			var exListSub1:Array = myGameVar.getSub1ExecutionList();
@@ -1533,7 +1553,16 @@
 						
 						//trace(i);
 						//trace("Starting timer at " + i + " time.");
-						executionCycleTimer = new Timer(i, 1);
+						if (!switchInProgress && !DswitchInProgress)
+						{
+							executionCycleTimer = new Timer(i, 1);
+						}
+						else
+						{
+							executionCycleTimer = new Timer(i/4, 1);
+						}
+						
+						
 						if (!executionCycleTimer.hasEventListener(TimerEvent.TIMER))
 						{
 							executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
@@ -2495,12 +2524,14 @@
 			   ((robotSquare.toInt() == tileEnums.TSwitchTL.toInt()) && (robotDirection == 3)))
 
 			{
+				mapList[robotX][robotY].toggleActive();
+				
 				// if we are in fact standing on a switch... lets see if one exists in the switch list
 				if((myGameVar.SM.isThereASwitchAt(robotX, robotY)) && (!switchInProgress))
 				{
 					// if there is, lets set the happy go lucky bool in gameboard to true
 					switchInProgress = true;
-					mapList[robotX][robotY].toggleActive();
+					//mapList[robotX][robotY].toggleActive();
 					myGameVar.SM.startProcessing(robotX, robotY);
 				}
 				// lets also check to see if there's a dswitch at our spot
@@ -2509,7 +2540,7 @@
 					//trace("we're standing on a dswitch square and activate fired and isthereaswitchat worked properly");
 					// if there is, lets set the happy go lucky bool in gameboard to true
 					DswitchInProgress = true;
-					mapList[robotX][robotY].toggleActive();
+					//mapList[robotX][robotY].toggleActive();
 					myGameVar.SMD.startProcessing(robotX, robotY);
 				}
 			}
@@ -3484,8 +3515,8 @@
 							else									{	tileClip.addChild(new TTeleportIBG());	}
 							break;
 						case 41:
-							if (mapList[x][y].getIsActive())			{	tileClip.addChild(new TDefaultABG());	}
-							else									{	tileClip.addChild(new TDefaultIBG());	}
+							if (mapList[x][y].getIsActive())			{	tileClip.addChild(new TTutorialABG());	}
+							else									{	tileClip.addChild(new TTutorialIBG());	}
 							break;
 					}
 					tempCols.push(tileClip);
@@ -3698,8 +3729,8 @@
 							else									{	tileClipForeground.addChild(new TTeleportIFG());	}
 							break;
 						case 41:
-							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TDefaultAFG());	}
-							else									{	tileClipForeground.addChild(new TDefaultIFG());	}
+							if (mapList[x][y].getIsActive())			{	tileClipForeground.addChild(new TTutorialAFG());	}
+							else									{	tileClipForeground.addChild(new TTutorialIFG());	}
 							break;
 					}
 					tempColsForeground.push(tileClipForeground);
@@ -3814,7 +3845,7 @@
 					newIndexPosition = ((robotX  + 2) * 2) + (Width * ((robotY    ) * 2)) + 1;
 					break;
 				case 2: // bottom left
-					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY + 1) * 2)) + 1;
+					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY + 2) * 2)) + 1;
 					break;
 				case 3: // top left
 					newIndexPosition = ((robotX    ) * 2) + (Width * ((robotY    ) * 2)  +1 );
@@ -4285,7 +4316,7 @@
 			// which will call the function to set the robots position after the jump 
 			
 			// ****if statement needed here to count animation frames
-			if (jumpAnimation.animation.currentFrame == 30)
+			if (jumpAnimation.animation.currentFrame == 21)
 			{
 				areYouJumping = false;
 				if (myMap.contains(jumpAnimation))
