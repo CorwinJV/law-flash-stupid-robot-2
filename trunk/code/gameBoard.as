@@ -1159,7 +1159,23 @@
 		}
 		
 		public function resetMapForExecution()
-		{			
+		{	
+			var reRotateMap:int = mapRotation;
+			if (mapRotation > 0)
+			{
+				while (mapRotation > 0)
+				{
+					rotateMapLeft();
+				}
+			}
+			if (mapRotation < 0)
+			{
+				while (mapRotation < 0)
+				{
+					rotateMapRight();
+				}
+			}
+			
 			myGameVar.SM.resetAllSwitches();
 			switchInProgress = false;
 			switchToggled = false;
@@ -1178,6 +1194,22 @@
 				{
 					mapList[x][y].resetActive();
 					mapList[x][y].resetTileType();
+				}
+			}
+			
+			if (reRotateMap > 0)
+			{
+				while (mapRotation < reRotateMap)
+				{
+					rotateMapRight();
+				}
+			}
+			
+			if (reRotateMap < 0)
+			{
+				while (mapRotation > reRotateMap)
+				{
+					rotateMapLeft();
 				}
 			}
 			
@@ -1559,7 +1591,14 @@
 						}
 						else
 						{
-							executionCycleTimer = new Timer(i/4, 1);
+							if (switchInProgress)
+							{
+								executionCycleTimer = new Timer(i / 2, 1);
+							}
+							if (DswitchInProgress)
+							{
+								executionCycleTimer = new Timer(i / 4, 1);
+							}
 						}
 						
 						
