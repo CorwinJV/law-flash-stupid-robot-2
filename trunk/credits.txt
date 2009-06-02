@@ -46,10 +46,15 @@ Dana Young - danayoung1.0@gmail.com
 Corwin VanHook - corwin.j@gmail.com
 Tom Lindeman - tomlindeman@xnaprotege.com
 
-Level Designers
+Lead Level Designer
 Dana Young - danayoung1.0@gmail.com
+
+Additional Level Designer
 David Moss - davidbmoss@gmail.com
 Oscar Maldonado - fool133@yahoo.com
+
+Tutorial Concept, Design and Scripting
+Dana Young - danayoung1.0@gmail.com
 
 QA
 What's QA??
