@@ -4002,7 +4002,8 @@
 		
 		public function doTutorialTileCheckAndExecution()
 		{
-			if (mapList[robotX][robotY].getType().toInt() == tileEnums.TTutorial.toInt())
+			if (mapList[robotX][robotY].getType().toInt() == tileEnums.TTutorial.toInt()
+			|| mapList[robotX][robotY].getType().toInt() == tileEnums.TStart.toInt())
 			{
 				if(mapList[robotX][robotY].getIsActive())
 				{
