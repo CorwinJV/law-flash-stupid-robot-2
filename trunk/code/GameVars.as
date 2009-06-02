@@ -664,7 +664,7 @@
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
 			
-			tempLevel = new levelData("Haystack Sub Needle", "This seems odly familiar.", "additionalContent/maps/Haystacksubneedle.txt");
+			tempLevel = new levelData("Haystack Sub Needle", "This seems oddly familiar.", "additionalContent/maps/Haystacksubneedle.txt");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
 			
@@ -676,7 +676,7 @@
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
 			
-			tempLevel = new levelData("Jump The Wholes", "Don't trip and fall.", "additionalContent/maps/Jumptheholes.txt");
+			tempLevel = new levelData("Jump The Holes", "Don't trip and fall.", "additionalContent/maps/Jumptheholes.txt");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
 			
