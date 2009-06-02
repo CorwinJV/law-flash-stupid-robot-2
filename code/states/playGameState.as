@@ -1021,6 +1021,7 @@
 				trace("End tutorial hit checking");
 				gamePlay.setTutorialHit(false);
 				trace("End set tutorial hit");
+				mInterface.GetCurrentMapLogicBank();
 				GSM.addGameState(new tutorialPopUpState(GSM));
 			}
 			
