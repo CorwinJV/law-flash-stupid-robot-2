@@ -324,9 +324,11 @@
 			{
 				jumpAnimationCounter();
 			}
-			
-			shouldWeKillTheRobot();
-			doTutorialTileCheckAndExecution();
+			if (areYouDoneLoadingAMapFromFile())
+			{
+				shouldWeKillTheRobot();
+				doTutorialTileCheckAndExecution();
+			}
 		}
 		
 		public function draw()
