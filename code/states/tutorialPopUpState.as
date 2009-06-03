@@ -34,6 +34,13 @@
 		var currentPageMC:MovieClip;
 		var currentPage:int = 1;
 		var currentMaxPage:int = 0;
+		var currentMessageStartPage:int = 0;
+		
+		var currentPageTF:TextField = new TextField();
+		var maxPageTF:TextField = new TextField();
+		
+		var oldTFormat:TextFormat = new TextFormat();
+		var curTFormat:TextFormat =  new TextFormat();
 		
 		public function tutorialPopUpState(gsm:GameStateManager)
 		{
@@ -50,104 +57,166 @@
 					mc1.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc1.textBox;
 					currentMC = mc1;
+					currentMessageStartPage = 1;
+					currentPage = currentMessageStartPage;
 					currentMaxPage = 15;
 					break;
 				}
 				case 2:
 				{
+					loadMCPagesArray(1);
 					loadMCPagesArray(2);
 					mc2.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc2.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc2.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc2.textBox;
 					currentMC = mc2;
-					currentMaxPage = 1;
+					currentMessageStartPage = 16;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 16;
 					break;
 				}
 				case 3:
 				{
+					loadMCPagesArray(1);
+					loadMCPagesArray(2);
 					loadMCPagesArray(3);
 					mc3.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc3.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc3.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc3.textBox;
 					currentMC = mc3;
-					currentMaxPage = 1;
+					currentMessageStartPage = 17;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 17;
 					break;
 				}
 				case 4:
 				{
+					loadMCPagesArray(1);
+					loadMCPagesArray(2);
+					loadMCPagesArray(3);
 					loadMCPagesArray(4);
 					mc4.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc4.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc4.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc4.textBox;
 					currentMC = mc4;
-					currentMaxPage = 1;
+					currentMessageStartPage = 18;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 18;
 					break;
 				}
 				case 5:
 				{
+					loadMCPagesArray(1);
+					loadMCPagesArray(2);
+					loadMCPagesArray(3);
+					loadMCPagesArray(4);
 					loadMCPagesArray(5);
 					mc5.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc5.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc5.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc5.textBox;
 					currentMC = mc5;
-					currentMaxPage = 1;
+					currentMessageStartPage = 19;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 19;
 					break;
 				}
 				case 6:
 				{
+					loadMCPagesArray(1);
+					loadMCPagesArray(2);
+					loadMCPagesArray(3);
+					loadMCPagesArray(4);
+					loadMCPagesArray(5);
 					loadMCPagesArray(6);
 					mc6.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc6.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc6.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc6.textBox;
 					currentMC = mc6;
-					currentMaxPage = 3;
+					currentMessageStartPage = 20;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 22;
 					break;
 				}
 				case 7:
 				{
+					loadMCPagesArray(1);
+					loadMCPagesArray(2);
+					loadMCPagesArray(3);
+					loadMCPagesArray(4);
+					loadMCPagesArray(5);
+					loadMCPagesArray(6)
 					loadMCPagesArray(7);
 					mc7.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc7.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc7.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc7.textBox;
-					currentMC = mc7;	
-					currentMaxPage = 2;
+					currentMC = mc7;
+					currentMessageStartPage = 23;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 24;
 					break;
 				}
 				case 8:
 				{
+					loadMCPagesArray(1);
+					loadMCPagesArray(2);
+					loadMCPagesArray(3);
+					loadMCPagesArray(4);
+					loadMCPagesArray(5);
+					loadMCPagesArray(6)
+					loadMCPagesArray(7);
 					loadMCPagesArray(8);
 					mc8.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc8.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc8.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc8.textBox;
 					currentMC = mc8;
-					currentMaxPage = 2;
+					currentMessageStartPage = 25;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 26;
 					break;
 				}
 				case 9:
 				{
+					loadMCPagesArray(1);
+					loadMCPagesArray(2);
+					loadMCPagesArray(3);
+					loadMCPagesArray(4);
+					loadMCPagesArray(5);
+					loadMCPagesArray(6)
+					loadMCPagesArray(7);
+					loadMCPagesArray(8);
 					loadMCPagesArray(9);
 					mc9.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					mc9.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc9.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc9.textBox;
 					currentMC = mc9;
-					currentMaxPage = 1;
+					currentMessageStartPage = 27;
+					currentPage = currentMessageStartPage;
+					currentMaxPage = 27;
 					break;
 				}
 			}
-			
+		
+			// Position the current movie clip & add to display list
 			currentMC.x = 205;
 			currentMC.y = 127;
-			
 			this.addChild(currentMC);
-		
+			
+			// Position the page-count text fields & add to display list
+			currentPageTF.x = currentMC.x + (currentMC.width / 2) - 30;
+			currentPageTF.y = currentMC.y + 15;
+			this.addChild(currentPageTF);
+			
+			maxPageTF.x = currentMC.x + (currentMC.width / 2) - 10;
+			maxPageTF.y = currentMC.y + 15;
+			this.addChild(maxPageTF);
 		}
 		
 		public override function getStateName():String
@@ -157,12 +226,31 @@
 		
 		public override function Update()
 		{
-			
+			draw();
 		}
 		
 		public function draw():void
 		{
+			oldTFormat.size = 24;
+			oldTFormat.font = "Arial";
+			oldTFormat.color = 0xFFFF00;
+			
+			curTFormat.size = 24;
+			curTFormat.font = "Arial";
+			curTFormat.color = 0x00FF00;
 
+			currentPageTF.text = currentPage.toString();
+			if(currentPage >= currentMessageStartPage)
+			{
+				currentPageTF.setTextFormat(curTFormat);
+			}
+			else
+			{
+				currentPageTF.setTextFormat(oldTFormat);
+			}
+				
+			maxPageTF.text = " / " + currentMaxPage.toString();
+			maxPageTF.setTextFormat(curTFormat);
 		}
 		
 		public function loadMCPagesArray(i:int)
