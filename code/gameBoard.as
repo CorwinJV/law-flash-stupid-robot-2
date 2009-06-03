@@ -1487,7 +1487,7 @@
 		
 		public function processExecutionCycle(e:TimerEvent)
 		{
-			trace(this.parent);
+			//trace(this.parent);
 			//trace("Cycle begin.");
 			if (curState.toInt() == GameBoardStateEnum.GB_EXECUTION.toInt())
 			{
