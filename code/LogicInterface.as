@@ -551,12 +551,17 @@ package code
 					{
 						rowCount++;
 					}
+					
 					logicBank[i].blockTexture.width = instructionBlockW;
 					logicBank[i].blockTexture.height = instructionBlockH;
 					logicBank[i].blockTexture.x = leftCommandListOffsetX + (instructionSpacing) + logicInterfaceMC.leftCommandList.x + (instructionSpacing * columnIndex) + (instructionBlockW * columnIndex);
 					logicBank[i].blockTexture.y = leftCommandListOffsetY + (instructionSpacing) + logicBankYOffset + ((logicInterfaceMC.leftCommandList.y + instructionSpacing) + (rowCount * instructionBlockH) + (rowCount * instructionSpacing));
 			
-						
+					if (!this.contains(logicBank[i].blockTexture))
+					{
+						this.addChild(logicBank[i].blockTexture);
+					}
+					
 					// Drawing is handled automatically for anything on the display list.
 					
 					// If an instruction is not usable, draw a box over it
@@ -1210,10 +1215,6 @@ package code
 			}
 			
 			logicBank = GameVars.getInstance().GetCurrentMapLogicBank();
-			for (i = 0; i < logicBank.length; i++)
-			{
-				this.addChild(logicBank[i].blockTexture);
-			}
 		}
 		
 		public function GetCurrentLevelBytes()
