@@ -1,5 +1,6 @@
 ﻿package code 
 {
+	//100 bitches
 	import code.structs.Switch;
 	import code.structs.Teleport;
 	import flash.display.MovieClip;
