@@ -658,83 +658,63 @@
 			
 			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Needle in a Haystack", "Only one will open your path.", "additionalContent/maps/Needleinahaystack.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Haystack Sub Needle", "This seems oddly familiar.", "additionalContent/maps/Haystacksubneedle.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Holes and Ice", "Jump, Activate, Slide, Activate.", "additionalContent/maps/holesandice.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Abracadabra", "I'm gonna reach out and grab ya.", "additionalContent/maps/Abracadabra.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Jump The Holes", "Don't trip and fall.", "additionalContent/maps/Jumptheholes.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Poof!!!", "Where did he go...there he is.", "additionalContent/maps/poof.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Mastermind", "Figure out the pattern.", "additionalContent/maps/Mastermind.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Figure it out as You Go", "No really figure it out as you go.", "additionalContent/maps/Figureitoutasyougo.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Mouse Trap", "Its like the board game", "additionalContent/maps/mousetrap.txt");
 			levelList.push(tempLevel);			
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Moving forward Until Unable", "Tutorial - Move Forward Until Unable, then turn left", "additionalContent/maps/tutorialMoveForwardUnable.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Activating Switches and Doors", "Tutorial - Use activate on the door and the switch", "additionalContent/maps/tutorialSwitchDoorBlock.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Moving, Turning and Punching", "Tutorial - Place instructions to move, turn and punch your way through this level.", "additionalContent/maps/tutorialMoveTurnPunch.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Crouching, Climbing and Jumping", "Tutorial - Place instructions to crouch, climb and jump over obstacles to reach the end.", "additionalContent/maps/tutorialCrouchClimbJump.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Teleporters and AutoLoop", "Tutorial - Instructions auto-loop and teleporters move you to new locations.", "additionalContent/maps/tutorialTeleporters.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Ice Ice Baby!", "Tutorial - Ice is Slippery.", "additionalContent/maps/tileTutorialMap2.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Zzzzap! Flip! Silence...", "Tutorial - Switches and Electricity, make sure you're facing the red switch edge.", "additionalContent/maps/tutorialSwitchesElectricity.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 					
 			tempLevel = new levelData("Not enough memory...", "Tutorial - Reprogrammable Squares let you reprogram your robot at them.", "additionalContent/maps/tutorialReprogrammable.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Repetition..", "Tutorial - Subroutines - Use subroutines to repeat a set of commands using a minimal amount of memory.", "additionalContent/maps/Mapd1.txt");
 			levelList.push(tempLevel);
-			numTutorialLevels++;
 			
 			tempLevel = new levelData("Oscar 6", "Oscar 6.", "additionalContent/maps/Mapo6.txt");
 			levelList.push(tempLevel);	

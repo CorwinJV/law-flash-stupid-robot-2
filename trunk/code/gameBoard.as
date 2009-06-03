@@ -209,6 +209,7 @@
 			stage.addEventListener("gameBoardExecute", interfaceHasFiredExecuteOrder, false, 0, true);
 			stage.addEventListener("gameBoardAbort", interfaceHasFiredAbortOrder, false, 0, true);
 			stage.addEventListener("gameBoardReset", interfaceHasFiredResetOrder, false, 0, true);
+			stage.addEventListener("infoButtonClicked", rePopupTutorialInfo, false, 0, true);
 		}
 		
 		// these are all debug commands and aren't actually used in game...
@@ -324,10 +325,12 @@
 			{
 				jumpAnimationCounter();
 			}
+			
 			if (areYouDoneLoadingAMapFromFile())
 			{
 				shouldWeKillTheRobot();
 				doTutorialTileCheckAndExecution();
+				teleporterCheck();
 			}
 		}
 		
@@ -528,6 +531,7 @@
 			
 			function textLoadComplete(event:Event):void
 			{
+				//trace("**************************************************************************************");
 				//trace("**************************************************************************************");
 				//trace("Starting to read in file ", filename);
 				//trace("**************************************************************************************");
@@ -921,6 +925,40 @@
 					fileIndex++;
 				}
 				
+				
+				// additional error checking here...
+				
+				////////////////////////////////////
+				// teleport error checking
+				
+				// checking that all tiles on map have an teleport code object associated with the teleporter
+				for (x = 0; x < Width; x++)
+				{
+					for (y = 0; y < Height; y++)
+					{
+						// if the map tile is a teleporter....
+						if (mapList[x][y].getType().toInt() == tileEnums.TTeleport.toInt())
+						{
+							var foundTeleporter:Boolean = false;
+							// see if one exists in the teleport list
+							if (!foundTeleporter)
+							{
+								for (var xx:int = 0; xx < teleportList.length; xx++)
+								{
+									if ((teleportList[xx].getSelfX() == x) && (teleportList[xx].getSelfY() == y))
+									{
+										foundTeleporter = true;
+									}
+								}
+							}
+							if (!foundTeleporter)
+							{
+								trace("There is a teleporter map tile at position ", x, ", ", y, " that has no associated code for it in the map file.");
+							}
+						}
+					}
+				}
+				
 			//	trace("*** setting doneloadingmapfromfile to true");
 				doneLoadingMapFromFile = true;
 			//	trace("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -1061,7 +1099,6 @@
 			
 			keepRobotOnTheBoard();
 			verifyCameraCenter();
-			teleporterCheck();
 		}
 		
 		public function resetMap()
@@ -1328,7 +1365,6 @@
 			currentY = robotY;
 			reInjectRobotImage();
 			verifyCameraCenter();
-			teleporterCheck();
 		}
 		
 		public function robotAtEndSquare():Boolean
@@ -1351,15 +1387,14 @@
 		
 		public function teleporterCheck()
 		{	
-			if(!teleportInProgress && doneLoadingMapFromFile)
+			if (!teleportInProgress && areYouDoneLoadingAMapFromFile())
 			{
-					
 				// see if we're standing in a teleporter square
 				if(mapList[robotX][robotY].getType().toInt() == tileEnums.TTeleport.toInt())
 				{
-					//trace("found a teleporter at the robot square");
+					trace("found a teleporter at the robot square");
 					// if we are, lets find the teleporter in the list
-					myGameVar.SSoundTileTeleport.play();
+					var foundTeleport:Boolean = false;
 					for(var x:int = 0; x < teleportList.length; x++)
 					{
 						if(((teleportList[x].getXPos()) == robotX) && ((teleportList[x].getYPos()) == robotY))
@@ -1368,7 +1403,7 @@
 							 //draw before
 							currentX = teleportList[x].getTargetX();
 							currentY = teleportList[x].getTargetY();
-							//trace("teleport leads to square ", teleportList[x].getTargetX() , ", ", teleportList[x].getTargetY());
+							trace("teleport leads to square ", teleportList[x].getTargetX() , ", ", teleportList[x].getTargetY());
 							recalcPositions();
 							draw();
 							
@@ -1378,9 +1413,16 @@
 							teleportTimer = new Timer(i, 1);
 							teleportTimer.addEventListener(TimerEvent.TIMER, postTeleport, false, 0, true);
 							teleportTimer.start();
+							foundTeleport = true;
 						}						
 					}
+					if (!foundTeleport)
+					{
+						myGameVar.SSoundInterfaceAbort.play();
+					}
 				}
+				
+				
 			}
 		}
 		
@@ -1395,8 +1437,10 @@
 					 // now lets teleport!
 					robotX = teleportList[x].getTargetX();
 					robotY = teleportList[x].getTargetY();
+					reInjectRobotImage();
 					keepRobotOnTheBoard();
 					recalcPositions();
+					myGameVar.SSoundTileTeleport.play();
 					//trace("we arrived at our destination of ", robotX, ", ", robotY);
 					
 					 //draw after
@@ -3992,6 +4036,12 @@
 					}
 				}
 			}
+		}
+		
+		public function rePopupTutorialInfo(e:Event)
+		{
+			// need corwin do add stuff here to make it repopup the tutorial info box
+			trace("rePopupTutorialInfo fired");
 		}
 		
 		public function setRobotDeathAnimation()
