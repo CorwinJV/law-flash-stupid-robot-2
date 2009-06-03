@@ -325,6 +325,7 @@
 			}
 			
 			shouldWeKillTheRobot();
+			doTutorialTileCheckAndExecution();
 		}
 		
 		public function draw()
@@ -1382,7 +1383,6 @@
 			reInjectRobotImage();
 			verifyCameraCenter();
 			teleporterCheck();
-			doTutorialTileCheckAndExecution();
 		}
 		
 		public function robotAtEndSquare():Boolean
