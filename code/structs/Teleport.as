@@ -31,6 +31,16 @@
 			targetY = y;
 		}
 		
+		public function getSelfX():int
+		{
+			return selfX;
+		}
+		
+		public function getSelfY():int
+		{
+			return selfY;
+		}
+		
 		public function getTargetX():int
 		{
 			return targetX;

@@ -30,6 +30,7 @@ package code
 		public var hoverTipsMC:MovieClip = new MENU_instructionBlockHoverTipMC();
 		public var insertionLine:MovieClip = new black();
 		public var skipTutorial:MovieClip;
+		public var infoButton:MovieClip;
 		
 		// Mouse stuff, and function pointer bools
 		var functionPointersSet:Boolean = false;
@@ -122,6 +123,7 @@ package code
 			logicInterfaceMC = new MENU_logicInterface();
 			this.addChild(logicInterfaceMC);
 			skipTutorial = new MENU_SkipThisTutorial();
+			infoButton = new infoButtonMC();
 			
 			panDownFiring = false;
 			panDownRightFiring = false;
@@ -200,6 +202,16 @@ package code
 			skipTutorial.skipButton.y = 538;
 			skipTutorial.skipButton.width = 216;
 			skipTutorial.skipButton.height = 50;
+			
+			// info button callback
+			infoButton.infoBtn.addEventListener(MouseEvent.MOUSE_UP, infoButtonClick, false, 0, true);
+			infoButton.x = 239;
+			infoButton.y = 726;
+			infoButton.width = 72;
+			infoButton.height = 36;
+			
+			// skip level callback - abcxyz
+			logicInterfaceMC.skipBtn.addEventListener(MouseEvent.MOUSE_UP, skipLevelButtonClick, false, 0, true);
 
 			// insertionLine dimensions because black() is square by default
 			if (insertionLine != null)
@@ -377,10 +389,11 @@ package code
 				//}
 				
 			// only add the skip tutorial button should only display during tutorial levels
-			//if (logicVars.getCurrentLevel() < (logicVars.getNumTutorialLevels() ))
-			//{
+			if (logicVars.getCurrentLevel() <= (logicVars.getNumTutorialLevels() ))
+			{
 				this.addChild(skipTutorial);
-			//}
+				this.addChild(infoButton);
+			}
 			
 			
 			//=====================================
@@ -1849,6 +1862,21 @@ package code
 				stage.dispatchEvent(new Event("skipLevel"));
 			}
 		}
+		
+		public function skipLevelButtonClick(e:MouseEvent)
+		{
+			var level:int = logicVars.getCurrentLevel();
+			
+			ClearExecutionList();
+			// go to the next tutorial level
+			if (level <= logicVars.maxLevel)
+			{
+				level++;
+				logicVars.setCurrentLevel(level);
+				logicVars.setLevelSpecified(level);
+				stage.dispatchEvent(new Event("skipLevel"));
+			}
+		}
 
 		// ==============================
 		// Compass Button Callbacks
@@ -2023,6 +2051,12 @@ package code
 				ClearExecutionList();
 			}
 			return true;
+		}
+		
+		// info button clicked thingie
+		public function infoButtonClick(e:MouseEvent)
+		{
+			stage.dispatchEvent(new Event("infoButtonClicked"));
 		}
 		
 		

@@ -40,6 +40,7 @@
 	{
 		var MainMenu:MovieClip = new MENU_mainMenu();
 		var deathMC:MovieClip = new MENU_youDied();
+		var deathClickPreventionMC:MovieClip = new deathClickPrevention();
 		var background:MovieClip = new playgameBG();
 		
 		var PreGameMC:MovieClip = new GB_PREGAME();
@@ -180,18 +181,25 @@
 				this.removeChild(gamePlay);
 			}
 			
+			// if interface exists, nuke it...  (this is for the purpose of making the info and skip tutorial buttons vanishing after tutorials
+			if ( (this.contains(mInterface)));
+			{
+				this.removeChild(mInterface);
+			}
+			mInterface = new LogicInterface();
+			
 			// create a new game board
 			gamePlay = new gameBoard();
 			
 			// load the map for the appropriate level
 			gamePlay.loadMapFromFile(playVars.getFilename(playVars.getCurrentLevel()));
 			// add game board to the scene
-			this.addChild(gamePlay);
+			//this.addChild(gamePlay);
 			// set it to draw behind everything
-			if (this.getChildIndex(gamePlay) != 0)
-			{
-				this.setChildIndex(gamePlay, 0);
-			}
+			//if (this.getChildIndex(gamePlay) != 0)
+			//{
+				//this.setChildIndex(gamePlay, 0);
+			//}
 			
 			gamePlay.update();
 			gamePlay.draw();
@@ -829,6 +837,12 @@
 				// start event timer....
 				// lets add ourselves an animation yay
 				gamePlay.setRobotDeathAnimation();
+				if (!this.contains(deathClickPreventionMC))
+				{
+					deathClickPreventionMC.x = 0;
+					deathClickPreventionMC.y = 0;
+					this.addChild(deathClickPreventionMC);
+				}
 				
 				robotIsDeadTimer.addEventListener(TimerEvent.TIMER, finishKillingTheRobot);
 				robotIsDeadTimer.start();	
@@ -1171,7 +1185,14 @@
 		
 		public function deathClick(e:MouseEvent)
 		{
-			this.removeChild(deathMC);
+			if (this.contains(deathMC))
+			{
+				this.removeChild(deathMC);
+			}
+			if (this.contains(deathClickPreventionMC))
+			{
+				this.removeChild(deathClickPreventionMC);
+			}
 			gamePlay.resetZoom();
 		}
 		
