@@ -1130,7 +1130,7 @@ package code
 							|| ((insertionLineColumn > lastBlockColumn) && (insertionLineRow == lastBlockRow))
 							|| ((insertionLineRow > lastBlockRow)))
 						{
-							trace("I'm dropping a block in the end of the list..");
+							//trace("I'm dropping a block in the end of the list..");
 							// Add block to the end of the list
 							bytesLeft = mapByteLimit - usedBytes;
 							if (bytesLeft >= draggedBlock.byteCost)
@@ -1166,12 +1166,12 @@ package code
 						{
 							// trace("curExecutionListScrolled " + curExecutionListScrolled);
 							// Insert block within the current list.
-							trace("Inserting block within current list");
+							//trace("Inserting block within current list");
 							bytesLeft = mapByteLimit - usedBytes;
 							if (bytesLeft >= draggedBlock.byteCost)
 							{
 								var insertionPosition:int = ((insertionLineRow * 8) + (insertionLineColumn) + (curExecutionListScrolled) * 8);
-								trace("curExecutionListScrolled " + curExecutionListScrolled);
+								//trace("curExecutionListScrolled " + curExecutionListScrolled);
 								//trace ("insertionPosition " + insertionPosition);
 								var tmpBlock3:logicBlock = draggedBlock.clone();
 								tmpBlock3.setButtonState(logicBlockEnum.BS_ACTIVE, this);

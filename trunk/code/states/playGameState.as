@@ -1018,9 +1018,9 @@
 			//trace("Tutorial hit checking...")
 			if (gamePlay.getTutorialHit())
 			{
-				trace("End tutorial hit checking");
+				//trace("End tutorial hit checking");
 				gamePlay.setTutorialHit(false);
-				trace("End set tutorial hit");
+				//trace("End set tutorial hit");
 				mInterface.GetCurrentMapLogicBank();
 				GSM.addGameState(new tutorialPopUpState(GSM));
 			}
@@ -1083,7 +1083,7 @@
 		
 		public function removeAndRebuild()
 		{
-			trace("entered remove and rebuild");
+			//trace("entered remove and rebuild");
 			
 			//setup and initialize variables
 			finishNow = false;

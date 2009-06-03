@@ -662,13 +662,13 @@
 						if ((val == tileEnums.THalfBottomL.toInt()) || (val == tileEnums.THalfBottomR.toInt()))
 						{
 							val = tileEnums.TGap.toInt();
-							trace(filename, " is referencing a THalfBottomL or THalfBottomR, I have converted it to a TGap");
+							//trace(filename, " is referencing a THalfBottomL or THalfBottomR, I have converted it to a TGap");
 						}
 						
 						if ((val == tileEnums.TWater.toInt()))
 						{
 							val = tileEnums.TGap.toInt();
-							trace(filename, " is referencing TWater, I have converted it to a TGap");
+							//trace(filename, " is referencing TWater, I have converted it to a TGap");
 						}
 						
 						if (val < 0)
@@ -1010,64 +1010,7 @@
 		public function processKeyboard()
 		{
 			// check for keyboard input
-			if((Key.isDown(81)) || (Key.isDown(103)))	// numpad 7 - q
-			{
-				//panupleft();
-				//trace("panupleft()");
-			//}
-			//else if ((Key.isDown(69)) || (Key.isDown(105))) // numpad 9 - e
-			//{
-				//panupright();
-				//trace("panupright()");
-			//}
-			//else if ((Key.isDown(90)) || (Key.isDown(97))) // numpad 1 - z
-			//{
-				//pandownleft();
-				//trace("pandownleft()");
-			//}
-			//else if ((Key.isDown(67)) || (Key.isDown(99)))	// numpad 3 - c
-			//{
-				//pandownright();
-				//trace("pandownright()");
-			//}
-			//else if ((Key.isDown(87)) || (Key.isDown(104))) // numpad 8 - w
-			//{
-				//panup();
-				//trace("panup()");
-			//}
-			//else if ((Key.isDown(65)) || (Key.isDown(100)))	// numpad 4 - a
-			//{
-				//panleft();
-				//trace("panleft()");
-			//}
-			//else if ((Key.isDown(68)) || (Key.isDown(102)))	// numpad 6 - d
-			//{
-				//panright();
-				//trace("panright()");
-			//}
-			//else if ((Key.isDown(83)) || (Key.isDown(98)))	// numpad 2 - x
-			//{
-				//pandown();
-				//trace("pandown()");
-			//}
-			//else if (Key.isDown(101) || Key.isDown(83))	// numpad 5 - s
-			//{
-				//center();
-				//trace("center()");
-			//}
-			//else if (Key.isDown(109)) // -
-			//{
-				//zoomout();
-				//trace("zoomout()");
-			//}
-			//else if (Key.isDown(107)) // +
-			//{
-				//zoomin();
-				//trace("zoomin()");
-			//}
-			}
-			
-			else if (Key.isDown(57)) // 9
+			if (Key.isDown(57)) // 9
 			{
 				toggleAllMapTiles();
 				trace("toggleallmaptiles()");
@@ -1254,12 +1197,12 @@
 		
 		public function processRobot()
 		{
-			trace("entering process robot");
+			//trace("entering process robot");
 			delayAdvance = false;
 
 			//===================================
 			//  Command Highlighting
-			trace("2");
+			//trace("2");
 			switch(myRobot.getNextCommand().toInt())
 			{
 			case AiInstructionsEnum.SUBR1.toInt():
@@ -1282,23 +1225,23 @@
 				{
 					myGameVar.setCurrentInstructionTab(instructionTab.TAB_MAIN);
 					myGameVar.setCurrentInstructionBlockIndex(myRobot.getCurrentInstructionIndex());
-					trace("Setting current instruction block to " + myRobot.getCurrentInstructionIndex());
+					//trace("Setting current instruction block to " + myRobot.getCurrentInstructionIndex());
 					break;
 				}
 			}
-			trace("2.5");
+			//trace("2.5");
 			if (stage != null)
 			{
 				stage.dispatchEvent(new Event("commandAdvanced"));
 			}
-			trace("3");
+			//trace("3");
 			if (myRobot.getAlive() == false)
 			{
 				// tempabc
 				curState = GameBoardStateEnum.GB_ROBOTDIED;
 				return;
 			}
-			trace("4");		
+			//trace("4");		
 			switch(myRobot.getNextCommand().toInt())//myRobot.getNextCommand())
 			{
 			case AiInstructionsEnum.SUBR1.toInt():
@@ -1371,13 +1314,13 @@
 				break;
 			}
 		
-			trace("5");
+			//trace("5");
 			if(!delayAdvance)
 			{
 				myRobot.advanceCommand();
 			}
 			
-			trace("6");
+			//trace("6");
 			currentX = robotX;
 			currentY = robotY;
 			reInjectRobotImage();
@@ -2150,7 +2093,7 @@
 			// square, or can jump forward 1 square, at least we're not dead.. yet
 			// lets do the jump and see what happens!
 
-			trace("about to set destination squares accoringly, distance to move = ", distanceToMove);
+			//trace("about to set destination squares accoringly, distance to move = ", distanceToMove);
 			destX = robotX;
 			destY = robotY;
 			switch(robotDirection)
@@ -3826,7 +3769,7 @@
 		
 		private function toggleAllMapTiles()
 		{
-			trace ("Toggling all map tiles");
+			//trace ("Toggling all map tiles");
 			for (var x:int = 0; x < Width; x++)
 			{
 				for (var y:int = 0; y < Height; y++)
@@ -3862,14 +3805,14 @@
 			// if the robot exists on the screen, remove it
 			if (myMap.contains(myRobotImage))
 			{
-				trace("inside of inject jump animation - nuking myrobotimage");
+				//trace("inside of inject jump animation - nuking myrobotimage");
 				myMap.removeChild(myRobotImage);
 			}
 			
 			// add the jump animation
 			if (!myMap.contains(jumpAnimation))
 			{
-				trace("adding jump animation at x/y", jumpAnimation.x, ", ", jumpAnimation.y);
+				//trace("adding jump animation at x/y", jumpAnimation.x, ", ", jumpAnimation.y);
 				myMap.addChild(jumpAnimation);
 			}
 			var newIndexPosition:int = 0;
@@ -4035,7 +3978,7 @@
 							// Dispatch Events & Call the tutorial stufffs.
 							tutorialTileList[i].updateGameVarsCommandsAvailable();
 							myGameVar.setTutorialMovieClip(tutorialTileList[i].tutorialClipID);
-							trace("Executing tutorial pop up, mcID: " + tutorialTileList[i].tutorialClipID);
+							//trace("Executing tutorial pop up, mcID: " + tutorialTileList[i].tutorialClipID);
 							
 							
 							stage.dispatchEvent(new Event("reprogramReached"));
@@ -4073,6 +4016,7 @@
 				if (!myRobotImage.contains(diedGap))
 				{
 					myRobotImage.addChild(diedGap);
+					diedGap.fallAnimation.gotoAndPlay(0);
 				}
 			}
 			else if (myGameVar.robotDiedWater)
@@ -4106,7 +4050,7 @@
 			if (myMap.contains(myRobotImage))
 			{
 				// if it is, remove it
-				trace("inside setrobotjumpanimation - nuking myrobotimage");
+				//trace("inside setrobotjumpanimation - nuking myrobotimage");
 				myMap.removeChild(myRobotImage);
 			}
 			
@@ -4336,7 +4280,7 @@
 			myRobot.setXPos(robotX);
 			myRobot.setYPos(robotY);
 		
-			trace("inside of setrobotpositionafterjump - adding myrobotimage");
+			//trace("inside of setrobotpositionafterjump - adding myrobotimage");
 			draw();
 			// add the robot image back to the movie clip
 			myMap.addChild(myRobotImage);
@@ -4365,7 +4309,7 @@
 				}
 				if (!myMap.contains(myRobotImage))
 				{
-					("inside of jumpanimationcounter - adding myrobotimage");
+					//("inside of jumpanimationcounter - adding myrobotimage");
 					//myMap.addChild(myRobotImage);
 					//reInjectRobotImage();
 					setRobotPositionAfterJump();
