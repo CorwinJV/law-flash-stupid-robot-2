@@ -344,14 +344,14 @@
 		{
 			addAnimationScreen();
 			
-			//var placeMC:MovieClip = new placeAnimation(); 
+			var placeMC:MovieClip = new placeAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(placeMC))
-			//{
-				//placeMC.x = indivX;
-				//placeMC.y = indivY;
-				//animationPage.addChild(placeMC);
-			//}
+			if (!animationPage.contains(placeMC))
+			{
+				placeMC.x = indivX;
+				placeMC.y = indivY;
+				animationPage.addChild(placeMC);
+			}
 		}
 		
 		public function electricClick(e:MouseEvent)
