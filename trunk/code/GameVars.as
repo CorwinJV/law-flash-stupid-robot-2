@@ -63,6 +63,8 @@
 		var numTutorialLevels:int;
 		var inGame:Boolean;
 		
+		var logicInteraceDoNotProcessMouse:Boolean = false;
+		
 		var isSub1OnFirstCommand:Boolean;
 		var isSub2OnFirstCommand:Boolean;
 		var isMainOnFirstCommand:Boolean;
@@ -867,6 +869,16 @@
 		public function GetAllLogicBlocks()
 		{
 			return allLogicBlocks;
+		}
+		
+		public function getDoNotProcessMouse():Boolean
+		{
+			return logicInteraceDoNotProcessMouse;
+		}
+		
+		public function setDoNotProcessMouse(b:Boolean)
+		{
+			logicInteraceDoNotProcessMouse = b;
 		}
 		
 		public function loadAllSoundThings()

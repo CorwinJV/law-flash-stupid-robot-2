@@ -1194,6 +1194,7 @@
 				this.removeChild(deathClickPreventionMC);
 			}
 			gamePlay.resetZoom();
+			GameVars.getInstance().setDoNotProcessMouse(false);
 		}
 		
 		public function doEndGameDraw():void
@@ -1282,6 +1283,7 @@
 		public function finishKillingTheRobot(e:TimerEvent)
 		{
 			this.addChild(deathMC);
+			GameVars.getInstance().setDoNotProcessMouse(true);
 			curState = GameBoardStateEnum.GB_LOGICVIEW;
 			//mInterface.fireAbort();
 		}
