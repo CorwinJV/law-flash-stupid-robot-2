@@ -780,105 +780,120 @@ package code
 				this.removeChild(hoverTipsMC);
 			}
 
-			if (currentHoverBlockIndex != -1)
+			if (!GameVars.getInstance().getDoNotProcessMouse())
 			{
-				if (logicBank != null)
+				if (currentHoverBlockIndex != -1)
 				{
-					var tmpBlock2:logicBlock = logicBank[currentHoverBlockIndex];
+					if (logicBank != null)
+					{
+						var tmpBlock2:logicBlock = logicBank[currentHoverBlockIndex];
 
+						if (this.contains(hoverTipsMC))
+						{
+							this.removeChild(hoverTipsMC);
+						}
+						
+						hoverTipsMC.x = tmpBlock2.blockTexture.x + 20;
+						hoverTipsMC.y = tmpBlock2.blockTexture.y - 170;
+						//hoverTipsMC.alpha = 0.90;
+						
+						// Text, wee.
+						hoverTipsMC.tBox.text = "";
+						if (tmpBlock2.isUsable != true)
+						{
+							hoverTipsMC.tBox.text += "[Unavailable on Current Level]\n"
+						}
+						hoverTipsMC.tBox.text += tmpBlock2.blockDescription + "\n";
+
+						if (tmpBlock2.isCurrentlyUsable != true
+							&& (tmpBlock2.isUsable == true))
+						{
+
+							if ((tmpBlock2.enumInstruction.toInt() == AiInstructionsEnum.SUBR1.toInt()
+								||  tmpBlock2.enumInstruction.toInt() == AiInstructionsEnum.SUBR2.toInt())
+								&& (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt()
+									|| curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt()))
+							{
+								hoverTipsMC.tBox.text += "[You can't place SubRoutines Here]\n";
+							}
+							else
+							{
+								hoverTipsMC.tBox.text += "[Not Enough Memory Available]\n";
+							}
+						}
+						
+						// now that we're at the end of the text...
+						// lets draw the byte information for this block!
+						hoverTipsMC.tBox.text += "(Uses " + tmpBlock2.byteCost + " Bytes)";
+						this.addChild(hoverTipsMC);
+					}
+				}
+				else
+				{
 					if (this.contains(hoverTipsMC))
 					{
 						this.removeChild(hoverTipsMC);
 					}
-					
-					hoverTipsMC.x = tmpBlock2.blockTexture.x + 20;
-					hoverTipsMC.y = tmpBlock2.blockTexture.y - 170;
-					//hoverTipsMC.alpha = 0.90;
-					
-					// Text, wee.
-					hoverTipsMC.tBox.text = "";
-					if (tmpBlock2.isUsable != true)
-					{
-						hoverTipsMC.tBox.text += "[Unavailable on Current Level]\n"
-					}
-					hoverTipsMC.tBox.text += tmpBlock2.blockDescription + "\n";
-
-					if (tmpBlock2.isCurrentlyUsable != true
-						&& (tmpBlock2.isUsable == true))
-					{
-
-						if ((tmpBlock2.enumInstruction.toInt() == AiInstructionsEnum.SUBR1.toInt()
-							||  tmpBlock2.enumInstruction.toInt() == AiInstructionsEnum.SUBR2.toInt())
-							&& (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt()
-								|| curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt()))
-						{
-							hoverTipsMC.tBox.text += "[You can't place SubRoutines Here]\n";
-						}
-						else
-						{
-							hoverTipsMC.tBox.text += "[Not Enough Memory Available]\n";
-						}
-					}
-					
-					// now that we're at the end of the text...
-					// lets draw the byte information for this block!
-					hoverTipsMC.tBox.text += "(Uses " + tmpBlock2.byteCost + " Bytes)";
-					this.addChild(hoverTipsMC);
 				}
-			}
-			else
-			{
-				if (this.contains(hoverTipsMC))
-				{
-					this.removeChild(hoverTipsMC);
-				}
-			}
-			
+			}			
 			
 		}
 		
 		public function processMouse()
 		{
-			// Internal mouse position for hover over stuff
-			
-			// Menu buttons
-			//alwaysActiveMenu->processMouse(x, y);
-			//resetMenu->processMouse(x, y);
-			//myMenu->processMouse(x, y);
-			//if(isExecuting == true)
-				//executingMenu->processMouse(x, y);
-			
-			// Dragging the block
-			if (isMouseDragging == true
-				&& draggedBlock != null)
+			if (!GameVars.getInstance().getDoNotProcessMouse())
 			{
-				draggedBlock.blockTexture.x = mouseX - (instructionBlockW / 2);
-				draggedBlock.blockTexture.y = mouseY - (instructionBlockH / 2);
-			}
+				// Internal mouse position for hover over stuff
 				
-			if (mouseX != lastMouseX
-			&& mouseY != lastMouseY)
-			{
-				lastMouseX = mouseX;
-				lastMouseY = mouseY;
-			
-				// Dragging & Insertion into the middle of the list
+				// Menu buttons
+				//alwaysActiveMenu->processMouse(x, y);
+				//resetMenu->processMouse(x, y);
+				//myMenu->processMouse(x, y);
+				//if(isExecuting == true)
+					//executingMenu->processMouse(x, y);
+				
+				// Dragging the block
 				if (isMouseDragging == true
 					&& draggedBlock != null)
 				{
-					var localX:int = mouseX - (logicInterfaceMC.rightCommandList.x + rightCommandListOffsetX);
-					var localY = mouseY - (logicInterfaceMC.rightCommandList.y  + rightCommandListOffsetY);
-					var columnPosition = localX / (instructionSpacing + instructionBlockW);
-					var rowPosition = localY / (instructionSpacing + instructionBlockH);
+					draggedBlock.blockTexture.x = mouseX - (instructionBlockW / 2);
+					draggedBlock.blockTexture.y = mouseY - (instructionBlockH / 2);
+				}
 					
-					if ((columnPosition >= 0)
-						&& (columnPosition < instructionListNumColumns)
-						&& (rowPosition >= 0)
-						&& (rowPosition < instructionListNumRowsOnScreen))
+				if (mouseX != lastMouseX
+				&& mouseY != lastMouseY)
+				{
+					lastMouseX = mouseX;
+					lastMouseY = mouseY;
+				
+					// Dragging & Insertion into the middle of the list
+					if (isMouseDragging == true
+						&& draggedBlock != null)
 					{
-						insertionLineColumn = columnPosition;
-						insertionLineRow = rowPosition;
-						drawInsertionLine = true;
+						var localX:int = mouseX - (logicInterfaceMC.rightCommandList.x + rightCommandListOffsetX);
+						var localY = mouseY - (logicInterfaceMC.rightCommandList.y  + rightCommandListOffsetY);
+						var columnPosition = localX / (instructionSpacing + instructionBlockW);
+						var rowPosition = localY / (instructionSpacing + instructionBlockH);
+						
+						if ((columnPosition >= 0)
+							&& (columnPosition < instructionListNumColumns)
+							&& (rowPosition >= 0)
+							&& (rowPosition < instructionListNumRowsOnScreen))
+						{
+							insertionLineColumn = columnPosition;
+							insertionLineRow = rowPosition;
+							drawInsertionLine = true;
+						}
+						else
+						{
+							insertionLineColumn = 0;
+							insertionLineRow = 0;
+							drawInsertionLine = false;
+							if (this.contains(insertionLine))
+							{
+								this.removeChild(insertionLine);
+							}
+						}
 					}
 					else
 					{
@@ -891,266 +906,155 @@ package code
 						}
 					}
 				}
-				else
-				{
-					insertionLineColumn = 0;
-					insertionLineRow = 0;
-					drawInsertionLine = false;
-					if (this.contains(insertionLine))
-					{
-						this.removeChild(insertionLine);
-					}
-				}
 			}
 		}
 		
 		public function processMouseDOWN(e:MouseEvent)
 		{
-			var i:int = 0;
-			// Menu buttons
-			//alwaysActiveMenu->processMouseClick(button, state, x, y);
-			//resetMenu->processMouseClick(button, state, x, y);
-
-			//if(isExecuting == true)
-				//executingMenu->processMouseClick(button, state, x, y);
-			//else if(isExecuting == false)
-				//myMenu->processMouseClick(button, state, x, y);
-
-			// Click & Drag
-			// When the user clicks, we want them to be able to select an
-			// instruction to drag over into the robot's instruction list.
-			// Loop through the list of bank instructions and check x/y
-			if (!isExecuting)
+			if (!GameVars.getInstance().getDoNotProcessMouse())
 			{
-				if (isButtonBeingClicked == false)
+				var i:int = 0;
+				// Menu buttons
+				//alwaysActiveMenu->processMouseClick(button, state, x, y);
+				//resetMenu->processMouseClick(button, state, x, y);
+
+				//if(isExecuting == true)
+					//executingMenu->processMouseClick(button, state, x, y);
+				//else if(isExecuting == false)
+					//myMenu->processMouseClick(button, state, x, y);
+
+				// Click & Drag
+				// When the user clicks, we want them to be able to select an
+				// instruction to drag over into the robot's instruction list.
+				// Loop through the list of bank instructions and check x/y
+				if (!isExecuting)
 				{
-					if (logicBank != null)
+					if (isButtonBeingClicked == false)
 					{
-						for (i = 0; i < logicBank.length; i++)
+						if (logicBank != null)
 						{
-							var tmpItr:logicBlock = logicBank[i];
-							
-							if (tmpItr.blockTexture.hitTestPoint(mouseX, mouseY))
+							for (i = 0; i < logicBank.length; i++)
 							{
-								if (tmpItr.isUsable
-									&& tmpItr.isCurrentlyUsable)
+								var tmpItr:logicBlock = logicBank[i];
+								
+								if (tmpItr.blockTexture.hitTestPoint(mouseX, mouseY))
 								{
-									// CJV clicktoremove
-									draggedBlock = tmpItr.clone();
-									draggedBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
-									draggedBlockMouseX = mouseX;
-									draggedBlockMouseY = mouseY;
-									draggedBlock.blockTexture.width = this.instructionBlockW;
-									draggedBlock.blockTexture.height = this.instructionBlockH;
-									
-									
-									this.addChild(draggedBlock.blockTexture);
-									
-									isMouseDragging = true;
-									
-									processMouse();
+									if (tmpItr.isUsable
+										&& tmpItr.isCurrentlyUsable)
+									{
+										// CJV clicktoremove
+										draggedBlock = tmpItr.clone();
+										draggedBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
+										draggedBlockMouseX = mouseX;
+										draggedBlockMouseY = mouseY;
+										draggedBlock.blockTexture.width = this.instructionBlockW;
+										draggedBlock.blockTexture.height = this.instructionBlockH;
+										
+										
+										this.addChild(draggedBlock.blockTexture);
+										
+										isMouseDragging = true;
+										
+										processMouse();
+									}
 								}
 							}
 						}
 					}
 				}
-			}
 
 
-			//===============================
-			// Pulling an instruction block 
-			// out of one of the execution 
-			// lists.
-			if (!isExecuting)
-			{
-				if (isButtonBeingClicked == false)
+				//===============================
+				// Pulling an instruction block 
+				// out of one of the execution 
+				// lists.
+				if (!isExecuting)
 				{
-					if (curInstrTab.toInt() == instructionTab.TAB_MAIN.toInt())
+					if (isButtonBeingClicked == false)
 					{
-						curExecutionList = executionList;
-						curExecutionListYOffset = executionListYOffset;
-					}
-					else if (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt())
-					{
-						curExecutionList = executionListSub1;
-						curExecutionListYOffset = executionListSub1YOffset;
-					}
-					else if (curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt())
-					{
-						curExecutionList = executionListSub2;
-						curExecutionListYOffset = executionListSub2YOffset;
-					}	
-					
-					for (i = 0; i < curExecutionList.length; i++)
-					{
-						if (curExecutionList[i].enumInstruction.toInt() != AiInstructionsEnum.DO_NOT_PROCESS.toInt())
+						if (curInstrTab.toInt() == instructionTab.TAB_MAIN.toInt())
 						{
-							if (curExecutionList[i].blockTexture.hitTestPoint(mouseX, mouseY))
+							curExecutionList = executionList;
+							curExecutionListYOffset = executionListYOffset;
+						}
+						else if (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt())
+						{
+							curExecutionList = executionListSub1;
+							curExecutionListYOffset = executionListSub1YOffset;
+						}
+						else if (curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt())
+						{
+							curExecutionList = executionListSub2;
+							curExecutionListYOffset = executionListSub2YOffset;
+						}	
+						
+						for (i = 0; i < curExecutionList.length; i++)
+						{
+							if (curExecutionList[i].enumInstruction.toInt() != AiInstructionsEnum.DO_NOT_PROCESS.toInt())
 							{
-								if (curExecutionList[i].blockTexture.y >= logicInterfaceMC.rightCommandList.y
-									&& curExecutionList[i].blockTexture.y <= logicInterfaceMC.rightCommandList.y + logicInterfaceMC.rightCommandList.height - (instructionSpacing + instructionBlockH))
+								if (curExecutionList[i].blockTexture.hitTestPoint(mouseX, mouseY))
 								{
-									draggedBlock = curExecutionList[i].clone();
-									draggedBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
-									draggedBlock.blockTexture.width = this.instructionBlockW;
-									draggedBlock.blockTexture.height = this.instructionBlockH;
-									isMouseDragging = true;
-									
-									this.addChild(draggedBlock.blockTexture);
-									
-									this.removeChild(curExecutionList[i].blockTexture);
-									curExecutionList.splice(i, 1);
+									if (curExecutionList[i].blockTexture.y >= logicInterfaceMC.rightCommandList.y
+										&& curExecutionList[i].blockTexture.y <= logicInterfaceMC.rightCommandList.y + logicInterfaceMC.rightCommandList.height - (instructionSpacing + instructionBlockH))
+									{
+										draggedBlock = curExecutionList[i].clone();
+										draggedBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
+										draggedBlock.blockTexture.width = this.instructionBlockW;
+										draggedBlock.blockTexture.height = this.instructionBlockH;
+										isMouseDragging = true;
+										
+										this.addChild(draggedBlock.blockTexture);
+										
+										this.removeChild(curExecutionList[i].blockTexture);
+										curExecutionList.splice(i, 1);
 
-									break;
+										break;
+									}
 								}
 							}
 						}
 					}
 				}
+				isButtonBeingClicked = false;
 			}
-			isButtonBeingClicked = false;
 		}
 		
 		
 		public function processMouseUP(e:MouseEvent)
 		{
-			var i:int = 0;
-			//=====================================
-			// If the player clicks an instruction 
-			// from the logicBank it should add it 
-			// to the current list
-			if (!isExecuting)
+			if (!GameVars.getInstance().getDoNotProcessMouse())
 			{
-				if (isMouseDragging == true
-					&& (draggedBlock != null))
+				var i:int = 0;
+				//=====================================
+				// If the player clicks an instruction 
+				// from the logicBank it should add it 
+				// to the current list
+				if (!isExecuting)
 				{
-					if ((draggedBlockMouseX <= mouseX + 5) && (draggedBlockMouseX >= mouseX - 5)
-						&& (draggedBlockMouseY <= mouseY + 5) && (draggedBlockMouseY >= mouseY - 5))
+					if (isMouseDragging == true
+						&& (draggedBlock != null))
 					{
-						if (curInstrTab.toInt() == instructionTab.TAB_MAIN.toInt())
+						if ((draggedBlockMouseX <= mouseX + 5) && (draggedBlockMouseX >= mouseX - 5)
+							&& (draggedBlockMouseY <= mouseY + 5) && (draggedBlockMouseY >= mouseY - 5))
 						{
-							curExecutionList = executionList;
-							curExecutionListYOffset = executionListYOffset;
-						}
-						else if (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt())
-						{
-							curExecutionList = executionListSub1;
-							curExecutionListYOffset = executionListSub1YOffset;
-						}
-						else if (curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt())
-						{
-							curExecutionList = executionListSub2;
-							curExecutionListYOffset = executionListSub2YOffset;
-						}
-						
-						// Add block to the end of the list
-						var bytesLeft:int = mapByteLimit - usedBytes;
-						if (bytesLeft >= draggedBlock.byteCost)
-						{
-							if (this.contains(curExecutionList[curExecutionList.length - 1].blockTexture))
+							if (curInstrTab.toInt() == instructionTab.TAB_MAIN.toInt())
 							{
-								this.removeChild(curExecutionList[curExecutionList.length - 1].blockTexture);
+								curExecutionList = executionList;
+								curExecutionListYOffset = executionListYOffset;
 							}
-							curExecutionList.pop();
-							
-							curExecutionList.push(draggedBlock.clone());
-							curExecutionList[curExecutionList.length - 1].setButtonState(logicBlockEnum.BS_ACTIVE, this);
-							
-							curExecutionList.push(GameVars.getInstance().getPlaceInstructionBlock().clone());
-							curExecutionList[curExecutionList.length - 1].setButtonState(logicBlockEnum.BS_ACTIVE, this);
-						}
-						if (this.contains(draggedBlock.blockTexture))
-						{
-							this.removeChild(draggedBlock.blockTexture);
-						}
-						draggedBlock = null;
-						isMouseDragging = false;
-						draggedBlockMouseX = 0;
-						draggedBlockMouseY = 0;
-						
-						//=========================
-						// Scrolling To The Bottom
-						var curBlockIndex:int = curExecutionList.length;
-						var curBlockRowCount:int = curBlockIndex / instructionListNumColumns;
-						
-						curExecutionListYOffset = 0;
-						if (curBlockRowCount > instructionListNumRowsOnScreen - 1)
-						{
-							for (i = 0; i < curBlockRowCount - (instructionListNumRowsOnScreen - 1); i++)
+							else if (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt())
 							{
-								ExecutionListDownArrowButtonClick();
+								curExecutionList = executionListSub1;
+								curExecutionListYOffset = executionListSub1YOffset;
 							}
-						}
-					}
-				}
-			}
-
-
-			//=====================================
-			// Dropping the instruction block into 
-			// the correct tabbed execution list
-			if (!isExecuting)
-			{
-				if (isMouseDragging == true
-					&& draggedBlock != null)
-				{
-					if (drawInsertionLine == true)
-					{
-						if (curInstrTab.toInt() == instructionTab.TAB_MAIN.toInt())
-						{
-							curExecutionList = executionList;
-							curExecutionListYOffset = executionListYOffset;
-							curExecutionListScrolled = executionListScrolled;
-						}
-						else if (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt())
-						{
-							curExecutionList = executionListSub1;
-							curExecutionListYOffset = executionListSub1YOffset;
-							curExecutionListScrolled = executionListSub1Scrolled;
-						}
-						else if (curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt())
-						{
-							curExecutionList = executionListSub2;
-							curExecutionListYOffset = executionListSub2YOffset;
-							curExecutionListScrolled = executionListSub2Scrolled;
-						}
-						
-						var rowOffset = (curExecutionListYOffset / (instructionSpacing + instructionBlockH));
-						var vectorSize:int = curExecutionList.length;
-						
-						var lastBlockRow:int = vectorSize / instructionListNumColumns;
-						var lastBlockColumn:int = vectorSize % instructionListNumColumns;
-						
-						lastBlockRow += rowOffset;
-						
-						if (lastBlockColumn != 0)
-						{
-							lastBlockColumn--;
-						}
-						else
-						{
-							lastBlockColumn = instructionListNumColumns - 1;
-							lastBlockRow--;
-						}
-						//trace(draggedBlockMouseX + " " + mouseX);
-						//if ((draggedBlockMouseX <= mouseX + 5) && (draggedBlockMouseX >= mouseX - 5)
-							//&& (draggedBlockMouseY <= mouseY + 5) && (draggedBlockMouseY >= mouseY - 5))
-						//{
-							//
-							//if (this.contains(draggedBlock.blockTexture))
-							//{
-								//this.removeChild(draggedBlock.blockTexture);
-							//}
-							//draggedBlock = null;
-							//isMouseDragging = false;
-						//}
-						if (((insertionLineColumn > lastBlockColumn) && (insertionLineRow > lastBlockRow))
-							|| ((insertionLineColumn > lastBlockColumn) && (insertionLineRow == lastBlockRow))
-							|| ((insertionLineRow > lastBlockRow)))
-						{
-							//trace("I'm dropping a block in the end of the list..");
+							else if (curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt())
+							{
+								curExecutionList = executionListSub2;
+								curExecutionListYOffset = executionListSub2YOffset;
+							}
+							
 							// Add block to the end of the list
-							bytesLeft = mapByteLimit - usedBytes;
+							var bytesLeft:int = mapByteLimit - usedBytes;
 							if (bytesLeft >= draggedBlock.byteCost)
 							{
 								if (this.contains(curExecutionList[curExecutionList.length - 1].blockTexture))
@@ -1159,18 +1063,10 @@ package code
 								}
 								curExecutionList.pop();
 								
-								var tmpBlock:logicBlock = draggedBlock.clone();
-								tmpBlock.blockTexture.width = this.instructionBlockW;
-								tmpBlock.blockTexture.height = this.instructionBlockH;
-								tmpBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
-								curExecutionList.push(tmpBlock);							
+								curExecutionList.push(draggedBlock.clone());
+								curExecutionList[curExecutionList.length - 1].setButtonState(logicBlockEnum.BS_ACTIVE, this);
 								
-								tmpBlock = GameVars.getInstance().getPlaceInstructionBlock().clone();
-								tmpBlock.blockTexture.width = this.instructionBlockW;
-								tmpBlock.blockTexture.height = this.instructionBlockH;
-								tmpBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
-								curExecutionList.push(tmpBlock);
-								
+								curExecutionList.push(GameVars.getInstance().getPlaceInstructionBlock().clone());
 								curExecutionList[curExecutionList.length - 1].setButtonState(logicBlockEnum.BS_ACTIVE, this);
 							}
 							if (this.contains(draggedBlock.blockTexture))
@@ -1179,22 +1075,146 @@ package code
 							}
 							draggedBlock = null;
 							isMouseDragging = false;
+							draggedBlockMouseX = 0;
+							draggedBlockMouseY = 0;
+							
+							//=========================
+							// Scrolling To The Bottom
+							var curBlockIndex:int = curExecutionList.length;
+							var curBlockRowCount:int = curBlockIndex / instructionListNumColumns;
+							
+							curExecutionListYOffset = 0;
+							if (curBlockRowCount > instructionListNumRowsOnScreen - 1)
+							{
+								for (i = 0; i < curBlockRowCount - (instructionListNumRowsOnScreen - 1); i++)
+								{
+									ExecutionListDownArrowButtonClick();
+								}
+							}
+						}
+					}
+				}
+
+
+				//=====================================
+				// Dropping the instruction block into 
+				// the correct tabbed execution list
+				if (!isExecuting)
+				{
+					if (isMouseDragging == true
+						&& draggedBlock != null)
+					{
+						if (drawInsertionLine == true)
+						{
+							if (curInstrTab.toInt() == instructionTab.TAB_MAIN.toInt())
+							{
+								curExecutionList = executionList;
+								curExecutionListYOffset = executionListYOffset;
+								curExecutionListScrolled = executionListScrolled;
+							}
+							else if (curInstrTab.toInt() == instructionTab.TAB_SUB1.toInt())
+							{
+								curExecutionList = executionListSub1;
+								curExecutionListYOffset = executionListSub1YOffset;
+								curExecutionListScrolled = executionListSub1Scrolled;
+							}
+							else if (curInstrTab.toInt() == instructionTab.TAB_SUB2.toInt())
+							{
+								curExecutionList = executionListSub2;
+								curExecutionListYOffset = executionListSub2YOffset;
+								curExecutionListScrolled = executionListSub2Scrolled;
+							}
+							
+							var rowOffset = (curExecutionListYOffset / (instructionSpacing + instructionBlockH));
+							var vectorSize:int = curExecutionList.length;
+							
+							var lastBlockRow:int = vectorSize / instructionListNumColumns;
+							var lastBlockColumn:int = vectorSize % instructionListNumColumns;
+							
+							lastBlockRow += rowOffset;
+							
+							if (lastBlockColumn != 0)
+							{
+								lastBlockColumn--;
+							}
+							else
+							{
+								lastBlockColumn = instructionListNumColumns - 1;
+								lastBlockRow--;
+							}
+							//trace(draggedBlockMouseX + " " + mouseX);
+							//if ((draggedBlockMouseX <= mouseX + 5) && (draggedBlockMouseX >= mouseX - 5)
+								//&& (draggedBlockMouseY <= mouseY + 5) && (draggedBlockMouseY >= mouseY - 5))
+							//{
+								//
+								//if (this.contains(draggedBlock.blockTexture))
+								//{
+									//this.removeChild(draggedBlock.blockTexture);
+								//}
+								//draggedBlock = null;
+								//isMouseDragging = false;
+							//}
+							if (((insertionLineColumn > lastBlockColumn) && (insertionLineRow > lastBlockRow))
+								|| ((insertionLineColumn > lastBlockColumn) && (insertionLineRow == lastBlockRow))
+								|| ((insertionLineRow > lastBlockRow)))
+							{
+								//trace("I'm dropping a block in the end of the list..");
+								// Add block to the end of the list
+								bytesLeft = mapByteLimit - usedBytes;
+								if (bytesLeft >= draggedBlock.byteCost)
+								{
+									if (this.contains(curExecutionList[curExecutionList.length - 1].blockTexture))
+									{
+										this.removeChild(curExecutionList[curExecutionList.length - 1].blockTexture);
+									}
+									curExecutionList.pop();
+									
+									var tmpBlock:logicBlock = draggedBlock.clone();
+									tmpBlock.blockTexture.width = this.instructionBlockW;
+									tmpBlock.blockTexture.height = this.instructionBlockH;
+									tmpBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
+									curExecutionList.push(tmpBlock);							
+									
+									tmpBlock = GameVars.getInstance().getPlaceInstructionBlock().clone();
+									tmpBlock.blockTexture.width = this.instructionBlockW;
+									tmpBlock.blockTexture.height = this.instructionBlockH;
+									tmpBlock.setButtonState(logicBlockEnum.BS_ACTIVE, this);
+									curExecutionList.push(tmpBlock);
+									
+									curExecutionList[curExecutionList.length - 1].setButtonState(logicBlockEnum.BS_ACTIVE, this);
+								}
+								if (this.contains(draggedBlock.blockTexture))
+								{
+									this.removeChild(draggedBlock.blockTexture);
+								}
+								draggedBlock = null;
+								isMouseDragging = false;
+							}
+							else
+							{
+								// trace("curExecutionListScrolled " + curExecutionListScrolled);
+								// Insert block within the current list.
+								//trace("Inserting block within current list");
+								bytesLeft = mapByteLimit - usedBytes;
+								if (bytesLeft >= draggedBlock.byteCost)
+								{
+									var insertionPosition:int = ((insertionLineRow * 8) + (insertionLineColumn) + (curExecutionListScrolled) * 8);
+									//trace("curExecutionListScrolled " + curExecutionListScrolled);
+									//trace ("insertionPosition " + insertionPosition);
+									var tmpBlock3:logicBlock = draggedBlock.clone();
+									tmpBlock3.setButtonState(logicBlockEnum.BS_ACTIVE, this);
+									curExecutionList.splice(insertionPosition, 0, tmpBlock3);
+								}
+								if (this.contains(draggedBlock.blockTexture))
+								{
+									this.removeChild(draggedBlock.blockTexture);
+								}
+								draggedBlock = null;
+								isMouseDragging = false;
+							}
 						}
 						else
 						{
-							// trace("curExecutionListScrolled " + curExecutionListScrolled);
-							// Insert block within the current list.
-							//trace("Inserting block within current list");
-							bytesLeft = mapByteLimit - usedBytes;
-							if (bytesLeft >= draggedBlock.byteCost)
-							{
-								var insertionPosition:int = ((insertionLineRow * 8) + (insertionLineColumn) + (curExecutionListScrolled) * 8);
-								//trace("curExecutionListScrolled " + curExecutionListScrolled);
-								//trace ("insertionPosition " + insertionPosition);
-								var tmpBlock3:logicBlock = draggedBlock.clone();
-								tmpBlock3.setButtonState(logicBlockEnum.BS_ACTIVE, this);
-								curExecutionList.splice(insertionPosition, 0, tmpBlock3);
-							}
 							if (this.contains(draggedBlock.blockTexture))
 							{
 								this.removeChild(draggedBlock.blockTexture);
@@ -1202,15 +1222,6 @@ package code
 							draggedBlock = null;
 							isMouseDragging = false;
 						}
-					}
-					else
-					{
-						if (this.contains(draggedBlock.blockTexture))
-						{
-							this.removeChild(draggedBlock.blockTexture);
-						}
-						draggedBlock = null;
-						isMouseDragging = false;
 					}
 				}
 			}

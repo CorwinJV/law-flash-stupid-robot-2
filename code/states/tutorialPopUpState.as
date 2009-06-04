@@ -42,6 +42,8 @@
 		var oldTFormat:TextFormat = new TextFormat();
 		var curTFormat:TextFormat =  new TextFormat();
 		
+		var shieldMC:MovieClip = new black();
+		
 		public function tutorialPopUpState(gsm:GameStateManager)
 		{
 			// this calls gamestate's default constructor and sets up the proper GSM assignment
@@ -204,9 +206,22 @@
 				}
 			}
 		
+			// Add a new movie clip to block the player from being
+			// able to access any interface elements in the states
+			// below this one.
+			shieldMC.alpha = 0.0;
+			shieldMC.x = 0;
+			shieldMC.y = 0;
+			shieldMC.width = 1024;
+			shieldMC.height = 768;
+			this.addChild(shieldMC);
+			
+			// Tell logicInterface not to process the mouse
+			GameVars.getInstance().setDoNotProcessMouse(true);
+			
 			// Position the current movie clip & add to display list
 			currentMC.x = 205;
-			currentMC.y = 127;
+			currentMC.y = 50;
 			this.addChild(currentMC);
 			
 			// Position the page-count text fields & add to display list
@@ -326,6 +341,7 @@
 		public function exitButtonClicked(e:MouseEvent)
 		{
 			this.setStatus(GameStateEnum.DELETE_ME);
+			GameVars.getInstance().setDoNotProcessMouse(false);
 		}
 		
 		public function leftArrowButtonClicked(e:MouseEvent)
