@@ -62,7 +62,12 @@ package code.states
 			
 			// set the counter to the player's max level, so we only allow them to choose levels 
 			// they have gotten to. This variable will keep track of which level they select.
-			playerCurrentLevel = selectVars.getPlayerMaxLevel();
+			
+			//uncomment this for the release version
+			//playerCurrentLevel = selectVars.getPlayerMaxLevel();
+			
+			//comment this out for release version
+			playerCurrentLevel = 1;
 			
 			// initialize the text fields so they can be used
 			levelText = new TextField();
@@ -100,7 +105,12 @@ package code.states
 			levelText.text = "Level ";
 			levelText.appendText(playerCurrentLevel.toString());
 			levelText.appendText(" / ");
-			levelText.appendText((selectVars.getPlayerMaxLevel()).toString());
+			
+			//uncomment this for release version
+			//levelText.appendText((selectVars.getPlayerMaxLevel()).toString());
+			
+			//comment this out for release version
+			levelText.appendText((selectVars.getMaxLevel() - 1).toString());
 			
 			titleText.text = selectVars.getLevelName(playerCurrentLevel);
 			
@@ -193,7 +203,7 @@ package code.states
 			playerCurrentLevel--;
 			// if the current level to be selected goes under one, then set
 			// the players level to their max level
-			if (playerCurrentLevel < 0)
+			if (playerCurrentLevel < 1)
 			{
 				//switch this line back out once finished debugging
 				//playerCurrentLevel = selectVars.getPlayerMaxLevel();
