@@ -63,6 +63,10 @@
 		var numTutorialLevels:int;
 		var inGame:Boolean;
 		
+		// variable to see if robot is done dancing, initialize to false
+		var doneDancing:Boolean = true;
+		var startedDancing:Boolean = false;
+		
 		var logicInteraceDoNotProcessMouse:Boolean = false;
 		
 		var isSub1OnFirstCommand:Boolean;
@@ -1039,6 +1043,28 @@
 				//tempPlayerLevelInfo.levelHighScore = -1;
 				//playerLevelInfo.push(tempPlayerLevelInfo);
 			//}
+		}
+		
+		public function getDoneDancing():Boolean
+		{
+			// returns the doneDancing true or false
+			return doneDancing;
+		}
+		
+		public function setDoneDancing(done:Boolean)
+		{
+			// set the doneDancing variable to whatever is received
+			doneDancing = done;
+		}
+		
+		public function setStartedDancing(started:Boolean)
+		{
+			startedDancing = started;
+		}
+		
+		public function getStartedDancing():Boolean
+		{
+			return startedDancing;
 		}
 		
 		public function decryptPlayerData(newData:String)
