@@ -167,8 +167,7 @@
 		var jumpFailCloseBL:MovieClip = new robotJumpFailCloseBL();
 		var jumpFailCloseTR:MovieClip = new robotJumpFailCloseTR();
 		var jumpFailCloseTL:MovieClip = new robotJumpFailCloseTL();
-		var dancingRobot:MovieClip = new victory_dance();
-		//var dancingRobot:MovieClip = new robotVictoryDance();
+		var dancingRobot:MovieClip = new robotVictoryDance();
 		
 		public function gameBoard() 
 		{
@@ -3951,7 +3950,7 @@
 			}
 					
 			// start the animation at frame 0
-			dancingRobot.gotoAndPlay(0);
+			dancingRobot.danceAnimation.gotoAndPlay(0);
 		}
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
@@ -4155,6 +4154,7 @@
 
 			if ((!areYouDancing) && (!haveYouStartedDancing))
 			{
+				zoomToMax();
 				//trace("starting robot dance function");
 				myGameVar.setDoneDancing(false);
 				areYouDancing = true;
@@ -4163,6 +4163,11 @@
 				isAnimationDone = false;
 				setRobotDanceAnimation();
 				//trace("out of set dance animation");
+				// set the dimensions of the dance animation
+				dancingRobot.width = myRobotImage.width;
+				dancingRobot.height = myRobotImage.height;
+				dancingRobot.x = myRobotImage.x;
+				dancingRobot.y = myRobotImage.y;
 			}
 		}
 		
@@ -4185,12 +4190,6 @@
 					//trace("inside setrobotdanceanimation - nuking myrobotimage");
 					myMap.removeChild(myRobotImage);
 				}
-				
-				// set the dimensions of the dance animation
-				dancingRobot.width = myRobotImage.width * scale;// * 2;
-				dancingRobot.height = myRobotImage.height * scale;// + (myRobotImage.height / 2);
-				dancingRobot.x = myRobotImage.x * scale;
-				dancingRobot.y = myRobotImage.y * scale;
 				
 				// if the dance animation does not exist
 				if (!myMap.contains(dancingRobot))
@@ -4477,13 +4476,13 @@
 		public function danceAnimationCounter()
 		{
 			//trace("danceAnimationCounter started");
-			if(dancingRobot.currentFrame == 25)
+			if(dancingRobot.danceAnimation.currentFrame == 25)
 			{
 				//trace("weve jumped again");
 				timesJumping++;
 			}
 			
-			if (timesJumping >= 5)
+			if (timesJumping >= 7)
 			{
 				//trace("danceAnimationDone");
 				// set all the boolean dance check variables to say the animation is complete
