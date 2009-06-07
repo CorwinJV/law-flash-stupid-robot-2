@@ -134,21 +134,25 @@
 		var delayAdvance:Boolean;
 		var reprogramHit:Boolean;
 		var tutorialTileHit:Boolean;
+		
+		// animation tracking booleans
 		var areYouJumping:Boolean;
 		var haveYouStartedJumping:Boolean;
+		var areYouDancing:Boolean;
+		var haveYouStartedDancing:Boolean;
+		var timesJumping:int;
 		var isAnimationOcurring:Boolean;
 		var isAnimationDone:Boolean;
+		// death animation variables
+		var diedElectricity:MovieClip = new robotDiedElectricity();
+		var diedGap:MovieClip = new robotDiedGap();
+		var diedWater:MovieClip = new robotDiedWater();
 		
 		var curState:GameBoardStateEnum;
 		var processSpeed:int;
 		var myMap:MovieClip;
 		//var massInstruct:MovieClip;
 		var doneLoadingMapFromFile:Boolean = false;
-		
-		// death animation variables
-		var diedElectricity:MovieClip = new robotDiedElectricity();
-		var diedGap:MovieClip = new robotDiedGap();
-		var diedWater:MovieClip = new robotDiedWater();
 		
 		// jump animation variables
 		var jumpSuccessBR:MovieClip = new robotJumpSuccessBR();
@@ -163,6 +167,8 @@
 		var jumpFailCloseBL:MovieClip = new robotJumpFailCloseBL();
 		var jumpFailCloseTR:MovieClip = new robotJumpFailCloseTR();
 		var jumpFailCloseTL:MovieClip = new robotJumpFailCloseTL();
+		var dancingRobot:MovieClip = new victory_dance();
+		//var dancingRobot:MovieClip = new robotVictoryDance();
 		
 		public function gameBoard() 
 		{
@@ -196,6 +202,10 @@
 			doneLoadingMapFromFile = false;
 			areYouJumping = false;
 			haveYouStartedJumping = false;
+			areYouDancing = false;
+			haveYouStartedDancing = false;
+			timesJumping = 0;
+			
 			
 			// MUST CALL INIT DAMMIT!
 			initialize();
@@ -210,6 +220,7 @@
 			stage.addEventListener("gameBoardAbort", interfaceHasFiredAbortOrder, false, 0, true);
 			stage.addEventListener("gameBoardReset", interfaceHasFiredResetOrder, false, 0, true);
 			stage.addEventListener("infoButtonClicked", rePopupTutorialInfo, false, 0, true);
+			stage.addEventListener("startDancing", startRobotDance);
 		}
 		
 		// these are all debug commands and aren't actually used in game...
@@ -324,6 +335,13 @@
 			if ((areYouJumping) && (haveYouStartedJumping))
 			{
 				jumpAnimationCounter();
+			}
+			
+			//trace("inside update", areYouDancing, haveYouStartedDancing);
+			if ((areYouDancing) && (haveYouStartedDancing))
+			{
+				//trace("update calling dance animation counter");
+				danceAnimationCounter();
 			}
 			
 			if (areYouDoneLoadingAMapFromFile())
@@ -1421,14 +1439,11 @@
 						myGameVar.SSoundInterfaceAbort.play();
 					}
 				}
-				
-				
 			}
 		}
 		
 		public function postTeleport(e:TimerEvent)
 		{	
-			
 			for(var x:int = 0; x < teleportList.length; x++)
 			{
 				if(((teleportList[x].getXPos()) == robotX) && ((teleportList[x].getYPos()) == robotY))
@@ -3062,7 +3077,6 @@
 			}
 		}
 		
-		
 		public function verifyCameraCenter():Boolean
 		{
 			// this function should be run after other functions, it effectively checks
@@ -3803,15 +3817,25 @@
 					myMap.addChild(mapListImagesForeground[x][y]);
 				}
 			}
-			if (isAnimationOcurring)
+			
+			//if (isAnimationOcurring) // shouldnt this be checking the specific jump animation rather than all?
+			if(areYouJumping)
 			{
 				myMap.addChild(jumpAnimation);
 				injectJumpAnimation(myRobot.getDirection());
 			}
 			
+			if (areYouDancing)
+			{
+				if (!myMap.contains(dancingRobot))
+				{
+					myMap.addChild(dancingRobot);
+					//trace("injecting robot image from rebuild map clip");
+					injectDanceAnimation();
+				}
+			}
+			
 			draw();
-			
-			
 		}
 		
 		private function toggleAllMapTiles()
@@ -3844,7 +3868,7 @@
 			//myMap.removeChild(myRobotImage);
 			//myMap.addChildAt(myRobotImage, robotX + (Width * robotY));
 		}		
-		
+	
 		private function injectJumpAnimation(direction:int)
 		{
 			var dir:int = direction;
@@ -3894,6 +3918,40 @@
 			
 			// start the animation at frame 0
 			jumpAnimation.animation.gotoAndPlay(0);
+		}
+		
+		private function injectDanceAnimation()
+		{
+			var newIndexPosition:int;
+			
+			//trace("were in the inject dance animation function");
+			// if the robot exists on the screen, remove it
+			if (myMap.contains(myRobotImage))
+			{
+				//trace("inside of inject dance animation - nuking myrobotimage");
+				myMap.removeChild(myRobotImage);
+			}
+			
+			// add the jump animation
+			if (!myMap.contains(dancingRobot))
+			{
+				//trace("adding jump animation from inject dance animation at x/y", jumpAnimation.x, ", ", jumpAnimation.y);
+				myMap.addChild(dancingRobot);
+			}
+				
+			// set the child index at highest position
+			newIndexPosition = myMap.numChildren - 1;
+
+			// if this not at the right position, insert it, otherwise dont do anything
+			if (myMap.getChildIndex(dancingRobot) != newIndexPosition)
+			{
+				//trace("setting child index");
+				myMap.setChildIndex(dancingRobot, newIndexPosition);
+				//trace("just set child index");
+			}
+					
+			// start the animation at frame 0
+			dancingRobot.gotoAndPlay(0);
 		}
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
@@ -4089,6 +4147,75 @@
 			reInjectRobotImage();
 
 			update();
+		}
+		
+		public function startRobotDance(e:Event)
+		{
+			//trace("calling startRobotDance");
+
+			if ((!areYouDancing) && (!haveYouStartedDancing))
+			{
+				//trace("starting robot dance function");
+				myGameVar.setDoneDancing(false);
+				areYouDancing = true;
+				haveYouStartedDancing = true;
+				isAnimationOcurring = true;
+				isAnimationDone = false;
+				setRobotDanceAnimation();
+				//trace("out of set dance animation");
+			}
+		}
+		
+		public function setRobotDanceAnimation()
+		{
+			if(!myGameVar.getStartedDancing())
+			{
+				myGameVar.setStartedDancing(true);
+				//trace("this should only be called once");
+				
+				var indexPos:int;
+				//trace("first child index call");
+				indexPos = myMap.getChildIndex(myRobotImage);
+				//trace("first child index success");
+				
+				// clear out robot image if it exists
+				if (myMap.contains(myRobotImage))
+				{
+					// if it is, remove it
+					//trace("inside setrobotdanceanimation - nuking myrobotimage");
+					myMap.removeChild(myRobotImage);
+				}
+				
+				// set the dimensions of the dance animation
+				dancingRobot.width = myRobotImage.width * scale;// * 2;
+				dancingRobot.height = myRobotImage.height * scale;// + (myRobotImage.height / 2);
+				dancingRobot.x = myRobotImage.x * scale;
+				dancingRobot.y = myRobotImage.y * scale;
+				
+				// if the dance animation does not exist
+				if (!myMap.contains(dancingRobot))
+				{
+					// add it to the scene
+					//trace("adding dance animation");
+					myMap.addChild(dancingRobot);
+					//trace("dance animation added");
+				}
+				
+				// if the robot animation's index isnt where the robot image was
+				if (myMap.getChildIndex(dancingRobot) != indexPos)
+				{
+					// set it to that index
+				//	trace("child index call");
+					myMap.setChildIndex(dancingRobot, indexPos);
+				//	trace("child index success");
+				}
+
+				// play the dance music
+				myGameVar.SSoundRobotDance.play();	
+				//trace("end of setrobotdanceanimation");
+				injectDanceAnimation();
+				//trace("just injected dance animation");
+			}
 		}
 		
 		public function setRobotJumpAnimation(x:int, y:int, distance:int, direction:int)
@@ -4345,6 +4472,48 @@
 			// function get called again
 			areYouJumping = false;
 			haveYouStartedJumping = false;
+		}
+		
+		public function danceAnimationCounter()
+		{
+			//trace("danceAnimationCounter started");
+			if(dancingRobot.currentFrame == 25)
+			{
+				//trace("weve jumped again");
+				timesJumping++;
+			}
+			
+			if (timesJumping >= 5)
+			{
+				//trace("danceAnimationDone");
+				// set all the boolean dance check variables to say the animation is complete
+				areYouDancing = false;
+				haveYouStartedDancing = false;
+				// if the dance animation still exists
+				if (myMap.contains(dancingRobot))
+				{
+					// nuke it
+					myMap.removeChild(dancingRobot);
+				}
+				// if the robot image does not exist
+				if (!myMap.contains(myRobotImage))
+				{
+					// put it back on the screen
+					reInjectRobotImage();
+				}
+				// set all the boolean animation check variables to say the animation is complete
+				isAnimationDone = true;
+				isAnimationOcurring = false;
+				myGameVar.setDoneDancing(true);
+				myGameVar.setStartedDancing(false);
+				
+				var i:int = this.processSpeed;
+		
+				executionCycleTimer = new Timer(i, 1);
+				executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
+				executionCycleTimer.start();
+				timesJumping = 0;
+			}
 		}
 		
 		public function jumpAnimationCounter()

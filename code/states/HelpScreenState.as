@@ -372,70 +372,70 @@
 		{
 			addAnimationScreen();
 			
-			//var doorMC:MovieClip = new doorAnimation(); 
+			var doorMC:MovieClip = new doorAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(doorMC))
-			//{
-				//doorMC.x = indivX;
-				//doorMC.y = indivY;
-				//animationPage.addChild(doorMC);
-			//}
+			if (!animationPage.contains(doorMC))
+			{
+				doorMC.x = indivX;
+				doorMC.y = indivY;
+				animationPage.addChild(doorMC);
+			}
 		}
 		
 		public function halfTopLClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var halfTopMC:MovieClip = new halfTopAnimation(); 
+			var halfTopMC:MovieClip = new halfTopAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(halfTopMC))
-			//{
-				//halfTopMC.x = indivX;
-				//halfTopMC.y = indivY;
-				//animationPage.addChild(halfTopMC);
-			//}
+			if (!animationPage.contains(halfTopMC))
+			{
+				halfTopMC.x = indivX;
+				halfTopMC.y = indivY;
+				animationPage.addChild(halfTopMC);
+			}
 		}
 		
 		public function gapClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var gapMC:MovieClip = new gapAnimation(); 
+			var gapMC:MovieClip = new gapAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(gapMC))
-			//{
-				//gapMC.x = indivX;
-				//gapMC.y = indivY;
-				//animationPage.addChild(gapMC);
-			//}
+			if (!animationPage.contains(gapMC))
+			{
+				gapMC.x = indivX;
+				gapMC.y = indivY;
+				animationPage.addChild(gapMC);
+			}
 		}
 		
 		public function breakableTLClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var breakableMC:MovieClip = new breakableAnimation(); 
+			var breakableMC:MovieClip = new breakableAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(breakableMC))
-			//{
-				//breakableMC.x = indivX;
-				//breakableMC.y = indivY;
-				//animationPage.addChild(breakableMC);
-			//}
+			if (!animationPage.contains(breakableMC))
+			{
+				breakableMC.x = indivX;
+				breakableMC.y = indivY;
+				animationPage.addChild(breakableMC);
+			}
 		}
 		
 		public function breakableClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var breakableWallMC:MovieClip = new breakableWallAnimation(); 
+			var breakableWallMC:MovieClip = new breakableWallAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(breakableWallMC))
-			//{
-				//breakableWallMC.x = indivX;
-				//breakableWallMC.y = indivY;
-				//animationPage.addChild(breakableWallMC);
-			//}
+			if (!animationPage.contains(breakableWallMC))
+			{
+				breakableWallMC.x = indivX;
+				breakableWallMC.y = indivY;
+				animationPage.addChild(breakableWallMC);
+			}
 		}
 		
 		public function electricTLClick(e:MouseEvent)
@@ -456,42 +456,42 @@
 		{
 			addAnimationScreen();
 			
-			//var emptyMC:MovieClip = new emptyAnimation(); 
+			var emptyMC:MovieClip = new emptyAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(emptyMC))
-			//{
-				//emptyMC.x = indivX;
-				//emptyMC.y = indivY;
-				//animationPage.addChild(emptyMC);
-			//}
+			if (!animationPage.contains(emptyMC))
+			{
+				emptyMC.x = indivX;
+				emptyMC.y = indivY;
+				animationPage.addChild(emptyMC);
+			}
 		}
 		
 		public function iceClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var iceMC:MovieClip = new iceAnimation(); 
+			var iceMC:MovieClip = new iceAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(iceMC))
-			//{
-				//iceMC.x = indivX;
-				//iceMC.y = indivY;
-				//animationPage.addChild(iceMC);
-			//}
+			if (!animationPage.contains(iceMC))
+			{
+				iceMC.x = indivX;
+				iceMC.y = indivY;
+				animationPage.addChild(iceMC);
+			}
 		}
 		
 		public function teleportClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var teleportMC:MovieClip = new teleportAnimation(); 
+			var teleportMC:MovieClip = new teleportAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(teleportMC))
-			//{
-				//teleportMC.x = indivX;
-				//teleportMC.y = indivY;
-				//animationPage.addChild(teleportMC);
-			//}
+			if (!animationPage.contains(teleportMC))
+			{
+				teleportMC.x = indivX;
+				teleportMC.y = indivY;
+				animationPage.addChild(teleportMC);
+			}
 		}
 		
 		public function switchTLClick(e:MouseEvent)
@@ -526,56 +526,56 @@
 		{
 			addAnimationScreen();
 			
-			//var defaultMC:MovieClip = new defaultAnimation(); 
+			var defaultMC:MovieClip = new defaultAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(defaultMC))
-			//{
-				//defaultMC.x = indivX;
-				//defaultMC.y = indivY;
-				//animationPage.addChild(defaultMC);
-			//}
+			if (!animationPage.contains(defaultMC))
+			{
+				defaultMC.x = indivX;
+				defaultMC.y = indivY;
+				animationPage.addChild(defaultMC);
+			}
 		}
 		
 		public function programTLClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var reprogramMC:MovieClip = new reprogramAnimation(); 
+			var reprogramMC:MovieClip = new reprogramAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(reprogramMC))
-			//{
-				//reprogramMC.x = indivX;
-				//reprogramMC.y = indivY;
-				//animationPage.addChild(reprogramMC);
-			//}
+			if (!animationPage.contains(reprogramMC))
+			{
+				reprogramMC.x = indivX;
+				reprogramMC.y = indivY;
+				animationPage.addChild(reprogramMC);
+			}
 		}
 		
 		public function raised3Click(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var raisedMC:MovieClip = new raisedAnimation(); 
+			var raisedMC:MovieClip = new raisedAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(raisedMC))
-			//{
-				//raisedMC.x = indivX;
-				//raisedMC.y = indivY;
-				//animationPage.addChild(raisedMC);
-			//}
+			if (!animationPage.contains(raisedMC))
+			{
+				raisedMC.x = indivX;
+				raisedMC.y = indivY;
+				animationPage.addChild(raisedMC);
+			}
 		}
 		
 		public function solidClick(e:MouseEvent)
 		{
 			addAnimationScreen();
 			
-			//var solidMC:MovieClip = new solidAnimation(); 
+			var solidMC:MovieClip = new solidAnimation(); 
 			// add the appropriate animation to the page
-			//if (!animationPage.contains(solidMC))
-			//{
-				//solidMC.x = indivX;
-				//solidMC.y = indivY;
-				//animationPage.addChild(solidMC);
-			//}
+			if (!animationPage.contains(solidMC))
+			{
+				solidMC.x = indivX;
+				solidMC.y = indivY;
+				animationPage.addChild(solidMC);
+			}
 		}
 		
 		public function addAnimationScreen()

@@ -75,6 +75,8 @@
 		var preGameTitleDescSpacing:int;
 		var playerScore:int;
 		var doneDead:Boolean;
+		// variable to make sure we only do the dance one time
+		var didYouDance:Boolean;
 		var playVars:GameVars = GameVars.getInstance();
 		var startTime:int;
 		var viewScoreAdd:Boolean;
@@ -951,14 +953,28 @@
 				{
 					finishing = true;
 				}
+
 				//trace("victory dance");
 				//timer = clock();
-				
+				gamePlay.update();
 				// dispatch event to occur after an alotted time...
+				//if ((!playVars.getDoneDancing()) && (!playVars.getStartedDancing()))
+				if((!playVars.getStartedDancing()) && (!didYouDance))
+				{
+					//trace("started dancing");
+					stage.dispatchEvent(new Event("startDancing"));
+					// set that we have dance one time
+					didYouDance = true;
+				}
 				
 				// for now lets just make it always happen
 				//if(timer > startTime + 2000)
+				//if(playVars.getDoneDancing()
+				if((playVars.getDoneDancing()) && (!playVars.getStartedDancing()))
 				{
+					// the dance is over, reset the counter back to zero
+					didYouDance = false;
+					//trace("done dancing");
 					finishing = false;
 					finishNow = true;
 					curState = GameBoardStateEnum.GB_VIEWSCORE;
