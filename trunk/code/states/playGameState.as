@@ -1,6 +1,5 @@
 ﻿package code.states
 {
-	// 99
 	import adobe.utils.CustomActions;
 	import code.enums.GameBoardStateEnum;
 	import flash.display.MovieClip;
@@ -46,7 +45,6 @@
 		var PreGameMC:MovieClip = new GB_PREGAME();
 		var ViewScoreMC:MovieClip = new GB_VIEWSCORE();
 		
-		
 		// private class variables
 		var gamePlay:gameBoard = new gameBoard();
 		var timer:int;
@@ -60,9 +58,6 @@
 		//var compass:menuSys;
 		var compassOffsetX:int;
 		var compassOffsetY:int;
-		//var img:texture2D;
-		//var blackImage:texture2D;
-		//var youDiedImage:texture2D;
 		var curState:GameBoardStateEnum;
 		var buttonList:Array;
 		var gameSaved:Boolean;
@@ -150,25 +145,8 @@
 			stage.addEventListener("optionsButtonClicked", optionsButtonClick);
 			
 			stage.addEventListener("skipButtonClicked", deleteBoard);
-			//stage.addEventListener("newPlayGameState", bringDownTheHouse);
 			stage.addEventListener("skipLevel", skipLevel);
 		}
-		
-		//public function bringDownTheHouse(e:Event)
-		//{
-			//GSM.addGameState(new playGameState(GSM));
-			//gameplay.setState(GameBoardStateEnum.GB_PREGAME);
-			//stage.dispatchEvent(new Event("skipButtonClicked"));
-			// then delete the level select menu
-			//this.setStatus(GameStateEnum.DELETE_ME);
-			//
-			// i had it as...
-			// curstate = GameBoardstateEnum.GB_PREGAME;
-			// gameplay.setState(curState);
-			// stage.dispatchEvent(new Event("skipButtonClicked"));
-			// stage.dispatchEvent(new Event("skipButtonClicked"));
-		//}
-		//
 		
 		public function skipLevel(e:Event)
 		{
@@ -209,209 +187,7 @@
 		
 		public function draw():void
 		{
-			//var curState:GameBoardStateEnum;
-			//
-			//var tempString:String;
-			//var offsetAmt:int = 0;
-			//var textString:String;
-			//clock_t startTime;
-			//var tempInt:int;
-			//var fadeToBlack:texture2D = new texture2D();
-			//var textspacing:int = 30;
-			//var speed:int;// = gamePlay.getProcessSpeed();
-			//var viewscoretext:int = backgroundImage.mY+50;
-			//var speedAdjust:int;
-			//
-			//did you know variables
-			//var tY:int = 600;
-			//var tYspace:int = 20;
-			//var tAmt:int = 0;
-			//var didYouKnowParsed:Array;
-			//var didYouKnowCounter:int;
-			//
-			//
-//
-			//curState = gamePlay.getCurState();
-			//switch(curState.toInt())
-			//{
-			//case GameBoardStateEnum.GB_LOGICVIEW.toInt():
-				//gamePlay.draw();
-				//mInterface.Draw();
-				//drawLevelInfo();
-				//compass.Draw();
-				//
-				//display starting speed
-				//playVars.fontArial12.drawText(258, 650, "Speed: ");
-				//textString = "";
-				//speedAdjust = (1100 - speed);
-				//textString << speedAdjust.toString << " MHZ";
-				//display text string here
-				//textDisplay.text = textString;
-				//textDisplay.width = textDisplay.textWidth;
-				//textDisplay.height = textDisplay.textHeight;
-				//
-				//format.size = 12;
-				//format.font = "Digital";
-				//format.leading = -14;
-				//playVars.fontDigital12.drawText(258, 670, textString);
-				//break;
-//
-			//case GameBoardStateEnum.GB_EXECUTION.toInt():
-				//gamePlay.draw();
-				//mInterface.Draw();
-				//drawLevelInfo();
-				//compass.Draw();
-//
-				//display current speed
-				//playVars.fontArial12.drawText(258, 650, "Speed: ");
-				//textString = "";
-				//speedAdjust = (1100 - speed);
-				//textString << speedAdjust.toString << " MHZ";
-				//playVars.fontDigital12.drawText(258, 670, tempString);
-				//break;
-			//case GameBoardStateEnum.GB_PREGAME.toInt():
-//
-				//clearBackground();
-//
-				//logoImage.drawImage();
-				//backgroundImage.drawImage();
-//
-				//glColor3ub(0, 0, 0);
-//
-				//player name
-				//tempString = "Player Name: ";
-				//tempString += playVars.PM.getPlayerName();
-				//playVars.fontArial24.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-				//offsetAmt++;
-//
-				//level name
-				//tempInt = playVars.getCurrentLevel();
-				//tempString = playVars.getLevelName(tempInt);
-//
-				//offsetAmt += playVars.fontArial24.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString, 48);
-//
-				//level description
-				//offsetAmt += playVars.fontArial18.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, playVars.getDesc(tempInt), 48);
-//
-				//bytes available
-				//tempString = "Bytes Available: ";
-				//textString = "";
-				//tempInt = playVars.getCurrentLevelBytes();
-				//textString = tempInt.toString();
-				//playVars.fontArial18.drawText(preGameTextOffsetX, preGameTextOffsetY + offsetAmt*preGameTextSpacing, tempString);
-				//offsetAmt++;
-				//
-				//did you know
-				//playVars.fontArial16.drawText(preGameTextOffsetX, tY+ (tAmt*tYspace), "Did You Know:");
-				//tAmt++;
-			//
-				//didYouKnowCounter = 0;
-				//
-				//for(;didYouKnowCounter < didYouKnowParsed.length; didYouKnowCounter++)
-				//{
-					//playVars.fontArial16.drawText(preGameTextOffsetX, tY+ (tAmt*tYspace), (*dykItr).c_str());
-					//tAmt++;
-				//}
-				//break;
-//
-			//case GameBoardStateEnum.GB_ROBOTDIED.toInt():
-				 //gl shit that may or may not be needed for font stuff, we shall find out shortly
-				//clearBackground();
-				//glutSwapBuffers();
-			//	glEnable(GL_TEXTURE_2D);
-			//	glEnable(GL_BLEND);
-//
-				///*glColor3ub(255, 0, 0);
-//
-				//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);*/
-//
-				// player name
-				//playVars.fontDigital200.drawText(150 + rand()%15, 250 + rand()%15, "YOU DIED");
-				//youDiedImage.mX = rand()%15;
-				//youDiedImage.mY = rand()%15;
-				//youDiedImage.drawImage();
-				//break;
-//
-			//case GameBoardStateEnum.GB_VIEWSCORE.toInt():
-				//clearBackground();
-				//logoImage.drawImage();
-				//backgroundImage.drawImage();
-				//
-				//if(myMenu != NULL)
-				//	myMenu.Draw();
-//
-				//glColor3ub(0, 0, 0);
-				//
-				// level name
-				//tempString = "Congratulations! Level Complete!";
-				//playVars.fontArial32.drawText(150, viewscoretext+ offsetAmt*textspacing, tempString);
-				//offsetAmt++;
-				//offsetAmt++;
-				//offsetAmt++;
-//
-				// level name
-				//tempInt = playVars.getCurrentLevel();
-				//tempString = playVars.getLevelName(tempInt);
-//
-				//offsetAmt += playVars.fontArial18.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString, 45);
-//
-				// level description
-				//tempString = playVars.getDesc(tempInt);
-				// description
-			//	offsetAmt += playVars.fontArial18.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString, 45);
-				//offsetAmt++;
-//
-				//
-//
-				// bytes used
-				//textString = "";
-				//textString = "BYTES USED: ";
-				//tempInt = playVars.getBytesUsed(); // this should get the bytes used value
-				//textString += tempInt.toString();
-				//playVars.fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
-				//offsetAmt++;
-//
-				// commands used
-				//textString = "";
-				//textString = "COMMANDS PROCESSED: ";
-				//tempInt = playVars.totalCommandsProcessed;
-				//textString += tempInt.toString();
-				//playVars.fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
-				//offsetAmt++;
-				//
-				// level score
-				//textString = "";
-				//textString = "YOUR LEVEL SCORE: ";
-				//tempInt = playVars.getLevelScore();
-				//textString += tempInt.toString();
-				//playVars.fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
-				//offsetAmt++;
-//
-				// TOTAL SCORE
-				//textString = "";
-				//textString = "YOUR TOTAL SCORE: ";
-				//tempInt = playVars.getTotalScore();
-				//tempString += tempInt.toString();
-				//playVars.fontArial24.drawText(200, viewscoretext+ offsetAmt*textspacing, tempString);
-				//offsetAmt++;
-				//
-				//if(myMenu != NULL)
-					//myMenu.Draw();
-				//mInterface.Draw();
-				//break;
-//
-			//case GameBoardStateEnum.GB_FINISHED.toInt():
-				//gamePlay.draw();
-			//	mInterface.Draw();
-				//break;
-//
-			//case GameBoardStateEnum.GB_YOUWIN.toInt():
-				//doEndGameDraw();
-				//break;
-//
-			//default:
-				//break;
-			//}
+			
 		}
 
 		private function drawLevelInfo():void
@@ -424,28 +200,14 @@
 			var textSpacing:int = 20;
 			var offsetAmt:int = 0;
 	
-//
-			//blackImage.mX = 0;
-			//blackImage.mY = 0;
-			//blackImage.drawImageFaded(0.75, 1024, 85);
-			//
-			//glColor3ub(255, 0, 0);
-			//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-//
-
 			//this wont work if we're coming in out of a level select
 			playerCurrentLevel = playVars.getCurrentLevel();
 
 			var levelNumText:String;
 
-			//levelNumText << "Level " << playerCurrentLevel.toString() << " - " << playVars.getLevelName(playerCurrentLevel);
-			//offsetAmt += playVars.fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, levelNumText.str(), 87);
-
-
 			// description
 			tempString = playVars.getDesc(playerCurrentLevel);
-			//offsetAmt += playVars.playVars.fontArialRed14.drawText(textOffsetX, textOffsetY + offsetAmt*textSpacing, tempString, 87);
-			
+
 		}
 		
 		private function panUp(e:Event)
@@ -638,7 +400,7 @@
 			//playVars.setLevelSpecified( -1);
 			//until profile manager is setup, this is being hardcoded as level one below
 			//abcxyz
-			playerCurrentLevel = 0;
+			playerCurrentLevel = 1;
 			playVars.setLevelSpecified(0);
 			playVars.setCurrentLevel(0);
 
@@ -655,9 +417,6 @@
 			viewScoreAdd = false;
 
 			//display a menu that shows info and contains advance, replay level and exit buttons
-
-			//blackImage = new oglTexture2D();
-			//blackImage.loadImage("black.png", 373, 75);
 
 			Update();
 			
@@ -929,18 +688,6 @@
 
 				playVars.setLevel(levelCounter);
 			
-				//=====================================================
-				// Register the gameBoard callback with the interface!
-				//mInterface.SetExecuteHandler(BE::CreateFunctionPointer3R(gamePlay, &gameBoard::interfaceHasFiredExecuteOrder));
-				//mInterface.SetAbortHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredAbortOrder));
-				//mInterface.SetResetHandler(BE::CreateFunctionPointer0R(gamePlay, &gameBoard::interfaceHasFiredResetOrder));
-				//mInterface.SetHelpHandler(BE::CreateFunctionPointer0R(this, &playGame::launchHelpState));
-				//mInterface.SetSpeedUpHandler(BE::CreateFunctionPointer0R(this, &playGame::speedUp));
-				//mInterface.SetSlowDownHandler(BE::CreateFunctionPointer0R(this, &playGame::slowDown));
-				//gamePlay.SetInterfaceAdvanceHandler(BE::CreateFunctionPointer2R(&mInterface, &LogicInterface::CommandAdvanced));
-				//gamePlay.SetInterfaceReprogramHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ReprogramReached));
-				//gamePlay.SetInterfaceClearExecutionListHandler(BE::CreateFunctionPointer0R(&mInterface, &LogicInterface::ClearExecutionList));
-	//
 				gamePlay.setState(curState);
 				pregameRunning = false;
 				break;
@@ -1018,12 +765,6 @@
 					playVars.setTotalScore(playVars.getLevelScore() + playVars.getTotalScore());
 				}
 					
-				//spintimer = clock();
-				//if(spintimer > spintimerStart + 200)
-				//{
-					//gamePlay.spinRobot();
-					//spintimerStart = clock();
-				//}
 				break;
 
 			default:
@@ -1219,7 +960,7 @@
 			{
 				// load in alot of pictures
 				var numPics:int = 45;
-			//	var tempPic:texture2D;
+				//	var tempPic:texture2D;
 				var filename:String;
 				var fileNumber:int
 				
@@ -1238,23 +979,12 @@
 			}
 			else
 			{
-				// iterate through the pictures drawing them
-				//(*endGameAnimation).drawImage(0, 0);
-				//glColor3ub(0, 0, 0);
-				//playVars.fontArial24.drawText(200,  80, "We apologize for the crappy ending,");
-				//playVars.fontArial24.drawText(200, 120, "we needed to save space.");
-				//playVars.fontArial24.drawText(200, 160, "Press ESC to return to the main menu.");
 				endAnimationCounter++;
-				if(endAnimationCounter == endGamePics.length)
-					endAnimationCounter = 0;
-				//timer = clock();
-				//startTime = clock();
-				//while(timer < startTime + 50)
-				//{
-					//timer = clock();
-				//}		
-			}
-					
+				if (endAnimationCounter == endGamePics.length)
+				{
+					endAnimationCounter = 0;	
+				}
+			}	
 		}
 
 		public function preGameTimerEnded(e:TimerEvent)
@@ -1303,9 +1033,6 @@
 			curState = GameBoardStateEnum.GB_LOGICVIEW;
 			//mInterface.fireAbort();
 		}
-				//void processMouse(int x, int y);
-				//void processMouseClick(int button, int state, int x, int y);
-				//void keyboardInput(unsigned char c, int x, int y);
 
 		///// end functions
 	}
