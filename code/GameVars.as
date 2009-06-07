@@ -59,7 +59,6 @@
 		//var allLogicBlocks:Array;
 		//var placeInstructionBlock:logicBlock = new logicBlock();
 		var currentLogicBank:Array = new Array();
-		//vector<oglTexture2D*> levelArt;
 		var numTutorialLevels:int;
 		var inGame:Boolean;
 		

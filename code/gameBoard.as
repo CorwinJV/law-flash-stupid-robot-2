@@ -1,6 +1,5 @@
 ﻿package code 
 {
-	//100 bitches
 	import code.structs.Switch;
 	import code.structs.Teleport;
 	import flash.display.MovieClip;
@@ -129,7 +128,6 @@
 		var teleportTimer:Timer = new Timer(executionCycleInterval, 1);
 		var teleportInProgress:Boolean = false;
 		
-		
 		var drawText:Boolean;
 		var delayAdvance:Boolean;
 		var reprogramHit:Boolean;
@@ -155,44 +153,22 @@
 		var doneLoadingMapFromFile:Boolean = false;
 		
 		// jump animation variables
-		var jumpSuccessBR:MovieClip = new robotJumpSuccessBR();
-		var jumpSuccessBL:MovieClip = new robotJumpSuccessBL();
-		var jumpSuccessTR:MovieClip = new robotJumpSuccessTR();
-		var jumpSuccessTL:MovieClip = new robotJumpSuccessTL();
-		var jumpFailFarBR:MovieClip = new robotJumpFailFarBR();
-		var jumpFailFarBL:MovieClip = new robotJumpFailFarBL();
-		var jumpFailFarTR:MovieClip = new robotJumpFailFarTR();
-		var jumpFailFarTL:MovieClip = new robotJumpFailFarTL();
-		var jumpFailCloseBR:MovieClip = new robotJumpFailCloseBR();
-		var jumpFailCloseBL:MovieClip = new robotJumpFailCloseBL();
-		var jumpFailCloseTR:MovieClip = new robotJumpFailCloseTR();
-		var jumpFailCloseTL:MovieClip = new robotJumpFailCloseTL();
-		var dancingRobot:MovieClip = new robotVictoryDance();
+		var jumpSuccessBR:MovieClip 	= new robotJumpSuccessBR();
+		var jumpSuccessBL:MovieClip 	= new robotJumpSuccessBL();
+		var jumpSuccessTR:MovieClip 	= new robotJumpSuccessTR();
+		var jumpSuccessTL:MovieClip 	= new robotJumpSuccessTL();
+		var jumpFailFarBR:MovieClip 	= new robotJumpFailFarBR();
+		var jumpFailFarBL:MovieClip 	= new robotJumpFailFarBL();
+		var jumpFailFarTR:MovieClip 	= new robotJumpFailFarTR();
+		var jumpFailFarTL:MovieClip 	= new robotJumpFailFarTL();
+		var jumpFailCloseBR:MovieClip 	= new robotJumpFailCloseBR();
+		var jumpFailCloseBL:MovieClip 	= new robotJumpFailCloseBL();
+		var jumpFailCloseTR:MovieClip 	= new robotJumpFailCloseTR();
+		var jumpFailCloseTL:MovieClip 	= new robotJumpFailCloseTL();
+		var dancingRobot:MovieClip 		= new robotVictoryDance();
 		
 		public function gameBoard() 
 		{
-			// temp shit for testing, remove this later
-			//massInstruct = new massInstruction();
-			//massInstruct.x = 50;
-			//massInstruct.y = 100;
-			
-			//this.addChild(massInstruct);
-			
-			//massInstruct.dMoveForward.addEventListener(MouseEvent.MOUSE_UP, 		addMoveForward);
-			//massInstruct.dMoveForwardUntil.addEventListener(MouseEvent.MOUSE_UP, 	addMoveForwardUntil);
-			//massInstruct.dTurnLeft.addEventListener(MouseEvent.MOUSE_UP, 			addTurnLeft);
-			//massInstruct.dTurnRight.addEventListener(MouseEvent.MOUSE_UP, 			addTurnRight);
-			//massInstruct.dActivate.addEventListener(MouseEvent.MOUSE_UP, 			addActivate);
-			//massInstruct.dPunch.addEventListener(MouseEvent.MOUSE_UP, 				addPunch);
-			//massInstruct.dClimb.addEventListener(MouseEvent.MOUSE_UP, 				addClimb);
-			//massInstruct.dCrouch.addEventListener(MouseEvent.MOUSE_UP, 				addCrouch);
-			//massInstruct.dJump.addEventListener(MouseEvent.MOUSE_UP, 				addJump);
-			//massInstruct.dStop.addEventListener(MouseEvent.MOUSE_UP, 				addStop);
-			//massInstruct.dExecute.addEventListener(MouseEvent.MOUSE_UP, 			execute);
-			
-			
-			// end temp shit
-			
 			//GameVars.getInstance();
 			curState = GameBoardStateEnum.GB_PREGAME;
 			myMap = new mapClip();
@@ -297,21 +273,8 @@
 		}
 		// end debug stuff
 		
-		public function DgameBoard()
-		{
-			for (var x:int = 0; x < Width; x++)
-			{
-				for (var y:int = 0; y < Height; y++)
-				{
-					//mapList[x][y] . deleteMeDammit
-				}
-			}
-			cleanup();
-		}
-		
 		public function update()
 		{
-				
 			processKeyboard();
 			
 			mapScroll();
