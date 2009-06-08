@@ -2,14 +2,15 @@
 {
 	public class playerInfo
 	{
+		var maxLevel:int = newMaxLevel;
+		var playerName:String = "";
+		var playerHighestLevel:int = 1;
+		var playerCurrentLevel:int = 1;
+		var playerLevelInfo:Array() = new Array();
+		
+			
 		public function playerInfo(newMaxLevel:int)
 		{
-			var maxLevel:int = newMaxLevel;
-			var playerName:String = "";
-			var playerHighestLevel:int = 1;
-			var playerCurrentLevel:int = 1;
-			var playerLevelInfo:Array() = new Array();
-			
 			var tempPlayerLevelInfo:levelInfo;
 			tempPlayerLevelInfo = new levelInfo();
 			
