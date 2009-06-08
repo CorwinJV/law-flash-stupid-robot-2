@@ -275,7 +275,8 @@
 		
 		public function update()
 		{
-			processKeyboard();
+			//uncomment this for debugging
+			//processKeyboard();
 			
 			mapScroll();
 			
@@ -1605,6 +1606,7 @@
 				DswitchInProgress = false;
 				DswitchToggled = false;
 				teleportInProgress = false;
+				//if(isAnimationOcurring)
 				if (myMap.contains(jumpAnimation))
 				{
 					myMap.removeChild(jumpAnimation);
@@ -1626,6 +1628,7 @@
 			SUB2 = new subroutine();
 
 			// Find the robot
+			
 			
 			myRobot.reset();
 			myRobot.setAlive(true);
@@ -4115,6 +4118,7 @@
 
 			if ((!areYouDancing) && (!haveYouStartedDancing))
 			{
+				this.setState(GameBoardStateEnum.GB_VICTORYDANCE);
 				zoomToMax();
 				draw();
 				//trace("starting robot dance function");
