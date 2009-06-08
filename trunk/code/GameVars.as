@@ -161,6 +161,7 @@
 		var MMusicCredits:Sound;
 		var MusicChannel:SoundChannel;
 		
+		var tutPopUpUseShield:Boolean = false;
 
 		public static function getInstance():GameVars
 		{
@@ -646,6 +647,17 @@
 			return tutorialMovieClip;
 		}
 
+		
+		public function setTutPopUpUseShield(b:Boolean)
+		{
+			tutPopUpUseShield = b;
+		}
+		
+		public function getTutPopUpUseShield():Boolean
+		{
+			return tutPopUpUseShield;
+		}
+		
 		public function loadAllLevels():void
 		{
 			levelList = new Array();

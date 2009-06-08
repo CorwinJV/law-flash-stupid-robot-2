@@ -54,7 +54,10 @@
 				case 1:
 				{
 					loadMCPagesArray(1);
-					mc1.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc1.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc1.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc1.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc1.textBox;
@@ -68,7 +71,10 @@
 				{
 					loadMCPagesArray(1);
 					loadMCPagesArray(2);
-					mc2.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc2.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc2.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc2.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc2.textBox;
@@ -83,7 +89,10 @@
 					loadMCPagesArray(1);
 					loadMCPagesArray(2);
 					loadMCPagesArray(3);
-					mc3.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc3.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc3.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc3.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc3.textBox;
@@ -99,7 +108,10 @@
 					loadMCPagesArray(2);
 					loadMCPagesArray(3);
 					loadMCPagesArray(4);
-					mc4.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc4.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc4.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc4.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc4.textBox;
@@ -116,7 +128,10 @@
 					loadMCPagesArray(3);
 					loadMCPagesArray(4);
 					loadMCPagesArray(5);
-					mc5.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc5.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc5.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc5.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc5.textBox;
@@ -134,7 +149,10 @@
 					loadMCPagesArray(4);
 					loadMCPagesArray(5);
 					loadMCPagesArray(6);
-					mc6.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc6.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc6.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc6.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc6.textBox;
@@ -153,7 +171,10 @@
 					loadMCPagesArray(5);
 					loadMCPagesArray(6)
 					loadMCPagesArray(7);
-					mc7.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc7.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc7.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc7.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc7.textBox;
@@ -173,7 +194,10 @@
 					loadMCPagesArray(6)
 					loadMCPagesArray(7);
 					loadMCPagesArray(8);
-					mc8.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc8.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc8.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc8.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc8.textBox;
@@ -194,7 +218,10 @@
 					loadMCPagesArray(7);
 					loadMCPagesArray(8);
 					loadMCPagesArray(9);
-					mc9.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					if (GameVars.getInstance().getTutPopUpUseShield())
+					{
+						mc9.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
 					mc9.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc9.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc9.textBox;
@@ -209,15 +236,21 @@
 			// Add a new movie clip to block the player from being
 			// able to access any interface elements in the states
 			// below this one.
-			shieldMC.alpha = 0.0;
-			shieldMC.x = 0;
-			shieldMC.y = 0;
-			shieldMC.width = 1024;
-			shieldMC.height = 768;
-			this.addChild(shieldMC);
+			if (GameVars.getInstance().getTutPopUpUseShield())
+			{
+				shieldMC.alpha = 0.0;
+				shieldMC.x = 0;
+				shieldMC.y = 0;
+				shieldMC.width = 1024;
+				shieldMC.height = 768;
+				this.addChild(shieldMC);
+			}
 			
 			// Tell logicInterface not to process the mouse
-			GameVars.getInstance().setDoNotProcessMouse(true);
+			if (GameVars.getInstance().getTutPopUpUseShield())
+			{
+				GameVars.getInstance().setDoNotProcessMouse(true);
+			}
 			
 			// Position the current movie clip & add to display list
 			currentMC.x = 205;
