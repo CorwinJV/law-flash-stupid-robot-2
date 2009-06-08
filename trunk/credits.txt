@@ -49,7 +49,7 @@ Corwin VanHook - corwin.j@gmail.com
 Gui Programming
 Tom Lindeman - tomlindeman@xnaprotege.com
 
-Additional Game Deisgn
+Additional Game Design
 Dana Young - danayoung1.0@gmail.com
 Corwin VanHook - corwin.j@gmail.com
 Tom Lindeman - tomlindeman@xnaprotege.com
@@ -57,7 +57,7 @@ Tom Lindeman - tomlindeman@xnaprotege.com
 Lead Level Designer
 Dana Young - danayoung1.0@gmail.com
 
-Additional Level Designer
+Additional Level Designers
 David Moss - davidbmoss@gmail.com
 Oscar Maldonado - fool133@yahoo.com
 
@@ -130,4 +130,4 @@ Cameron VanHook
 
 and
 
-Dina Young
+Dena Young
