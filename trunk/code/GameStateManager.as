@@ -64,6 +64,35 @@
 			collectGarbage();
 		}
 		
+		public function hasGameState(str:String):Boolean
+		{
+			var b:Boolean = false;
+			
+			var length:int = stateList.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				if (stateList[i].getStateName() == str)
+				{
+					b = true;
+				}
+			}
+			
+			return b;
+		}
+		
+		public function deleteAllGameStatesWithName(str:String)
+		{
+			var length:int = stateList.length;
+			for (var i:int = 0; i < length; i++)
+			{
+				if (stateList[i].getStateName() == str)
+				{
+					trace("Deleting game state of type: " + str);
+					stateList[i].setStatus(GameStateEnum.DELETE_ME);
+				}
+			}
+		}
+		
 		public function deleteAllButTopState()
 		{
 			for (var x:int  = 0; x < stateList.length - 1; x++)
