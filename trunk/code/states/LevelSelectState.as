@@ -156,6 +156,7 @@ package code.states
 			// player has pressed the select button, set the level
 			// they selected as the current level and load the game
 			selectVars.setLevel(playerCurrentLevel);
+			selectVars.setCurrentLevel(playerCurrentLevel);
 			selectVars.setLevelSpecified(playerCurrentLevel);
 	
 			// then delete the level select menu

@@ -4475,7 +4475,7 @@
 				var i:int = this.processSpeed;
 		
 				executionCycleTimer = new Timer(i, 1);
-				trace("Triggering timer from dance");
+				//trace("Triggering timer from dance");
 				executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 				executionCycleTimer.start();
 				timesJumping = 0;
