@@ -87,7 +87,7 @@
 			{
 				if (stateList[i].getStateName() == str)
 				{
-					trace("Deleting game state of type: " + str);
+					//trace("Deleting game state of type: " + str);
 					stateList[i].setStatus(GameStateEnum.DELETE_ME);
 				}
 			}
