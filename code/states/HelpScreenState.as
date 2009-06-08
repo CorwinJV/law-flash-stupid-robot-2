@@ -18,6 +18,7 @@
 		var helpMenuBG:MovieClip = new blankMenu();
 		var loadedPage:MovieClip;
 		var animationPage:MovieClip = new baseScreen();
+		var biggerAnimationPage:MovieClip = new biggerScreen();
 		// this variable keeps track of which page we are on the help menu
 		var pageNumber:int;
 		// this needs to be adjusted as to how many pages there are in the help menu
@@ -88,6 +89,10 @@
 			if (this.contains(animationPage))
 			{
 				this.removeChild(animationPage);
+			}
+			else if (this.contains(biggerAnimationPage))
+			{
+				this.removeChild(biggerAnimationPage);
 			}
 			else
 			{
@@ -328,15 +333,15 @@
 		
 		public function sub1Click(e:MouseEvent)
 		{
-			addAnimationScreen();
+			addBiggerAnimationScreen();
 			
 			var subMC:MovieClip = new subAnimation(); 
 			// add the appropriate animation to the page
-			if (!animationPage.contains(subMC))
+			if (!biggerAnimationPage.contains(subMC))
 			{
 				subMC.x = indivX;
 				subMC.y = indivY;
-				animationPage.addChild(subMC);
+				biggerAnimationPage.addChild(subMC);
 			}
 		}
 		
@@ -576,6 +581,25 @@
 				solidMC.y = indivY;
 				animationPage.addChild(solidMC);
 			}
+		}
+		
+		public function addBiggerAnimationScreen()
+		{
+			biggerAnimationPage = new biggerScreen();
+			biggerAnimationPage.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClick);
+			// if the animation page doesn't exist
+			if (!this.contains(biggerAnimationPage))
+			{
+				// set the dimensions and position of the animation screen
+				biggerAnimationPage.x = animX;
+				biggerAnimationPage.y = animY;
+				biggerAnimationPage.width = animWidth + (animWidth / 4);
+				biggerAnimationPage.height = animHeight + (animWidth / 4);
+				// add it to the scene
+				this.addChild(biggerAnimationPage);
+			}
+			
+			this.setChildIndex(biggerAnimationPage, 2);
 		}
 		
 		public function addAnimationScreen()

@@ -402,7 +402,7 @@
 			//abcxyz
 			playerCurrentLevel = 1;
 			playVars.setLevelSpecified(0);
-			playVars.setCurrentLevel(0);
+			playVars.setCurrentLevel(playerCurrentLevel);
 
 			tempString = playVars.getFilename(playerCurrentLevel);
 			gamePlay.loadMapFromFile(tempString);
