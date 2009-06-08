@@ -120,6 +120,37 @@
 			//delete levelList;
 		}
 		
+		public override function destruct()
+		{
+			stage.removeEventListener("launchHelpState", launchHelpState);
+			stage.removeEventListener("playGameSpeedUp", speedUp);
+			stage.removeEventListener("playGameSlowDown", slowDown);
+			
+			// compass function pointers
+			stage.removeEventListener("playGamePanUp", panUp);
+			stage.removeEventListener("playGamePanUpLeft", panUpLeft);
+			stage.removeEventListener("playGamePanUpRight", panUpRight);
+			stage.removeEventListener("playGamePanDown", panDown);
+			stage.removeEventListener("playGamePanDownLeft", panDownLeft);
+			stage.removeEventListener("playGamePanDownRight", panDownRight);
+			stage.removeEventListener("playGamePanLeft", panLeft);
+			stage.removeEventListener("playGamePanRight", panRight);
+			stage.removeEventListener("playGameCenter", center);
+			
+			stage.removeEventListener("playGameZoomIn", zoomIn);
+			stage.removeEventListener("playGameZoomOut", zoomOut);
+			stage.removeEventListener("playGameRotateLeft", rotateMapLeft);
+			stage.removeEventListener("playGameRotateRight", rotateMapRight);
+			
+			stage.removeEventListener("optionsButtonClicked", optionsButtonClick);
+			
+			stage.removeEventListener("skipButtonClicked", deleteBoard);
+			stage.removeEventListener("skipLevel", skipLevel);
+		
+			stage.removeEventListener("infoButtonClicked", rePopupTutorialInfo);
+			stage.removeEventListener("youWin", setYouWin);
+		}
+		
 		public override function initMouse()
 		{
 			// We have to init our children's event listeners 
@@ -940,10 +971,10 @@
 			gamePlay.setState(curState);
 
 			// reset the map for a fresh start for the replay
-			gamePlay.resetMap();
-			gamePlay.update();
-
-			playVars.updatePlayerFile();
+			//gamePlay.resetMap();
+			//gamePlay.update();
+//
+			//playVars.updatePlayerFile();
 
 			// is there a way to clear the instruction list?
 			// find/use same code as when user clicks clear button on interface
@@ -1100,7 +1131,7 @@
 			GSM.addGameState(new CreditsState(GSM));
 			
 			// nuke this state
-			this.setStatus(GameStateEnum.DELETE_ME);
+			GSM.deleteAllButTopState();
 		}
 
 		///// end functions
