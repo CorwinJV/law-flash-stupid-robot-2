@@ -45,7 +45,9 @@
 			MainMenu.quitBtn.addEventListener(MouseEvent.MOUSE_UP, quitButtonClick);
 
 			//MainMenu.quitBtn.addEventListener(MouseEvent.MOUSE_UP, clickTestClick);
-			GameVars.getInstance().MusicMenusPlay();
+			
+			// UNCOMMENT BELOW TO START MUSIC BACK UP
+			//GameVars.getInstance().MusicMenusPlay();
 		
 		}
 		
