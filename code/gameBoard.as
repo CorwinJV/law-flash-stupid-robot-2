@@ -303,6 +303,17 @@
 			//trace("inside update", areYouDancing, haveYouStartedDancing);
 			if ((areYouDancing) && (haveYouStartedDancing))
 			{
+				if (myMap.contains(myRobotImage))
+				{
+					//trace("inside of inject dance animation - nuking myrobotimage");
+					myMap.removeChild(myRobotImage);
+				}
+				
+				if (!myMap.contains(dancingRobot))
+				{
+					myMap.addChild(dancingRobot);
+				}
+				
 				//trace("update calling dance animation counter");
 				danceAnimationCounter();
 			}
@@ -3920,6 +3931,7 @@
 					
 			// start the animation at frame 0
 			dancingRobot.danceAnimation.gotoAndPlay(0);
+			//trace("just set it to 0");
 		}
 
 		public function areYouDoneLoadingAMapFromFile():Boolean
@@ -4170,9 +4182,9 @@
 				if (myMap.getChildIndex(dancingRobot) != indexPos)
 				{
 					// set it to that index
-				//	trace("child index call");
+					//trace("child index call");
 					myMap.setChildIndex(dancingRobot, indexPos);
-				//	trace("child index success");
+					//trace("child index success");
 				}
 
 				// play the dance music
@@ -4442,13 +4454,16 @@
 		public function danceAnimationCounter()
 		{
 			//trace("danceAnimationCounter started");
+			//trace(dancingRobot.danceAnimation.currentFrame);
+			//trace("checking if my map contains dancing robot", myMap.contains(dancingRobot));
+			
 			if(dancingRobot.danceAnimation.currentFrame == 25)
 			{
 				//trace("weve jumped again");
 				timesJumping++;
 			}
 			
-			if (timesJumping >= 7)
+			if (timesJumping >= 5)
 			{
 				//trace("danceAnimationDone");
 				// set all the boolean dance check variables to say the animation is complete
