@@ -1605,7 +1605,7 @@
 				DswitchInProgress = false;
 				DswitchToggled = false;
 				teleportInProgress = false;
-				if (isAnimationOcurring)
+				if (myMap.contains(jumpAnimation))
 				{
 					myMap.removeChild(jumpAnimation);
 					setRobotPositionAfterJump();
