@@ -86,6 +86,9 @@
 		public var mInterface:LogicInterface = new LogicInterface();
 		var diedTimer:Timer = new Timer(500, 1);
 		
+		// new variable for the you win animation
+		var danceMonkey:MovieClip = new youWinAnimation();
+		
 		
 		//================================
 		// Some Timer Code.. Wee
@@ -148,6 +151,7 @@
 			stage.addEventListener("skipLevel", skipLevel, false, 0, true);
 		
 			stage.addEventListener("infoButtonClicked", rePopupTutorialInfo, false, 0, true);
+			stage.addEventListener("youWin", setYouWin);
 		}
 		
 		public function skipLevel(e:Event)
@@ -699,8 +703,30 @@
 				pregameRunning = false;
 				break;
 			case GameBoardStateEnum.GB_YOUWIN.toInt():
+				
+				// nuke the gameboard
+				if (this.contains(gamePlay))
+				{
+					this.removeChild(gamePlay);
+				}
+				
+				// remove logic interface mint
+				if (this.contains(mInterface))
+				{
+					this.removeChild(mInterface);
+				}
+				
+				// add movieclip of youWinAnimation
+				if (!this.contains(danceMonkey))
+				{
+					this.addChild(danceMonkey);
+				}
+				
+				// add mouse click handler for this movie clip
+				danceMonkey.addEventListener(MouseEvent.MOUSE_UP, youWinClick);
+				
 				// upload score onto server (when it gets implemented)
-				//trace("we are now in you win");
+				//trace("we are now in you win"); jjj
 				break;
 			case GameBoardStateEnum.GB_VICTORYDANCE.toInt():
 				if(!finishing)
@@ -1052,6 +1078,28 @@
 			GameVars.getInstance().setDoNotProcessMouse(true);
 			curState = GameBoardStateEnum.GB_LOGICVIEW;
 			//mInterface.fireAbort();
+		}
+		
+		public function setYouWin(e:Event)
+		{
+			//trace("setting you win");
+			curState = GameBoardStateEnum.GB_YOUWIN;
+			gamePlay.setState(curState);
+		}
+		
+		public function youWinClick(e:MouseEvent)
+		{
+			// if you click on it, return to credits
+			if (this.contains(danceMonkey))
+			{
+				this.removeChild(danceMonkey);
+			}
+			
+			// roll credits
+			GSM.addGameState(new CreditsState(GSM));
+			
+			// nuke this state
+			this.setStatus(GameStateEnum.DELETE_ME);
 		}
 
 		///// end functions

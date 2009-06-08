@@ -1878,14 +1878,21 @@ package code
 		{
 			var level:int = logicVars.getCurrentLevel();
 			
+			//trace(level, logicVars.getMaxLevel());
 			ClearExecutionList();
-			// go to the next tutorial level
-			if (level <= logicVars.maxLevel)
+			// go to the next tutorial level is we're not in the last level
+			if (level < logicVars.getMaxLevel() - 1)
 			{
+				// increment the level and set it
 				level++;
 				logicVars.setCurrentLevel(level);
 				logicVars.setLevelSpecified(level);
 				stage.dispatchEvent(new Event("skipLevel"));
+			}
+			else // if we are in the last level
+			{
+				//trace("firing from logic interface");
+				stage.dispatchEvent(new Event("youWin"));
 			}
 		}
 
