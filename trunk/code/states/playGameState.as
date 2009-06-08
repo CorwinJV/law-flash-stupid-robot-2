@@ -706,7 +706,15 @@
 				{
 					finishing = true;
 				}
-
+				
+				if (!this.contains(deathClickPreventionMC))
+				{
+					deathClickPreventionMC.x = 0;
+					deathClickPreventionMC.y = 0;
+					this.addChild(deathClickPreventionMC);
+					this.setChildIndex(deathClickPreventionMC, numChildren - 1);
+				}
+				
 				//trace("victory dance");
 				//timer = clock();
 				gamePlay.update();
@@ -769,6 +777,10 @@
 					
 					// Get the level score from the level just completed, and add it up with all previous levels completed
 					playVars.setTotalScore(playVars.getLevelScore() + playVars.getTotalScore());
+					if (this.contains(deathClickPreventionMC))
+					{
+						this.removeChild(deathClickPreventionMC);
+					}
 				}
 					
 				break;
