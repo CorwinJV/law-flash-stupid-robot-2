@@ -661,8 +661,8 @@
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
 			
-			//tempLevel = new levelData("Rufus Robot and the Temple of Dumb.", "Dumb dumb dumb dummmmmmm...dumb dumb dummmmmmm.", "additionalContent/maps/Rufusandthetempleofdumb.txt");
-			//levelList.push(tempLevel);
+			tempLevel = new levelData("Rufus Robot and the Temple of Dumb.", "Dumb dumb dumb dummmmmmm...dumb dumb dummmmmmm.", "additionalContent/maps/Rufusandthetempleofdumb.txt");
+			levelList.push(tempLevel);
 			
 			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
 			levelList.push(tempLevel);			

@@ -4114,10 +4114,10 @@
 		public function startRobotDance(e:Event)
 		{
 			//trace("calling startRobotDance");
-
 			if ((!areYouDancing) && (!haveYouStartedDancing))
 			{
 				zoomToMax();
+				draw();
 				//trace("starting robot dance function");
 				myGameVar.setDoneDancing(false);
 				areYouDancing = true;
