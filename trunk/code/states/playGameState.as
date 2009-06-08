@@ -122,30 +122,32 @@
 			// We have to init our children's event listeners 
 			// after the construtor (here) --Corwin
 			
-			stage.addEventListener("launchHelpState", launchHelpState);
-			stage.addEventListener("playGameSpeedUp", speedUp);
-			stage.addEventListener("playGameSlowDown", slowDown);
+			stage.addEventListener("launchHelpState", launchHelpState, false, 0, true);
+			stage.addEventListener("playGameSpeedUp", speedUp, false, 0, true);
+			stage.addEventListener("playGameSlowDown", slowDown, false, 0, true);
 			
 			// compass function pointers
-			stage.addEventListener("playGamePanUp", panUp);
-			stage.addEventListener("playGamePanUpLeft", panUpLeft);
-			stage.addEventListener("playGamePanUpRight", panUpRight);
-			stage.addEventListener("playGamePanDown", panDown);
-			stage.addEventListener("playGamePanDownLeft", panDownLeft);
-			stage.addEventListener("playGamePanDownRight", panDownRight);
-			stage.addEventListener("playGamePanLeft", panLeft);
-			stage.addEventListener("playGamePanRight", panRight);
-			stage.addEventListener("playGameCenter", center);
+			stage.addEventListener("playGamePanUp", panUp, false, 0, true);
+			stage.addEventListener("playGamePanUpLeft", panUpLeft, false, 0, true);
+			stage.addEventListener("playGamePanUpRight", panUpRight, false, 0, true);
+			stage.addEventListener("playGamePanDown", panDown, false, 0, true);
+			stage.addEventListener("playGamePanDownLeft", panDownLeft, false, 0, true);
+			stage.addEventListener("playGamePanDownRight", panDownRight, false, 0, true);
+			stage.addEventListener("playGamePanLeft", panLeft, false, 0, true);
+			stage.addEventListener("playGamePanRight", panRight, false, 0, true);
+			stage.addEventListener("playGameCenter", center, false, 0, true);
 			
-			stage.addEventListener("playGameZoomIn", zoomIn);
-			stage.addEventListener("playGameZoomOut", zoomOut);
-			stage.addEventListener("playGameRotateLeft", rotateMapLeft);
-			stage.addEventListener("playGameRotateRight", rotateMapRight);
+			stage.addEventListener("playGameZoomIn", zoomIn, false, 0, true);
+			stage.addEventListener("playGameZoomOut", zoomOut, false, 0, true);
+			stage.addEventListener("playGameRotateLeft", rotateMapLeft, false, 0, true);
+			stage.addEventListener("playGameRotateRight", rotateMapRight, false, 0, true);
 			
-			stage.addEventListener("optionsButtonClicked", optionsButtonClick);
+			stage.addEventListener("optionsButtonClicked", optionsButtonClick, false, 0, true);
 			
-			stage.addEventListener("skipButtonClicked", deleteBoard);
-			stage.addEventListener("skipLevel", skipLevel);
+			stage.addEventListener("skipButtonClicked", deleteBoard, false, 0, true);
+			stage.addEventListener("skipLevel", skipLevel, false, 0, true);
+		
+			stage.addEventListener("infoButtonClicked", rePopupTutorialInfo, false, 0, true);
 		}
 		
 		public function skipLevel(e:Event)
@@ -365,15 +367,19 @@
 			return true;
 		}
 
+		public function rePopupTutorialInfo(e:Event)
+		{
+			GSM.addGameState(new tutorialPopUpState(GSM));
+		}
 		
 		//public functions
 		public function initialize():Boolean
 		{
 			//setup the button functionability for the view score state
-			ViewScoreMC.replayLevelButton.addEventListener(MouseEvent.MOUSE_UP, replayLevel);
-			ViewScoreMC.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitGame);
-			ViewScoreMC.advanceButton.addEventListener(MouseEvent.MOUSE_UP, advance);
-			deathMC.addEventListener(MouseEvent.MOUSE_UP, deathClick);
+			ViewScoreMC.replayLevelButton.addEventListener(MouseEvent.MOUSE_UP, replayLevel, false, 0, true);
+			ViewScoreMC.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitGame, false, 0, true);
+			ViewScoreMC.advanceButton.addEventListener(MouseEvent.MOUSE_UP, advance, false, 0, true);
+			deathMC.addEventListener(MouseEvent.MOUSE_UP, deathClick, false, 0, true);
 			
 			//setup and initialize variables
 			finishNow = false;
@@ -385,9 +391,9 @@
 			//youDiedImage.loadImage("youdied.png", 1024, 768):
 			
 			doneDead = false;
-
+			
 			gamePlay = new gameBoard();
-
+			
 			//check to see if a level has been specified (initialized to -1)
 			playerCurrentLevel = playVars.getLevelSpecified();
 			if(playerCurrentLevel < 0)
@@ -500,7 +506,7 @@
 							PreGameMC.bytesAvailableTextBox.text = playVars.getCurrentLevelBytes();
 							PreGameMC.didYouKnowTextBox.text = playVars.didYouKnow[playVars.didYouKnowIterator];
 							
-							PreGameMC.addEventListener(MouseEvent.MOUSE_UP, skippingPregame);						
+							PreGameMC.addEventListener(MouseEvent.MOUSE_UP, skippingPregame, false, 0, true);						
 						}
 					}
 					//====================================
@@ -510,7 +516,7 @@
 					if (this.isPreGameTimerRunning == false)
 					{
 						this.isPreGameTimerRunning = true;
-						this.preGameTimer.addEventListener(TimerEvent.TIMER_COMPLETE, preGameTimerEnded);
+						this.preGameTimer.addEventListener(TimerEvent.TIMER_COMPLETE, preGameTimerEnded, false, 0, true);
 						this.preGameTimer.start();
 					}
 					
@@ -605,7 +611,7 @@
 					this.addChild(deathClickPreventionMC);
 				}
 				
-				robotIsDeadTimer.addEventListener(TimerEvent.TIMER, finishKillingTheRobot);
+				robotIsDeadTimer.addEventListener(TimerEvent.TIMER, finishKillingTheRobot, false, 0, true);
 				robotIsDeadTimer.start();	
 				
 				deathMC.x = (screenWidth / 2) - (deathMC.width / 2);

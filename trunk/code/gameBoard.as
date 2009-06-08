@@ -54,6 +54,7 @@
 		
 		var myRobotImage:MovieClip = new robotClip();
 		var jumpAnimation:MovieClip = new MovieClip();
+		var victoryDance:MovieClip = new MovieClip();
 		
 		
 		var myRobot:Object;
@@ -194,8 +195,7 @@
 			stage.addEventListener("gameBoardExecute", interfaceHasFiredExecuteOrder, false, 0, true);
 			stage.addEventListener("gameBoardAbort", interfaceHasFiredAbortOrder, false, 0, true);
 			stage.addEventListener("gameBoardReset", interfaceHasFiredResetOrder, false, 0, true);
-			stage.addEventListener("infoButtonClicked", rePopupTutorialInfo, false, 0, true);
-			stage.addEventListener("startDancing", startRobotDance);
+			stage.addEventListener("startDancing", startRobotDance, false, 0, true);
 		}
 		
 		// these are all debug commands and aren't actually used in game...
@@ -1504,12 +1504,14 @@
 			curState = GameBoardStateEnum.GB_EXECUTION;
 			
 			//trace("Starting execution Cycle");
+			trace("Triggering timer from execute button");
 			executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 			executionCycleTimer.start();
 		}
 		
 		public function processExecutionCycle(e:TimerEvent)
 		{
+			trace("Processing execution cycle");
 			//trace(this.parent);
 			//trace("Cycle begin.");
 			if (curState.toInt() == GameBoardStateEnum.GB_EXECUTION.toInt())
@@ -1571,6 +1573,7 @@
 						
 						if (!executionCycleTimer.hasEventListener(TimerEvent.TIMER))
 						{
+							trace("Triggering timer from process cycle");
 							executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 						}
 						executionCycleTimer.start();
@@ -4057,12 +4060,7 @@
 				}
 			}
 		}
-		
-		public function rePopupTutorialInfo(e:Event)
-		{
-			// need corwin do add stuff here to make it repopup the tutorial info box
-			trace("rePopupTutorialInfo fired");
-		}
+	
 		
 		public function setRobotDeathAnimation()
 		{
@@ -4114,10 +4112,10 @@
 		public function startRobotDance(e:Event)
 		{
 			//trace("calling startRobotDance");
+
 			if ((!areYouDancing) && (!haveYouStartedDancing))
 			{
 				zoomToMax();
-				draw();
 				//trace("starting robot dance function");
 				myGameVar.setDoneDancing(false);
 				areYouDancing = true;
@@ -4472,6 +4470,7 @@
 				var i:int = this.processSpeed;
 		
 				executionCycleTimer = new Timer(i, 1);
+				trace("Triggering timer from dance");
 				executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 				executionCycleTimer.start();
 				timesJumping = 0;
@@ -4506,6 +4505,7 @@
 				//trace(i);
 				//trace("Starting timer at " + i + " time.");
 				executionCycleTimer = new Timer(i, 1);
+				trace("Triggering timer from jump");
 				executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 				executionCycleTimer.start();
 				//trace("Started.");
