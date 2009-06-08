@@ -369,6 +369,7 @@
 
 		public function rePopupTutorialInfo(e:Event)
 		{
+			GameVars.getInstance().setTutPopUpUseShield(true);
 			GSM.addGameState(new tutorialPopUpState(GSM));
 		}
 		
@@ -811,6 +812,7 @@
 				gamePlay.setTutorialHit(false);
 				//trace("End set tutorial hit");
 				mInterface.GetCurrentMapLogicBank();
+				GameVars.getInstance().setTutPopUpUseShield(true);
 				GSM.addGameState(new tutorialPopUpState(GSM));
 			}
 			

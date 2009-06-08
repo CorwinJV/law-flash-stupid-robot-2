@@ -82,6 +82,11 @@
 			}
 		}
 		
+		public function setTopStateToDeleteMe()
+		{
+			stateList[stateList.length - 1].setStatus(GameStateEnum.DELETE_ME);
+		}
+		
 		public function addGameState(tmpState:GameState)
 		{
 			statesToAdd.push(tmpState);

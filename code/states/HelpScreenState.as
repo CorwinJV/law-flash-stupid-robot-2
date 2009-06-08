@@ -11,6 +11,7 @@
 	import code.GameState;
 	import code.GameStateManager;
 	import code.enums.GameStateEnum;
+	import code.GameVars;
 	
 	public class HelpScreenState extends GameState
 	{
@@ -31,6 +32,8 @@
 		// the X and Y coordinates for each individual animation inside the animation base screen
 		var indivX:int = 112;
 		var indivY:int = 225;
+		
+		var tutorialStatePoppedUp:Boolean = false;
 		
 		public function HelpScreenState(gsm:GameStateManager)
 		{
@@ -72,6 +75,12 @@
 		// Click Event Handlers
 		public function leftButtonClick(e:MouseEvent)
 		{
+			if (tutorialStatePoppedUp && pageNumber == 6)
+			{
+				GSM.setTopStateToDeleteMe();
+				tutorialStatePoppedUp = false;
+			}
+			
 			removeCurrentPage();
 			pageNumber--;
 			addCurrentPage();
@@ -79,6 +88,12 @@
 		
 		public function rightButtonClick(e:MouseEvent)
 		{
+			if (tutorialStatePoppedUp && pageNumber == 6)
+			{
+				GSM.setTopStateToDeleteMe();
+				tutorialStatePoppedUp = false;
+			}
+			
 			removeCurrentPage();
 			pageNumber++;
 			addCurrentPage();
@@ -97,6 +112,11 @@
 			else
 			{
 				this.setStatus(GameStateEnum.DELETE_ME);
+			}
+			if (tutorialStatePoppedUp)
+			{
+				GSM.setTopStateToDeleteMe();
+				tutorialStatePoppedUp = false;
 			}
 		}
 		
@@ -170,6 +190,13 @@
 					break;
 				case 6:
 					loadedPage = new helpScreenUI();
+					if (!tutorialStatePoppedUp)
+					{
+						GameVars.getInstance().setTutPopUpUseShield(false);
+						GSM.addGameState(new tutorialPopUpState(GSM));
+						tutorialStatePoppedUp = true;
+						GameVars.getInstance().setTutPopUpUseShield(true);
+					}
 					break;
 				default:
 					break;
