@@ -722,17 +722,17 @@
 			tempLevel = new levelData("Mastermind", "Its like the board game. Figure out the Pattern.", "additionalContent/maps/Mastermind.txt");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Those tiles need changin'", "Flip the switch and watch it fly.", "additionalContent/maps/Mapo10.txt");
+			tempLevel = new levelData("Poof!!!", "Where did he go...there he is.", "additionalContent/maps/poof.txt");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Poof!!!", "Where did he go...there he is.", "additionalContent/maps/poof.txt");
+			tempLevel = new levelData("Those tiles need changin'", "Flip the switch and watch it fly.", "additionalContent/maps/Mapo10.txt");
 			levelList.push(tempLevel);
 			
 			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Rufus Robot and the Temple of Dumb.", "Dumb dumb dumb dummmmmmm...dumb dumb dummmmmmm.", "additionalContent/maps/Rufusandthetempleofdumb.txt");
-			levelList.push(tempLevel);
+			//tempLevel = new levelData("Rufus Robot and the Temple of Dumb.", "Dumb dumb dumb dummmmmmm...dumb dumb dummmmmmm.", "additionalContent/maps/Rufusandthetempleofdumb.txt");
+			//levelList.push(tempLevel);
 			
 			tempLevel = new levelData("Pitfalls", "Careful not to slip.", "additionalContent/maps/Mapo9.txt");
 			levelList.push(tempLevel);
@@ -770,11 +770,11 @@
 			//tempLevel = new levelData("Escape!", "Use what you have learned wisely.", "additionalContent/maps/Mapd2.txt");
 			//levelList.push(tempLevel);	
 			
-			tempLevel = new levelData("Roundabout", "This map has no catchy description", "additionalContent/maps/Mapo1.txt");
-			levelList.push(tempLevel);
+			//tempLevel = new levelData("Roundabout", "This map has no catchy description", "additionalContent/maps/Mapo1.txt");
+			//levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Out and About", "Wheee!", "additionalContent/maps/Mapo2.txt");
-			levelList.push(tempLevel);			
+			//tempLevel = new levelData("Out and About", "Wheee!", "additionalContent/maps/Mapo2.txt");
+			//levelList.push(tempLevel);			
 			
 			//tempLevel = new levelData("Three to beam up.", "Engage.", "additionalContent/maps/tileTutorialMap4.txt");
 			//levelList.push(tempLevel);			
