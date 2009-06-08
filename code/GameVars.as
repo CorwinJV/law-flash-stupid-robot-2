@@ -728,14 +728,14 @@
 			tempLevel = new levelData("Those tiles need changin'", "Flip the switch and watch it fly.", "additionalContent/maps/Mapo10.txt");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Pitfalls", "Careful not to slip.", "additionalContent/maps/Mapo9.txt");
-			levelList.push(tempLevel);
-			
 			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
 			levelList.push(tempLevel);
 			
 			//tempLevel = new levelData("Rufus Robot and the Temple of Dumb.", "Dumb dumb dumb dummmmmmm...dumb dumb dummmmmmm.", "additionalContent/maps/Rufusandthetempleofdumb.txt");
 			//levelList.push(tempLevel);
+			
+			tempLevel = new levelData("Pitfalls", "Careful not to slip.", "additionalContent/maps/Mapo9.txt");
+			levelList.push(tempLevel);
 			
 			//tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
 			//levelList.push(tempLevel);
@@ -789,8 +789,8 @@
 			//tempLevel = new levelData("Trapped!", "One of these switches must do something.", "additionalContent/maps/Mapo4.txt");
 			//levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
-			levelList.push(tempLevel);
+			//tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
+			//levelList.push(tempLevel);
 			
 			
 			setMaxLevel(levelList.length);
