@@ -754,8 +754,8 @@
 			//tempLevel = new levelData("Repetition..", "Tutorial - Subroutines - Use subroutines to repeat a set of commands using a minimal amount of memory.", "additionalContent/maps/Mapd1.txt");
 			//levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Tricky Tricky", "Stick with it.", "additionalContent/maps/Mapo7.txt");
-			levelList.push(tempLevel);	
+			//tempLevel = new levelData("Tricky Tricky", "Stick with it.", "additionalContent/maps/Mapo7.txt");
+			//levelList.push(tempLevel);	
 			
 			//tempLevel = new levelData("Escape!", "Use what you have learned wisely.", "additionalContent/maps/Mapd2.txt");
 			//levelList.push(tempLevel);	
@@ -769,8 +769,8 @@
 			//tempLevel = new levelData("Three to beam up.", "Engage.", "additionalContent/maps/tileTutorialMap4.txt");
 			//levelList.push(tempLevel);			
 
-			tempLevel = new levelData("Flip the Switch!", "It's not as hard as you think.", "additionalContent/maps/Mapo3.txt");
-			levelList.push(tempLevel);			
+			//tempLevel = new levelData("Flip the Switch!", "It's not as hard as you think.", "additionalContent/maps/Mapo3.txt");
+			//levelList.push(tempLevel);			
 			
 			//tempLevel = new levelData("Trapped on the Outside", "I want to be somewhere else.", "additionalContent/maps/Mapo5.txt");
 			//levelList.push(tempLevel);
