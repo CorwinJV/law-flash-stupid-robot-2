@@ -1504,14 +1504,14 @@
 			curState = GameBoardStateEnum.GB_EXECUTION;
 			
 			//trace("Starting execution Cycle");
-			trace("Triggering timer from execute button");
+			//trace("Triggering timer from execute button");
 			executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 			executionCycleTimer.start();
 		}
 		
 		public function processExecutionCycle(e:TimerEvent)
 		{
-			trace("Processing execution cycle");
+			//trace("Processing execution cycle");
 			//trace(this.parent);
 			//trace("Cycle begin.");
 			if (curState.toInt() == GameBoardStateEnum.GB_EXECUTION.toInt())
@@ -1573,7 +1573,7 @@
 						
 						if (!executionCycleTimer.hasEventListener(TimerEvent.TIMER))
 						{
-							trace("Triggering timer from process cycle");
+							//trace("Triggering timer from process cycle");
 							executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 						}
 						executionCycleTimer.start();
@@ -4116,6 +4116,7 @@
 			if ((!areYouDancing) && (!haveYouStartedDancing))
 			{
 				zoomToMax();
+				draw();
 				//trace("starting robot dance function");
 				myGameVar.setDoneDancing(false);
 				areYouDancing = true;
@@ -4505,7 +4506,7 @@
 				//trace(i);
 				//trace("Starting timer at " + i + " time.");
 				executionCycleTimer = new Timer(i, 1);
-				trace("Triggering timer from jump");
+				//trace("Triggering timer from jump");
 				executionCycleTimer.addEventListener(TimerEvent.TIMER, processExecutionCycle, false, 0, true);
 				executionCycleTimer.start();
 				//trace("Started.");

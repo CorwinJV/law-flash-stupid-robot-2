@@ -20,17 +20,23 @@ David Moss - davidbmoss@gmail.com
 Technical Artist
 David Moss - davidbmoss@gmail.com
 
-Temp Art/TV Screen
-Giovanni Tolson
-
-UI Art
-Evan Donohue 
-
 Robot Art
 Jermain Dudley - jermaindudley@aol.com
 
 Tile Art
 Cesar Cervantes
+
+UI Art
+Evan Donohue 
+
+Temp Art/TV Screen
+Giovanni Tolson
+
+Animations
+Jermain Dudley - jermaindudley@aol.com
+David Moss - davidbmoss@gmail.com
+Tom Lindeman - tomlindeman@xnaprotege.com
+Giovanni Tolson
 
 Game Logic Programming
 David Moss - davidbmoss@gmail.com
@@ -53,15 +59,22 @@ Additional Level Designer
 David Moss - davidbmoss@gmail.com
 Oscar Maldonado - fool133@yahoo.com
 
-Tutorial Concept, Design and Scripting
+Tutorial System Concept and Scripting
 Dana Young - danayoung1.0@gmail.com
 
+Tutorial Systems Design and Implementation
+Corwin VanHook - corwin.j@gmail.com
+
+
 QA
-What's QA??
+Dana Young - danayoung1.0@gmail.com
+Corwin VanHook - corwin.j@gmail.com
+Tom Lindeman - tomlindeman@xnaprotege.com
+David Moss - davidbmoss@gmail.com
 
 -----------------------------------------------------
 
-"I'm going back over here where shit makes sense." 
+"I'm going back over here where stuff makes sense." 
                        - Programming Team
 
 "Why isn't this working?"  
@@ -73,7 +86,7 @@ What's QA??
 "We have achieved functionability"
                        - Tom
 
-"Uh oh, I might have fucked shit up"
+"Uh oh, I might have f'd crap up"
 		       - Cesar
 
 "How is this even possible?"
@@ -94,7 +107,7 @@ What's QA??
 "What do you mean there's no changes? When did I commit this?"
              - Tom
 
-"There's an inactive door status?"
+"There's an inactive door status? Where?"
              - Dana
 
 "Yeah, when you open it"
@@ -103,8 +116,18 @@ What's QA??
 "That bug is a <insert programmer name here> thing and I'm not touching it"
              - Programming Team Motto
 
+"I just want to barf all over actionscript 3"
+             - Corwin
+
+"Well I can... Wait.. Hold on... Why?"
+             - Tom
+
 
 Special Thanks to...
 Caffeine
 Bacardi
 Lego Mindstorms
+Cameron VanHook
+
+and
+Dina Young
