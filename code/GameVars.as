@@ -789,6 +789,9 @@
 			//tempLevel = new levelData("Trapped!", "One of these switches must do something.", "additionalContent/maps/Mapo4.txt");
 			//levelList.push(tempLevel);
 			
+			tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
+			levelList.push(tempLevel);
+			
 			
 			setMaxLevel(levelList.length);
 			
