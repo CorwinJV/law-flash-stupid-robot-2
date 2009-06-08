@@ -4,6 +4,8 @@ Flash Remix
 Westwood College
 Wilshire Campus
 
+Sound Shamelessly ripped from Sid Meier's Alpha Centauri... and Styx
+
 Original Concept
 David Moss - davidbmoss@gmail.com
 Corwin VanHook - corwin.j@gmail.com
@@ -107,11 +109,8 @@ David Moss - davidbmoss@gmail.com
 "What do you mean there's no changes? When did I commit this?"
              - Tom
 
-"There's an inactive door status? Where?"
-             - Dana
-
-"Yeah, when you open it"
-             - Dave
+"There's an inactive door status? Where?"      - Dana
+"Yeah, when you open it"                       - Dave
 
 "That bug is a <insert programmer name here> thing and I'm not touching it"
              - Programming Team Motto
@@ -130,4 +129,5 @@ Lego Mindstorms
 Cameron VanHook
 
 and
+
 Dina Young
