@@ -803,7 +803,8 @@
 					playVars.setLevelScore(scoreToAdd);
 					
 					// Get the level score from the level just completed, and add it up with all previous levels completed
-					playVars.setTotalScore(playVars.getLevelScore() + playVars.getTotalScore());
+					//playVars.setTotalScore(playVars.getLevelScore() + playVars.getTotalScore());
+					
 					if (this.contains(deathClickPreventionMC))
 					{
 						this.removeChild(deathClickPreventionMC);

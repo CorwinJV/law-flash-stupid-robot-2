@@ -162,6 +162,8 @@
 		var MusicChannel:SoundChannel;
 		
 		var tutPopUpUseShield:Boolean = false;
+		
+		var scoreArray:Array = new Array();
 
 		public static function getInstance():GameVars
 		{
@@ -504,7 +506,7 @@
 			// against the stats in the array
 	
 			playerLevelScore = getLevelScore();
-			//levelHighScore = GameVars.PM.getPlayerLevelScore(curLevel);
+			levelHighScore = scoreArray[curLevel];
 
 			highLevel = getPlayerMaxLevel();
 
@@ -512,7 +514,10 @@
 			//also if stats are set to the initialized value of -1
 			//save over them
 	
-			if(playerLevelScore > levelHighScore)
+			if (playerLevelScore > levelHighScore)
+			{
+				scoreArray[curLevel] = playerLevelScore;
+			}
 			//{
 				//GameVars.PM.setPlayerLevelScore(curLevel, playerLevelScore);
 			//}
@@ -542,6 +547,11 @@
 			// zero out the total score
 			var totScore:int = 0;
 			
+			for (var i:int = 0; i < scoreArray.length; i++)
+			{
+				totScore += scoreArray[i];
+			}
+			
 			// determine the highest level the player has reached that has been saved
 			//for(var i:int = 0; i < GameVars.PM.getPlayerHighestLevel(); i++)
 			//{
@@ -551,7 +561,7 @@
 			
 			// add 1 to players score to makeup for the the initial score for each level 
 			// being intialized to 0
-			totScore += 1;
+			//totScore += 1;
 			
 			// return the newly calculated score
 			return totScore;
@@ -781,6 +791,11 @@
 			
 			
 			setMaxLevel(levelList.length);
+			
+			for (var i:int = 0; i < levelList.length; i++)
+			{
+				scoreArray.push(0);
+			}
 		}
 
 		public function loadAllLogicBlocks():void
