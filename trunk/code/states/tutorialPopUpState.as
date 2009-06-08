@@ -49,7 +49,17 @@
 			// this calls gamestate's default constructor and sets up the proper GSM assignment
 			super(gsm); // <-- Calls the base class constructor to make sure all the setup shit happens.
 			
-			switch(GameVars.getInstance().getTutorialMovieClip())
+			var currentTutorialMovieClip:int = 0;
+			if (GameVars.getInstance().getTutPopUpUseShield())
+			{
+				currentTutorialMovieClip = GameVars.getInstance().getTutorialMovieClip();
+			}
+			else
+			{
+				currentTutorialMovieClip = 9;	
+			}
+			
+			switch(currentTutorialMovieClip)
 			{
 				case 1:
 				{
@@ -57,6 +67,10 @@
 					if (GameVars.getInstance().getTutPopUpUseShield())
 					{
 						mc1.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
+					else
+					{
+						mc1.removeChild(mc1.exitButton);
 					}
 					mc1.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc1.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
@@ -74,6 +88,10 @@
 					if (GameVars.getInstance().getTutPopUpUseShield())
 					{
 						mc2.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
+					else
+					{
+						mc2.removeChild(mc2.exitButton);
 					}
 					mc2.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc2.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
@@ -93,6 +111,10 @@
 					{
 						mc3.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					}
+					else
+					{
+						mc3.removeChild(mc3.exitButton);
+					}
 					mc3.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc3.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc3.textBox;
@@ -111,6 +133,10 @@
 					if (GameVars.getInstance().getTutPopUpUseShield())
 					{
 						mc4.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
+					else
+					{
+						mc4.removeChild(mc4.exitButton);
 					}
 					mc4.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc4.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
@@ -132,6 +158,10 @@
 					{
 						mc5.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					}
+					else
+					{
+						mc5.removeChild(mc5.exitButton);
+					}
 					mc5.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc5.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc5.textBox;
@@ -152,6 +182,10 @@
 					if (GameVars.getInstance().getTutPopUpUseShield())
 					{
 						mc6.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
+					else
+					{
+						mc6.removeChild(mc6.exitButton);
 					}
 					mc6.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc6.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
@@ -175,6 +209,10 @@
 					{
 						mc7.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					}
+					else
+					{
+						mc7.removeChild(mc7.exitButton);
+					}
 					mc7.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc7.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc7.textBox;
@@ -197,6 +235,10 @@
 					if (GameVars.getInstance().getTutPopUpUseShield())
 					{
 						mc8.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
+					}
+					else
+					{
+						mc8.removeChild(mc8.exitButton);
 					}
 					mc8.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc8.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
@@ -222,6 +264,10 @@
 					{
 						mc9.exitButton.addEventListener(MouseEvent.MOUSE_UP, exitButtonClicked);
 					}
+					else
+					{
+						mc9.removeChild(mc9.exitButton);
+					}
 					mc9.leftArrowButton.addEventListener(MouseEvent.MOUSE_UP, leftArrowButtonClicked);
 					mc9.rightArrowButton.addEventListener(MouseEvent.MOUSE_UP, rightArrowButtonClicked);
 					currentPageMC = mc9.textBox;
@@ -233,6 +279,23 @@
 				}
 			}
 		
+			// If we're in the help screen, set the current page to 1
+			if (!GameVars.getInstance().getTutPopUpUseShield())
+			{
+				currentPage = 1;
+				
+				
+				var oldX = currentPageMC.x;
+				var oldY = currentPageMC.y;
+				
+				currentMC.removeChild(currentPageMC);
+				currentPageMC = mcPagesArray[currentPage - 1]; // -1 because we're using a 0-based array 
+															   // and a 1-based counter for the current page
+				currentPageMC.x = oldX;
+				currentPageMC.y = oldY;
+				currentMC.addChild(currentPageMC);
+			}
+			
 			// Add a new movie clip to block the player from being
 			// able to access any interface elements in the states
 			// below this one.

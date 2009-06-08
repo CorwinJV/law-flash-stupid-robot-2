@@ -36,7 +36,7 @@
 		public var didYouKnow:Array;
 		public var didYouKnowIterator:int;
 	
-		var tutorialMovieClip:int;
+		var tutorialMovieClip:int = 1;
 		var currentLevelBytes:int;
 		var levelHeight:int;
 		var levelWidth:int;
