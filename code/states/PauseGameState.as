@@ -75,7 +75,9 @@
 		public function levelSelectButtonClick(e:MouseEvent)
 		{
 			GSM.addGameState(new LevelSelectState(GSM));
-			this.setStatus(GameStateEnum.DELETE_ME);
+			
+			GSM.deleteAllGameStatesWithName("PauseGameState");
+			//this.setStatus(GameStateEnum.DELETE_ME);
 		}
 		
 		public function quitButtonClick(e:MouseEvent)

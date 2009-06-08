@@ -329,7 +329,14 @@
 		private function optionsButtonClick(e:Event)
 		{
 			//trace ("option button click firing inside playgame");
-			GSM.addGameState(new PauseGameState(GSM));
+			if(!GSM.hasGameState("PauseGameState"))
+			{
+				GSM.addGameState(new PauseGameState(GSM));
+			}
+			else
+			{
+				trace("Game state 'PauseGameState' exists");
+			}
 			this.setStatus(GameStateEnum.PASSIVE);
 			return;
 		}
