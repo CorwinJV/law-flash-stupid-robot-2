@@ -112,7 +112,7 @@
 		{
 			GSM.addGameState(new GameState(GSM));
 			this.setStatus(GameStateEnum.DELETE_ME);	
-			var request:URLRequest = new URLRequest("http://www.realitydiversions.com/stupid-robot");
+			var request:URLRequest = new URLRequest("http://www.braincorps.net");
 			navigateToURL(request, "_self");			
 		}
 		
