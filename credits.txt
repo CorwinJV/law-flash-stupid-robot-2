@@ -26,13 +26,13 @@ Robot Art
 Jermain Dudley - jermaindudley@aol.com
 
 Tile Art
-Cesar Cervantes
+Cesar Cervantes - arus213@yahoo.com
 
 UI Art
-Evan Donohue 
+Evan Donohue - evandonohue@yahoo.com
 
 Temp Art/TV Screen
-Giovanni Tolson
+Giovanni Tolson - alfoola@yahoo.com
 
 Animations
 Jermain Dudley - jermaindudley@aol.com
@@ -109,10 +109,14 @@ David Moss - davidbmoss@gmail.com
 "What do you mean there's no changes? When did I commit this?"
              - Tom
 
-"There's an inactive door status? Where?"      - Dana
-"Yeah, when you open it"                       - Dave
+"There's an inactive door status? Where?"      
+             - Dana
 
-"That bug is a <insert programmer name here> thing and I'm not touching it"
+"Yeah, when you open it"                       
+             - Dave
+
+"That bug is a <insert programmer name here> 
+                   thing and I'm not touching it"
              - Programming Team Motto
 
 "I just want to barf all over actionscript 3"
