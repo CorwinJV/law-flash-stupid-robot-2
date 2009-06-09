@@ -668,6 +668,139 @@
 			return tutPopUpUseShield;
 		}
 		
+		//public function loadAllLevels():void
+		//{
+			//levelList = new Array();
+			//var tempLevel:levelData;
+			//var tempArt:oglTexture2D;
+			//
+			//numTutorialLevels = 0;
+			//
+			//tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "additionalContent/maps/testMap1orig.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Stupid Robot Tutorial.", "Everything you need to know to enjoy the game.", "additionalContent/maps/Tutorialmap.txt");
+			//levelList.push(tempLevel);			
+			//numTutorialLevels++;
+			//
+			//tempLevel = new levelData("Ice Ice Baby!", "Ice is Slippery.", "additionalContent/maps/tileTutorialMap2.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Abracadabra", "The Map Will Magically Appear!! Remember commands an loop.", "additionalContent/maps/Abracadabra.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Jump The Holes", "Don't trip and fall.", "additionalContent/maps/Jumptheholes.txt");
+			//levelList.push(tempLevel);	
+			//
+			//tempLevel = new levelData("Mouse Trap", "Its like the board game", "additionalContent/maps/mousetrap.txt");
+			//levelList.push(tempLevel);			
+			//
+			//tempLevel = new levelData("Needle in a Haystack", "Only one will open your path.", "additionalContent/maps/Needleinahaystack.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Figure it out as You Go", "No really figure it out as you go.", "additionalContent/maps/Figureitoutasyougo.txt");
+			//levelList.push(tempLevel);	
+			//
+			//tempLevel = new levelData("Steps of Doom", "Climb Up to Higher Levels", "additionalContent/maps/tileTutorialMap1.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Holes and Ice", "Jump, Activate, Slide, Activate.", "additionalContent/maps/holesandice.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Hedge Maze", "Get to the finish line.", "additionalContent/maps/Mapo6.txt");
+			//levelList.push(tempLevel);	
+			//
+			//tempLevel = new levelData("Corners", "Hit all four.", "additionalContent/maps/Mapo8.txt");
+			//levelList.push(tempLevel);	
+			//
+			//tempLevel = new levelData("Steps of Doom - Revist", "Subroutine Required", "additionalContent/maps/tileTutorialMap1b.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Haystack Sub Needle", "This seems oddly familiar. You see where we're going with this.", "additionalContent/maps/Haystacksubneedle.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Mastermind", "Its like the board game. Figure out the Pattern.", "additionalContent/maps/Mastermind.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Poof!!!", "Where did he go...there he is.", "additionalContent/maps/poof.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Those tiles need changin'", "Flip the switch and watch it fly.", "additionalContent/maps/Mapo10.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Rufus Robot and the Temple of Dumb.", "Dumb dumb dumb dummmmmmm...dumb dumb dummmmmmm.", "additionalContent/maps/Rufusandthetempleofdumb.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Pitfalls", "Careful not to slip.", "additionalContent/maps/Mapo9.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Moving forward Until Unable", "Tutorial - Move Forward Until Unable, then turn left", "additionalContent/maps/tutorialMoveForwardUnable.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Activating Switches and Doors", "Tutorial - Use activate on the door and the switch", "additionalContent/maps/tutorialSwitchDoorBlock.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Moving, Turning and Punching", "Tutorial - Place instructions to move, turn and punch your way through this level.", "additionalContent/maps/tutorialMoveTurnPunch.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Crouching, Climbing and Jumping", "Tutorial - Place instructions to crouch, climb and jump over obstacles to reach the end.", "additionalContent/maps/tutorialCrouchClimbJump.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Teleporters and AutoLoop", "Tutorial - Instructions auto-loop and teleporters move you to new locations.", "additionalContent/maps/tutorialTeleporters.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Zzzzap! Flip! Silence...", "Tutorial - Switches and Electricity, make sure you're facing the red switch edge.", "additionalContent/maps/tutorialSwitchesElectricity.txt");
+			//levelList.push(tempLevel);
+					//
+			//tempLevel = new levelData("Not enough memory...", "Tutorial - Reprogrammable Squares let you reprogram your robot at them.", "additionalContent/maps/tutorialReprogrammable.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Repetition..", "Tutorial - Subroutines - Use subroutines to repeat a set of commands using a minimal amount of memory.", "additionalContent/maps/Mapd1.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Tricky Tricky", "Stick with it.", "additionalContent/maps/Mapo7.txt");
+			//levelList.push(tempLevel);	
+			//
+			//tempLevel = new levelData("Escape!", "Use what you have learned wisely.", "additionalContent/maps/Mapd2.txt");
+			//levelList.push(tempLevel);	
+			//
+			//tempLevel = new levelData("Roundabout", "This map has no catchy description", "additionalContent/maps/Mapo1.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Out and About", "Wheee!", "additionalContent/maps/Mapo2.txt");
+			//levelList.push(tempLevel);			
+			//
+			//tempLevel = new levelData("Three to beam up.", "Engage.", "additionalContent/maps/tileTutorialMap4.txt");
+			//levelList.push(tempLevel);			
+//
+			//tempLevel = new levelData("Flip the Switch!", "It's not as hard as you think.", "additionalContent/maps/Mapo3.txt");
+			//levelList.push(tempLevel);			
+			//
+			//tempLevel = new levelData("Trapped on the Outside", "I want to be somewhere else.", "additionalContent/maps/Mapo5.txt");
+			//levelList.push(tempLevel);
+			//
+					//
+			//tempLevel = new levelData("Trapped!", "One of these switches must do something.", "additionalContent/maps/Mapo4.txt");
+			//levelList.push(tempLevel);
+			//
+			//tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
+			//levelList.push(tempLevel);
+			//
+			//
+			//setMaxLevel(levelList.length);
+			//
+			//for (var i:int = 0; i < levelList.length; i++)
+			//{
+				//scoreArray.push(0);
+			//}
+		//}
+
 		public function loadAllLevels():void
 		{
 			levelList = new Array();
@@ -676,66 +809,66 @@
 			
 			numTutorialLevels = 0;
 			
-			tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "additionalContent/maps/testMap1orig.txt");
+			tempLevel = new levelData("DEBUG MAP", "THIS IS FOR DAVE TO DEBUG MAP TILES", "testMap1orig");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Stupid Robot Tutorial.", "Everything you need to know to enjoy the game.", "additionalContent/maps/Tutorialmap.txt");
+			tempLevel = new levelData("Stupid Robot Tutorial.", "Everything you need to know to enjoy the game.", "Tutorialmap");
 			levelList.push(tempLevel);			
 			numTutorialLevels++;
 			
-			tempLevel = new levelData("Ice Ice Baby!", "Ice is Slippery.", "additionalContent/maps/tileTutorialMap2.txt");
+			tempLevel = new levelData("Ice Ice Baby!", "Ice is Slippery.", "tileTutorialMap2");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Abracadabra", "The Map Will Magically Appear!! Remember commands an loop.", "additionalContent/maps/Abracadabra.txt");
+			tempLevel = new levelData("Abracadabra", "The Map Will Magically Appear!! Remember commands an loop.", "Abracadabra");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Jump The Holes", "Don't trip and fall.", "additionalContent/maps/Jumptheholes.txt");
+			tempLevel = new levelData("Jump The Holes", "Don't trip and fall.", "Jumptheholes");
 			levelList.push(tempLevel);	
 			
-			tempLevel = new levelData("Mouse Trap", "Its like the board game", "additionalContent/maps/mousetrap.txt");
+			tempLevel = new levelData("Mouse Trap", "Its like the board game", "mousetrap");
 			levelList.push(tempLevel);			
 			
-			tempLevel = new levelData("Needle in a Haystack", "Only one will open your path.", "additionalContent/maps/Needleinahaystack.txt");
+			tempLevel = new levelData("Needle in a Haystack", "Only one will open your path.", "Needleinahaystack");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Figure it out as You Go", "No really figure it out as you go.", "additionalContent/maps/Figureitoutasyougo.txt");
+			tempLevel = new levelData("Figure it out as You Go", "No really figure it out as you go.", "Figureitoutasyougo");
 			levelList.push(tempLevel);	
 			
-			tempLevel = new levelData("Steps of Doom", "Climb Up to Higher Levels", "additionalContent/maps/tileTutorialMap1.txt");
+			tempLevel = new levelData("Steps of Doom", "Climb Up to Higher Levels", "tileTutorialMap1");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Holes and Ice", "Jump, Activate, Slide, Activate.", "additionalContent/maps/holesandice.txt");
+			tempLevel = new levelData("Holes and Ice", "Jump, Activate, Slide, Activate.", "holesandice");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Hedge Maze", "Get to the finish line.", "additionalContent/maps/Mapo6.txt");
+			tempLevel = new levelData("Hedge Maze", "Get to the finish line.", "Mapo6");
 			levelList.push(tempLevel);	
 			
-			tempLevel = new levelData("Corners", "Hit all four.", "additionalContent/maps/Mapo8.txt");
+			tempLevel = new levelData("Corners", "Hit all four.", "Mapo8");
 			levelList.push(tempLevel);	
 			
-			tempLevel = new levelData("Steps of Doom - Revist", "Subroutine Required", "additionalContent/maps/tileTutorialMap1b.txt");
+			tempLevel = new levelData("Steps of Doom - Revist", "Subroutine Required", "tileTutorialMap1b");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Haystack Sub Needle", "This seems oddly familiar. You see where we're going with this.", "additionalContent/maps/Haystacksubneedle.txt");
+			tempLevel = new levelData("Haystack Sub Needle", "This seems oddly familiar. You see where we're going with this.", "Haystacksubneedle");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Mastermind", "Its like the board game. Figure out the Pattern.", "additionalContent/maps/Mastermind.txt");
+			tempLevel = new levelData("Mastermind", "Its like the board game. Figure out the Pattern.", "Mastermind");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Poof!!!", "Where did he go...there he is.", "additionalContent/maps/poof.txt");
+			tempLevel = new levelData("Poof!!!", "Where did he go...there he is.", "poof");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("Those tiles need changin'", "Flip the switch and watch it fly.", "additionalContent/maps/Mapo10.txt");
+			tempLevel = new levelData("Those tiles need changin'", "Flip the switch and watch it fly.", "Mapo10");
 			levelList.push(tempLevel);
 			
-			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "additionalContent/maps/Choosewisely.txt");
+			tempLevel = new levelData("Pitfalls", "Careful not to slip.", "Mapo9");
+			levelList.push(tempLevel);
+			
+			tempLevel = new levelData("You Must Choose Wisely.", "Only the right switch will lead to eternal glory.", "Choosewisely");
 			levelList.push(tempLevel);
 			
 			//tempLevel = new levelData("Rufus Robot and the Temple of Dumb.", "Dumb dumb dumb dummmmmmm...dumb dumb dummmmmmm.", "additionalContent/maps/Rufusandthetempleofdumb.txt");
 			//levelList.push(tempLevel);
-			
-			tempLevel = new levelData("Pitfalls", "Careful not to slip.", "additionalContent/maps/Mapo9.txt");
-			levelList.push(tempLevel);
 			
 			//tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
 			//levelList.push(tempLevel);
@@ -789,9 +922,6 @@
 			//tempLevel = new levelData("Trapped!", "One of these switches must do something.", "additionalContent/maps/Mapo4.txt");
 			//levelList.push(tempLevel);
 			
-			//tempLevel = new levelData("Moving Forward", "Click the \"Move Forward\" Instruction, then click \"Execute\".", "additionalContent/maps/tutorialMoveForward.txt");
-			//levelList.push(tempLevel);
-			
 			
 			setMaxLevel(levelList.length);
 			
@@ -800,7 +930,7 @@
 				scoreArray.push(0);
 			}
 		}
-
+		
 		public function loadAllLogicBlocks():void
 		{
 			//trace("Loading all logic blocks..");
